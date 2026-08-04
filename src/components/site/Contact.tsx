@@ -22,7 +22,7 @@ const FORMAT_OPTIONS = [
   "Стратегическая консультация (60 минут)",
   "Deep Dive (2 часа)",
   "Критичный разбор продукта",
-];
+] as const;
 
 const CHANNELS = [
   { icon: Phone, label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref },
@@ -42,7 +42,7 @@ export function Contact() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", company: "", contact: "", format: FORMAT_OPTIONS[0], message: "" },
+    defaultValues: { name: "", company: "", contact: "", format: "Экспресс-консультация (30 минут)", message: "" },
   });
 
   const onSubmit = async (values: FormValues) => {
