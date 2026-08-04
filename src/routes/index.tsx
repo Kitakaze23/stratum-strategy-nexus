@@ -69,7 +69,6 @@ function Index() {
     <>
       <Header />
       <main>
-        <h1 className="sr-only">Stratum Consulting — независимое продуктовое консультирование</h1>
         <Hero />
         <Services />
         <Approach />
