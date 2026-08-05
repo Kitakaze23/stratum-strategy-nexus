@@ -1,4 +1,4 @@
-import { BarChart3, ClipboardCheck, Cpu, LineChart, Microscope, Search } from "lucide-react";
+import { BarChart3, ClipboardCheck, Cpu, LineChart, Microscope, Scale, Search } from "lucide-react";
 
 import { Reveal, Section, SectionHead } from "./primitives";
 
@@ -33,6 +33,11 @@ const AREAS = [
     title: "Critical Product Review",
     text: "Объективный разбор продукта, стратегии и текущих решений.",
   },
+  {
+    icon: Scale,
+    title: "Правовая поддержка цифровых продуктов",
+    text: "Помогаем компаниям оценивать юридические риски цифровых продуктов, защищать интеллектуальную собственность и создавать надёжную правовую основу для развития технологий.",
+  },
 ];
 
 export function Expertise() {
@@ -41,9 +46,10 @@ export function Expertise() {
       <SectionHead
         id="expertise-title"
         eyebrow="Экспертиза"
-        title="Экспертиза"
-        description="Шесть направлений, вокруг которых строится работа с продуктовыми и цифровыми решениями."
+        title="Наша экспертиза"
+        description="Семь направлений, вокруг которых строится работа с продуктовыми, аналитическими и правовыми решениями."
       />
+
 
       <div className="mt-16 divide-y divide-border border-y border-border">
         {AREAS.map((area, index) => (

@@ -29,8 +29,9 @@ export function Experience() {
       <SectionHead
         id="experience-title"
         eyebrow="Опыт"
-        title="Практический опыт"
-        description="Направления, в которых накоплен прикладной опыт работы с продуктами, данными и цифровыми программами."
+        title="Наш опыт"
+        description="Направления, в которых команда накопила прикладной опыт работы с продуктами, данными, технологиями и правовой защитой цифровых активов."
+
       />
 
       <ol className="mt-16 border-l border-border pl-8 md:pl-12">

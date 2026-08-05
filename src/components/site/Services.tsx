@@ -33,6 +33,12 @@ const SERVICES = [
     outcome: "Обоснованное решение о следующем шаге: продолжать, менять или остановиться.",
     path: "/services/mvp-review",
   },
+  {
+    title: "Правовая поддержка цифровых продуктов",
+    text: "Помогаем компаниям оценивать юридические риски цифровых продуктов, защищать интеллектуальную собственность и создавать надёжную правовую основу для развития технологий.",
+    outcome: "Карта правовых рисков и приоритетные действия до запуска, инвестиций или масштабирования.",
+    path: "/services/legal-support",
+  },
 ] as const;
 
 export function Services() {
@@ -41,9 +47,10 @@ export function Services() {
       <SectionHead
         id="services-title"
         eyebrow="Направления работы"
-        title="Как снижаем неопределённость"
+        title="Чем мы можем помочь"
         description="Каждый формат работы завершается конкретным результатом, который можно использовать при принятии решения."
       />
+
 
       <Reveal className="mt-16">
         <article className="rounded-[14px] border border-primary/30 bg-card p-8 shadow-card md:p-12">

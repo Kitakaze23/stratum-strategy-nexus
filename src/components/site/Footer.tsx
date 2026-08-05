@@ -20,9 +20,10 @@ export function Footer() {
               Stratum <span className="font-normal text-navy-foreground/70">Consulting</span>
             </p>
             <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-navy-foreground/70">
-              Независимая продуктовая экспертиза: помогаем принимать обоснованные продуктовые
-              решения до того, как они становятся дорогостоящими ошибками.
+              Независимая команда экспертов в продуктовой, аналитической и правовой сферах: помогаем
+              принимать обоснованные решения до того, как они становятся дорогостоящими ошибками.
             </p>
+
           </div>
 
           <nav aria-label="Услуги" className="lg:col-span-3">

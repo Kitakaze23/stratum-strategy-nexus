@@ -7,7 +7,7 @@ const TAGS = [
   "Product-Market Fit",
   "Enterprise Analytics",
   "Artificial Intelligence",
-  "Digital Transformation",
+  "Legal Support",
 ];
 
 export function Hero() {
@@ -16,17 +16,18 @@ export function Hero() {
       <div className="container-page grid gap-16 py-24 md:py-[7.5rem] lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="eyebrow">Независимая продуктовая экспертиза</p>
+            <p className="eyebrow">Independent Strategic Advisory</p>
             <h1 className="mt-6 text-[2.125rem] font-semibold leading-[1.14] md:text-[3.125rem]">
               Помогаем принимать сложные продуктовые решения до того, как они становятся
               дорогостоящими ошибками
             </h1>
             <p className="mt-7 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
-              Независимая продуктовая экспертиза для стартапов, технологических компаний, крупного
-              бизнеса и промышленных предприятий. Product Discovery, стратегический аудит, AI и
-              аналитика для принятия более обоснованных решений.
+              Мы — независимая команда экспертов в цифровых продуктах, продуктовой стратегии, AI,
+              аналитике и правовой защите цифровых активов. Помогаем компаниям принимать более
+              качественные решения на каждой стадии развития продукта.
             </p>
           </Reveal>
+
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
             <Cta asChild>
               <a href="#contact">Обсудить задачу</a>
