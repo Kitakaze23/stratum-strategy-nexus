@@ -14,20 +14,29 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="w-full max-w-[560px]">
+        <p className="eyebrow">Ошибка 404</p>
+        <h1 className="mt-5 text-3xl font-semibold leading-[1.15] md:text-[2.5rem]">
+          Страница не найдена
+        </h1>
+        <p className="mt-5 text-[0.9375rem] leading-[1.75] text-muted-foreground">
+          Запрошенная страница не существует или была перемещена. Вернитесь на главную или напишите
+          напрямую — мы поможем найти нужную информацию.
         </p>
-        <div className="mt-6">
+        <div className="mt-10 flex flex-wrap gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex h-[52px] items-center justify-center rounded-[10px] bg-primary px-7 text-[0.9375rem] font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary-hover"
           >
-            Go home
+            На главную
           </Link>
+          <a
+            href="/#contact"
+            className="inline-flex h-[52px] items-center justify-center rounded-[10px] border border-primary bg-background px-7 text-[0.9375rem] font-medium text-primary transition-colors duration-200 hover:bg-accent"
+          >
+            Связаться
+          </a>
         </div>
       </div>
     </div>
@@ -42,29 +51,31 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="w-full max-w-[560px]">
+        <p className="eyebrow">Ошибка 500</p>
+        <h1 className="mt-5 text-3xl font-semibold leading-[1.15] md:text-[2.5rem]">
+          Страница не загрузилась
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <p className="mt-5 text-[0.9375rem] leading-[1.75] text-muted-foreground">
+          Произошла техническая ошибка на нашей стороне. Попробуйте обновить страницу — если ошибка
+          повторяется, свяжитесь с нами напрямую.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-10 flex flex-wrap gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex h-[52px] items-center justify-center rounded-[10px] bg-primary px-7 text-[0.9375rem] font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary-hover"
           >
-            Try again
+            Обновить
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex h-[52px] items-center justify-center rounded-[10px] border border-primary bg-background px-7 text-[0.9375rem] font-medium text-primary transition-colors duration-200 hover:bg-accent"
           >
-            Go home
+            На главную
           </a>
         </div>
       </div>
