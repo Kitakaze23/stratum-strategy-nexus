@@ -35,7 +35,7 @@ export function Pricing() {
               <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">
                 {format.listLabel}
               </p>
-              <ul className="mt-4 space-y-3 text-[0.9375rem] text-muted-foreground">
+              <ul className="mt-4 space-y-3 pb-2 text-[0.9375rem] text-muted-foreground">
                 {format.items.map((item) => (
                   <li key={item} className="flex gap-3">
                     <Check className="mt-1 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
@@ -44,7 +44,7 @@ export function Pricing() {
                 ))}
               </ul>
 
-              <div className="mt-8 border-t border-border pt-6">
+              <div className="mt-8 border-t border-border pt-6 md:mt-auto">
                 <p className="text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Стоимость</p>
                 <p className="mt-2 text-xl font-semibold text-primary">{format.price}</p>
                 <Cta
