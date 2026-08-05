@@ -1,14 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Approach } from "@/components/site/Approach";
+import { Challenges } from "@/components/site/Challenges";
 import { Contact } from "@/components/site/Contact";
+import { Experience } from "@/components/site/Experience";
 import { Expertise } from "@/components/site/Expertise";
+import { Faq } from "@/components/site/Faq";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Pricing } from "@/components/site/Pricing";
+import { Process } from "@/components/site/Process";
 import { Services } from "@/components/site/Services";
+import { WhyStratum } from "@/components/site/WhyStratum";
 import { Toaster } from "@/components/ui/sonner";
+
 
 const TITLE = "Stratum Consulting — независимое продуктовое консультирование";
 const DESCRIPTION =

@@ -15,10 +15,17 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-background/90 backdrop-blur-sm transition-colors duration-200 ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
+      className={`fixed inset-x-0 top-0 z-50 bg-background/90 backdrop-blur-sm transition-shadow duration-200 ${
+        scrolled ? "border-b border-border shadow-card" : "border-b border-transparent"
       }`}
     >
       <div className="container-page grid h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6">
@@ -56,7 +63,7 @@ export function Header() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Закрыть меню" : "Открыть меню"}
-          className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-border text-foreground lg:hidden"
+          className="relative z-10 flex h-11 w-11 items-center justify-center rounded-[10px] border border-border text-foreground lg:hidden"
         >
           {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
         </button>
@@ -66,20 +73,23 @@ export function Header() {
         <nav
           id="mobile-nav"
           aria-label="Мобильная навигация"
-          className="border-t border-border bg-background lg:hidden"
+          className="fixed inset-0 top-[76px] z-40 bg-background lg:hidden"
         >
-          <div className="container-page flex flex-col gap-1 py-6">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-[10px] px-2 py-3 text-base text-foreground transition-colors hover:bg-surface"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Cta asChild className="mt-4 w-full">
+          <div className="container-page flex h-full flex-col pt-10">
+            <ul className="divide-y divide-border border-y border-border">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block py-5 text-xl font-medium text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <Cta asChild className="mt-10 w-full">
               <a href="#contact" onClick={() => setOpen(false)}>
                 Записаться на консультацию
               </a>
