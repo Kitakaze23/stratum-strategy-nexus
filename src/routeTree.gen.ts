@@ -14,6 +14,7 @@ import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
+import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
 import { Route as ServicesProductAuditRouteImport } from './routes/services.product-audit'
 import { Route as ServicesProductDiscoveryRouteImport } from './routes/services.product-discovery'
@@ -43,6 +44,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
   id: '/services/ai-product-review',
   path: '/services/ai-product-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesLegalSupportRoute = ServicesLegalSupportRouteImport.update({
+  id: '/services/legal-support',
+  path: '/services/legal-support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesMvpReviewRoute = ServicesMvpReviewRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/services/ai-product-review'
+    | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/services/ai-product-review'
+    | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/services/ai-product-review'
+    | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
+  ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
   ServicesProductAuditRoute: typeof ServicesProductAuditRoute
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
@@ -196,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/services/ai-product-review'
       fullPath: '/services/ai-product-review'
       preLoaderRoute: typeof ServicesAiProductReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/legal-support': {
+      id: '/services/legal-support'
+      path: '/services/legal-support'
+      fullPath: '/services/legal-support'
+      preLoaderRoute: typeof ServicesLegalSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/mvp-review': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
+  ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,
   ServicesProductAuditRoute: ServicesProductAuditRoute,
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
@@ -251,13 +272,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
