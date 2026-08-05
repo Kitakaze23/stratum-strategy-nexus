@@ -42,7 +42,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav aria-label="Основная навигация" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Основная навигация" className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}

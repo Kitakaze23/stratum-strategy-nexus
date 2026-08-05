@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 
-import { CONTACTS, FOOTER_LINKS, LEGAL_LINKS } from "@/data/contacts";
+import { CONTACTS, FOOTER_LINKS, LEGAL_LINKS, SERVICE_LINKS } from "@/data/contacts";
 
 const CHANNELS = [
   { icon: Phone, label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref },
@@ -15,15 +15,33 @@ export function Footer() {
     <footer className="bg-navy py-16 text-navy-foreground md:py-20">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-3">
             <p className="text-base font-semibold tracking-tight">
               Stratum <span className="font-normal text-navy-foreground/70">Consulting</span>
             </p>
             <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-navy-foreground/70">
-              Независимая продуктовая экспертиза для цифровой трансформации, Product Discovery и
-              развития цифровых продуктов.
+              Независимая продуктовая экспертиза: помогаем принимать обоснованные продуктовые
+              решения до того, как они становятся дорогостоящими ошибками.
             </p>
           </div>
+
+          <nav aria-label="Услуги" className="lg:col-span-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-navy-foreground/50">
+              Направления
+            </p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {SERVICE_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-navy-foreground/75 transition-colors duration-200 hover:text-navy-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <nav aria-label="Навигация в подвале" className="lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-navy-foreground/50">
