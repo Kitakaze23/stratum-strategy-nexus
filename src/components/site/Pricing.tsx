@@ -1,33 +1,9 @@
 import { Check } from "lucide-react";
 
-import { Cta, Reveal, Section, SectionHead } from "./primitives";
+import { PRICING_FORMATS, PRICING_NOTE } from "@/data/pricing";
+import { cn } from "@/lib/utils";
 
-const FORMATS = [
-  {
-    title: "Экспресс-консультация",
-    duration: "30 минут",
-    price: "от 25 000 ₽",
-    items: ["Один конкретный вопрос", "Оценка ситуации", "Направление дальнейших действий"],
-  },
-  {
-    title: "Стратегическая консультация",
-    duration: "60 минут",
-    price: "от 45 000 ₽",
-    items: ["Продуктовая или технологическая развилка", "Сценарии решения", "Краткое резюме после встречи"],
-  },
-  {
-    title: "Deep Dive",
-    duration: "2 часа",
-    price: "от 80 000 ₽",
-    items: ["Подготовка на материалах компании", "Разбор с командой", "Структурированные рекомендации"],
-  },
-  {
-    title: "Критичный разбор продукта",
-    duration: "Комплексный формат",
-    price: "от 120 000 ₽",
-    items: ["Диагностика продукта и метрик", "Оценка рисков и приоритетов", "План решений с критериями успеха"],
-  },
-];
+import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
 export function Pricing() {
   return (
@@ -35,22 +11,31 @@ export function Pricing() {
       <SectionHead
         id="pricing-title"
         eyebrow="Форматы"
-        title="Форматы работы и ориентиры стоимости"
-        description="Итоговый объём и стоимость определяются бизнес-контекстом и задачами. Указанные значения — ориентир для планирования."
+        title="Форматы консультаций"
+        description="Каждая консультация начинается с понимания задачи. Если требуется предварительное изучение материалов или участие нескольких заинтересованных сторон, итоговая стоимость определяется индивидуально."
       />
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
-        {FORMATS.map((format, index) => (
-          <Reveal key={format.title} delay={index * 0.05}>
-            <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
-                <div className="min-w-0">
-                  <h3 className="text-lg font-semibold">{format.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{format.duration}</p>
-                </div>
-                <p className="shrink-0 text-[0.9375rem] font-semibold text-primary">{format.price}</p>
-              </div>
-              <ul className="mt-7 space-y-3 text-[0.9375rem] text-muted-foreground">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {PRICING_FORMATS.map((format, index) => (
+          <Reveal key={format.title} delay={index * 0.05} className="h-full">
+            <article
+              className={cn(
+                "flex h-full flex-col rounded-[14px] bg-card p-8 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg",
+                format.recommended ? "border-2 border-primary" : "border border-border",
+              )}
+            >
+              {format.recommended ? (
+                <p className="mb-5 inline-flex w-fit rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-primary">
+                  Рекомендуем
+                </p>
+              ) : null}
+              <h3 className="text-lg font-semibold">{format.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{format.duration}</p>
+
+              <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+                {format.listLabel}
+              </p>
+              <ul className="mt-4 space-y-3 pb-2 text-[0.9375rem] text-muted-foreground">
                 {format.items.map((item) => (
                   <li key={item} className="flex gap-3">
                     <Check className="mt-1 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
@@ -58,15 +43,27 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-8 border-t border-border pt-6 md:mt-auto">
+                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Стоимость</p>
+                <p className="mt-2 text-xl font-semibold text-primary">{format.price}</p>
+                <Cta
+                  asChild
+                  variant={format.recommended ? "primary" : "secondary"}
+                  className="mt-6 h-12 w-full px-5 text-sm"
+                >
+                  <a href="#contact">{format.cta}</a>
+                </Cta>
+              </div>
             </article>
           </Reveal>
         ))}
       </div>
 
-      <Reveal delay={0.1} className="mt-12">
-        <Cta asChild>
-          <a href="#contact">Записаться на консультацию</a>
-        </Cta>
+      <Reveal delay={0.1}>
+        <p className="mt-12 max-w-[760px] border-l-2 border-primary pl-6 text-[0.9375rem] leading-[1.7] text-muted-foreground">
+          {PRICING_NOTE}
+        </p>
       </Reveal>
     </Section>
   );

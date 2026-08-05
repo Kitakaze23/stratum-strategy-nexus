@@ -1,31 +1,12 @@
-import { Reveal, Section, SectionHead } from "./primitives";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { FAQ_ITEMS } from "@/data/faq";
 
-const ITEMS = [
-  {
-    q: "Как понять, какой формат консультации подходит?",
-    a: "Достаточно описать задачу в форме или на первичном знакомстве — формат и продолжительность предлагаются исходя из вопроса и объёма материалов.",
-  },
-  {
-    q: "Нужно ли готовить материалы заранее?",
-    a: "Для коротких форматов достаточно описания ситуации. Для Deep Dive и разбора продукта полезны метрики, продуктовая документация и текущие приоритеты.",
-  },
-  {
-    q: "Как обеспечивается конфиденциальность?",
-    a: "Материалы используются только для подготовки к консультации и не передаются третьим лицам. При необходимости подписывается NDA.",
-  },
-  {
-    q: "Реализуется ли разработка или внедрение?",
-    a: "Нет. Работа ограничивается независимой экспертизой и рекомендациями, поэтому оценка не зависит от последующего контракта на разработку.",
-  },
-  {
-    q: "Что остаётся после консультации?",
-    a: "Краткое письменное резюме: сформулированная задача, рассмотренные варианты, рекомендации и предлагаемые дальнейшие шаги.",
-  },
-  {
-    q: "Возможна ли регулярная работа?",
-    a: "Да, в формате advisory-сопровождения с периодическими встречами по продуктовым решениям.",
-  },
-];
+import { Section, SectionHead } from "./primitives";
 
 export function Faq() {
   return (
@@ -41,16 +22,18 @@ export function Faq() {
         </div>
 
         <div className="lg:col-span-7">
-          <dl className="divide-y divide-border border-y border-border">
-            {ITEMS.map((item, index) => (
-              <Reveal key={item.q} delay={index * 0.04}>
-                <div className="py-7">
-                  <dt className="text-base font-semibold">{item.q}</dt>
-                  <dd className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{item.a}</dd>
-                </div>
-              </Reveal>
+          <Accordion type="single" collapsible className="border-t border-border">
+            {FAQ_ITEMS.map((item, index) => (
+              <AccordionItem key={item.q} value={`item-${index}`} className="border-b border-border">
+                <AccordionTrigger className="py-6 text-left text-base font-semibold hover:no-underline">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-6 text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </dl>
+          </Accordion>
         </div>
       </div>
     </Section>

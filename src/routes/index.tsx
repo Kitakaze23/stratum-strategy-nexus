@@ -13,11 +13,12 @@ import { Process } from "@/components/site/Process";
 import { Services } from "@/components/site/Services";
 import { WhyStratum } from "@/components/site/WhyStratum";
 import { Toaster } from "@/components/ui/sonner";
+import { FAQ_ITEMS } from "@/data/faq";
 
 
-const TITLE = "Stratum Consulting — независимое продуктовое консультирование";
+const TITLE = "Stratum Consulting — Независимая продуктовая экспертиза";
 const DESCRIPTION =
-  "Независимая стратегическая экспертиза по продуктам, аналитике, ИИ и цифровой трансформации для CEO, CPO и CTO. Консультации от 25 000 ₽.";
+  "Независимая экспертиза в области Product Discovery, цифровой трансформации, аналитики и развития цифровых продуктов. Консультации для стартапов, крупного бизнеса и промышленных компаний.";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -38,6 +39,12 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
+            {
+              "@type": "WebSite",
+              name: "Stratum Consulting",
+              url: "/",
+              inLanguage: "ru-RU",
+            },
             {
               "@type": "Organization",
               name: "Stratum Consulting",
@@ -63,6 +70,18 @@ export const Route = createFileRoute("/")({
               email: "kolesnikov_msu@mail.ru",
             },
           ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ_ITEMS.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
         }),
       },
     ],

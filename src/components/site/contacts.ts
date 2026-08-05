@@ -8,10 +8,4 @@ export const CONTACTS = {
   emailHref: "mailto:kolesnikov_msu@mail.ru",
 } as const;
 
-export const NAV_LINKS = [
-  { href: "#expertise", label: "Экспертиза" },
-  { href: "#services", label: "Услуги" },
-  { href: "#experience", label: "Опыт" },
-  { href: "#pricing", label: "Стоимость" },
-  { href: "#contact", label: "Контакты" },
-] as const;
+export { NAV_LINKS, FOOTER_LINKS, LEGAL_LINKS } from "@/data/contacts";
