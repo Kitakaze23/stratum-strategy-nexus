@@ -10,7 +10,7 @@ export const CONTACTS = {
 
 export const NAV_LINKS = [
   { href: "#services", label: "Услуги" },
-  { href: "#approach", label: "Подход" },
+  { href: "#process", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
   { href: "#pricing", label: "Форматы" },
   { href: "#contact", label: "Контакты" },
