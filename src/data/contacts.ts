@@ -30,7 +30,9 @@ export const SERVICE_LINKS = [
   { to: "/services/product-discovery", label: "Product Discovery" },
   { to: "/services/product-strategy", label: "Стратегия цифрового продукта" },
   { to: "/services/mvp-review", label: "Аудит MVP" },
+  { to: "/services/legal-support", label: "Правовая поддержка цифровых продуктов" },
 ] as const;
+
 
 export const LEGAL_LINKS = [
   { to: "/privacy", label: "Политика конфиденциальности" },

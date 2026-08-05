@@ -73,6 +73,31 @@ export function ServicePage({ service }: { service: ServiceContent }) {
           </ul>
         </Section>
 
+        {service.practices ? (
+          <Section labelledBy="service-practices">
+            <SectionHead
+              id="service-practices"
+              eyebrow="Состав работ"
+              title={service.practicesTitle ?? "Направления работы"}
+              description="Каждое направление можно взять отдельно или в составе комплексной оценки."
+            />
+            <div className="mt-14 grid gap-6 md:grid-cols-2">
+              {service.practices.map((practice, index) => (
+                <Reveal key={practice.title} delay={index * 0.05}>
+                  <article className="h-full rounded-[14px] border border-border bg-card p-7 shadow-card">
+                    <h3 className="text-lg font-semibold">{practice.title}</h3>
+                    <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                      {practice.text}
+                    </p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+        ) : null}
+
+
+
         <Section labelledBy="service-deliverables">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
