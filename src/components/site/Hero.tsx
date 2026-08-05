@@ -1,11 +1,13 @@
-import heroImage from "@/assets/hero-architecture.jpg";
-
 import { Cta, Reveal } from "./primitives";
+import { HeroFigure } from "./HeroFigure";
 
-const FACTS = [
-  { value: "15+ лет", label: "в продуктовой и цифровой трансформации" },
-  { value: "40+", label: "продуктов и цифровых инициатив в работе" },
-  { value: "Enterprise", label: "банки, промышленность, технологии" },
+const TAGS = [
+  "Product Discovery",
+  "Enterprise Analytics",
+  "Digital Transformation",
+  "Artificial Intelligence",
+  "Product Strategy",
+  "Industrial Digitalization",
 ];
 
 export function Hero() {
@@ -14,14 +16,15 @@ export function Hero() {
       <div className="container-page grid gap-16 py-24 md:py-[7.5rem] lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="eyebrow">Независимое стратегическое консультирование</p>
-            <h1 className="mt-6 text-[2.25rem] font-semibold leading-[1.12] md:text-[3.25rem]">
-              Продуктовые решения, основанные на данных и опыте
+            <p className="eyebrow">Независимая продуктовая экспертиза</p>
+            <h1 className="mt-6 text-[2.125rem] font-semibold leading-[1.14] md:text-[3.125rem]">
+              Независимая продуктовая экспертиза для компаний, создающих цифровые продукты
             </h1>
-            <p className="mt-7 max-w-[560px] text-lg leading-[1.75] text-muted-foreground">
-              Stratum Consulting помогает руководителям принимать обоснованные решения о продуктах,
-              цифровых инициативах и технологиях. Мы не разрабатываем и не внедряем — мы даём
-              независимую оценку и структурируем выбор.
+            <p className="mt-7 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
+              Помогаю руководителям принимать обоснованные продуктовые решения, находить критические
+              точки роста и снижать стоимость стратегических ошибок благодаря сочетанию Product
+              Discovery, аналитики, AI и практического опыта работы с корпоративными цифровыми
+              продуктами.
             </p>
           </Reveal>
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
@@ -29,31 +32,34 @@ export function Hero() {
               <a href="#contact">Записаться на консультацию</a>
             </Cta>
             <Cta asChild variant="secondary">
-              <a href="#services">Направления работы</a>
+              <a href="#contact">Обсудить задачу</a>
             </Cta>
           </Reveal>
         </div>
 
         <Reveal delay={0.12} className="lg:col-span-6">
-          <img
-            src={heroImage}
-            width={1600}
-            height={1104}
-            alt="Фасад современного делового центра"
-            className="aspect-[4/3] w-full rounded-[14px] border border-border object-cover"
-          />
+          <div className="rounded-[14px] border border-border bg-background p-6 md:p-10">
+            <HeroFigure />
+          </div>
         </Reveal>
       </div>
 
       <div className="container-page">
-        <dl className="grid gap-10 border-t border-border py-14 sm:grid-cols-3">
-          {FACTS.map((fact) => (
-            <div key={fact.value}>
-              <dt className="text-2xl font-semibold tracking-tight">{fact.value}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{fact.label}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="border-t border-border py-12">
+          <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
+            Направления экспертизы
+          </p>
+          <ul className="mt-6 flex flex-wrap gap-3">
+            {TAGS.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-border bg-surface px-4 py-2 text-[0.8125rem] text-foreground"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
