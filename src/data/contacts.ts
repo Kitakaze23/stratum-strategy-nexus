@@ -10,6 +10,7 @@ export const CONTACTS = {
 
 export const NAV_LINKS = [
   { href: "#services", label: "Услуги" },
+  { href: "#after-launch", label: "Product Review" },
   { href: "#process", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
   { href: "#pricing", label: "Форматы" },
@@ -21,6 +22,14 @@ export const FOOTER_LINKS = [
   { href: "#services", label: "Услуги" },
   { href: "#pricing", label: "Стоимость" },
   { href: "#contact", label: "Контакты" },
+] as const;
+
+export const SERVICE_LINKS = [
+  { to: "/services/ai-product-review", label: "Product Review для AI-продуктов" },
+  { to: "/services/product-audit", label: "Аудит цифрового продукта" },
+  { to: "/services/product-discovery", label: "Product Discovery" },
+  { to: "/services/product-strategy", label: "Стратегия цифрового продукта" },
+  { to: "/services/mvp-review", label: "Аудит MVP" },
 ] as const;
 
 export const LEGAL_LINKS = [

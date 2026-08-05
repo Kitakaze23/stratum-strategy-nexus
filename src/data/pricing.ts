@@ -18,7 +18,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     listLabel: "Подходит для",
     items: ["одного вопроса", "проверки гипотезы", "второго мнения"],
     price: "от 25 000 ₽",
-    cta: "Записаться",
+    cta: "Обсудить задачу",
   },
   {
     title: "Стратегическая консультация",
@@ -26,7 +26,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     listLabel: "Подходит для",
     items: ["Product Discovery", "аналитики", "стратегии развития продукта"],
     price: "от 45 000 ₽",
-    cta: "Записаться",
+    cta: "Проверить стратегию",
     recommended: true,
   },
   {
@@ -35,7 +35,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     listLabel: "Подходит для",
     items: ["сложных продуктов", "анализа нескольких сценариев", "подготовки рекомендаций"],
     price: "от 80 000 ₽",
-    cta: "Записаться",
+    cta: "Разобрать продукт",
   },
   {
     title: "Критичный разбор продукта",
@@ -43,6 +43,6 @@ export const PRICING_FORMATS: PricingFormat[] = [
     listLabel: "Включает",
     items: ["анализ материалов", "консультацию", "письменные рекомендации"],
     price: "от 120 000 ₽",
-    cta: "Обсудить задачу",
+    cta: "Оценить продукт",
   },
 ];

@@ -42,7 +42,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav aria-label="Основная навигация" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Основная навигация" className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -53,7 +53,7 @@ export function Header() {
             </a>
           ))}
           <Cta asChild className="h-11 px-5 text-sm">
-            <a href="#contact">Записаться на консультацию</a>
+            <a href="#contact">Обсудить задачу</a>
           </Cta>
         </nav>
 
@@ -91,7 +91,7 @@ export function Header() {
             </ul>
             <Cta asChild className="mt-10 w-full">
               <a href="#contact" onClick={() => setOpen(false)}>
-                Записаться на консультацию
+                Обсудить задачу
               </a>
             </Cta>
           </div>

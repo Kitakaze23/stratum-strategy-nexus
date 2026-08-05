@@ -3,11 +3,11 @@ import { HeroFigure } from "./HeroFigure";
 
 const TAGS = [
   "Product Discovery",
+  "Product Review",
+  "Product-Market Fit",
   "Enterprise Analytics",
-  "Digital Transformation",
   "Artificial Intelligence",
-  "Product Strategy",
-  "Industrial Digitalization",
+  "Digital Transformation",
 ];
 
 export function Hero() {
@@ -18,21 +18,21 @@ export function Hero() {
           <Reveal>
             <p className="eyebrow">Независимая продуктовая экспертиза</p>
             <h1 className="mt-6 text-[2.125rem] font-semibold leading-[1.14] md:text-[3.125rem]">
-              Независимая продуктовая экспертиза для компаний, создающих цифровые продукты
+              Помогаем принимать сложные продуктовые решения до того, как они становятся
+              дорогостоящими ошибками
             </h1>
             <p className="mt-7 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
-              Помогаю руководителям принимать обоснованные продуктовые решения, находить критические
-              точки роста и снижать стоимость стратегических ошибок благодаря сочетанию Product
-              Discovery, аналитики, AI и практического опыта работы с корпоративными цифровыми
-              продуктами.
+              Независимая продуктовая экспертиза для стартапов, технологических компаний, крупного
+              бизнеса и промышленных предприятий. Product Discovery, стратегический аудит, AI и
+              аналитика для принятия более обоснованных решений.
             </p>
           </Reveal>
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
             <Cta asChild>
-              <a href="#contact">Записаться на консультацию</a>
+              <a href="#contact">Обсудить задачу</a>
             </Cta>
             <Cta asChild variant="secondary">
-              <a href="#contact">Обсудить задачу</a>
+              <a href="#contact">Получить независимое мнение</a>
             </Cta>
           </Reveal>
         </div>
