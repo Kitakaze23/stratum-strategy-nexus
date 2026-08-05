@@ -13,6 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
+import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
+import { Route as ServicesProductAuditRouteImport } from './routes/services.product-audit'
+import { Route as ServicesProductDiscoveryRouteImport } from './routes/services.product-discovery'
+import { Route as ServicesProductStrategyRouteImport } from './routes/services.product-strategy'
 import { Route as ApiPublicConsultationRouteImport } from './routes/api/public/consultation'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +40,32 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
+  id: '/services/ai-product-review',
+  path: '/services/ai-product-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesMvpReviewRoute = ServicesMvpReviewRouteImport.update({
+  id: '/services/mvp-review',
+  path: '/services/mvp-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesProductAuditRoute = ServicesProductAuditRouteImport.update({
+  id: '/services/product-audit',
+  path: '/services/product-audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesProductDiscoveryRoute =
+  ServicesProductDiscoveryRouteImport.update({
+    id: '/services/product-discovery',
+    path: '/services/product-discovery',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesProductStrategyRoute = ServicesProductStrategyRouteImport.update({
+  id: '/services/product-strategy',
+  path: '/services/product-strategy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicConsultationRoute = ApiPublicConsultationRouteImport.update({
   id: '/api/public/consultation',
   path: '/api/public/consultation',
@@ -46,6 +77,11 @@ export interface FileRoutesByFullPath {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/mvp-review': typeof ServicesMvpReviewRoute
+  '/services/product-audit': typeof ServicesProductAuditRoute
+  '/services/product-discovery': typeof ServicesProductDiscoveryRoute
+  '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +89,11 @@ export interface FileRoutesByTo {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/mvp-review': typeof ServicesMvpReviewRoute
+  '/services/product-audit': typeof ServicesProductAuditRoute
+  '/services/product-discovery': typeof ServicesProductDiscoveryRoute
+  '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
 }
 export interface FileRoutesById {
@@ -61,21 +102,49 @@ export interface FileRoutesById {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/mvp-review': typeof ServicesMvpReviewRoute
+  '/services/product-audit': typeof ServicesProductAuditRoute
+  '/services/product-discovery': typeof ServicesProductDiscoveryRoute
+  '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/consent' | '/privacy' | '/sitemap.xml' | '/api/public/consultation'
+    | '/'
+    | '/consent'
+    | '/privacy'
+    | '/sitemap.xml'
+    | '/services/ai-product-review'
+    | '/services/mvp-review'
+    | '/services/product-audit'
+    | '/services/product-discovery'
+    | '/services/product-strategy'
+    | '/api/public/consultation'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/consent' | '/privacy' | '/sitemap.xml' | '/api/public/consultation'
+    | '/'
+    | '/consent'
+    | '/privacy'
+    | '/sitemap.xml'
+    | '/services/ai-product-review'
+    | '/services/mvp-review'
+    | '/services/product-audit'
+    | '/services/product-discovery'
+    | '/services/product-strategy'
+    | '/api/public/consultation'
   id:
     | '__root__'
     | '/'
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/services/ai-product-review'
+    | '/services/mvp-review'
+    | '/services/product-audit'
+    | '/services/product-discovery'
+    | '/services/product-strategy'
     | '/api/public/consultation'
   fileRoutesById: FileRoutesById
 }
@@ -84,6 +153,11 @@ export interface RootRouteChildren {
   ConsentRoute: typeof ConsentRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
+  ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
+  ServicesProductAuditRoute: typeof ServicesProductAuditRoute
+  ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
+  ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
 }
 
@@ -117,6 +191,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/ai-product-review': {
+      id: '/services/ai-product-review'
+      path: '/services/ai-product-review'
+      fullPath: '/services/ai-product-review'
+      preLoaderRoute: typeof ServicesAiProductReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/mvp-review': {
+      id: '/services/mvp-review'
+      path: '/services/mvp-review'
+      fullPath: '/services/mvp-review'
+      preLoaderRoute: typeof ServicesMvpReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/product-audit': {
+      id: '/services/product-audit'
+      path: '/services/product-audit'
+      fullPath: '/services/product-audit'
+      preLoaderRoute: typeof ServicesProductAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/product-discovery': {
+      id: '/services/product-discovery'
+      path: '/services/product-discovery'
+      fullPath: '/services/product-discovery'
+      preLoaderRoute: typeof ServicesProductDiscoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/product-strategy': {
+      id: '/services/product-strategy'
+      path: '/services/product-strategy'
+      fullPath: '/services/product-strategy'
+      preLoaderRoute: typeof ServicesProductStrategyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/consultation': {
       id: '/api/public/consultation'
       path: '/api/public/consultation'
@@ -132,6 +241,11 @@ const rootRouteChildren: RootRouteChildren = {
   ConsentRoute: ConsentRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
+  ServicesMvpReviewRoute: ServicesMvpReviewRoute,
+  ServicesProductAuditRoute: ServicesProductAuditRoute,
+  ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
+  ServicesProductStrategyRoute: ServicesProductStrategyRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
 }
 export const routeTree = rootRouteImport
