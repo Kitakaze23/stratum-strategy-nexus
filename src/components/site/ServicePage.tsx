@@ -149,6 +149,36 @@ export function ServicePage({ service }: { service: ServiceContent }) {
           </div>
         </Section>
 
+        {service.crossRef ? (
+          <Section labelledBy="service-crossref">
+            <div className="grid gap-10 lg:grid-cols-12">
+              <div className="lg:col-span-6">
+                <h2 id="service-crossref" className="text-[1.75rem] font-semibold leading-[1.25] md:text-[2.125rem]">
+                  {service.crossRef.title}
+                </h2>
+              </div>
+              <div className="space-y-6 text-[1.0625rem] leading-[1.75] text-muted-foreground lg:col-span-6">
+                {service.crossRef.text.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+                <Link
+                  to={service.crossRef.linkTo}
+                  className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
+                >
+                  {service.crossRef.linkLabel}
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
+            </div>
+          </Section>
+        ) : null}
+
+
+
         <Section tone="surface" labelledBy="service-related">
           <SectionHead
             id="service-related"
