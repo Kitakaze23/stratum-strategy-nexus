@@ -9,9 +9,9 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#services", label: "Услуги" },
-  { href: "#approach", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
-  { href: "#pricing", label: "Форматы" },
+  { href: "#services", label: "Услуги" },
+  { href: "#experience", label: "Опыт" },
+  { href: "#pricing", label: "Стоимость" },
   { href: "#contact", label: "Контакты" },
 ] as const;
