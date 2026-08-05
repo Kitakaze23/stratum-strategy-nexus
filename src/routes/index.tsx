@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { AfterLaunch } from "@/components/site/AfterLaunch";
 import { Challenges } from "@/components/site/Challenges";
 import { Contact } from "@/components/site/Contact";
 import { Experience } from "@/components/site/Experience";
@@ -16,9 +17,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
 
 
-const TITLE = "Stratum Consulting — Независимая продуктовая экспертиза";
+const TITLE = "Stratum Consulting — независимый Product Advisor и Product Review";
 const DESCRIPTION =
-  "Независимая экспертиза в области Product Discovery, цифровой трансформации, аналитики и развития цифровых продуктов. Консультации для стартапов, крупного бизнеса и промышленных компаний.";
+  "Независимая продуктовая экспертиза: Product Review, аудит цифрового продукта и MVP, Product Discovery и стратегия. Помогаем принимать обоснованные продуктовые решения.";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -95,6 +96,7 @@ function Index() {
       <main>
         <Hero />
         <Challenges />
+        <AfterLaunch />
         <Expertise />
         <Services />
         <WhyStratum />

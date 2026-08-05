@@ -53,7 +53,7 @@ export function Header() {
             </a>
           ))}
           <Cta asChild className="h-11 px-5 text-sm">
-            <a href="#contact">Записаться на консультацию</a>
+            <a href="#contact">Обсудить задачу</a>
           </Cta>
         </nav>
 
@@ -91,7 +91,7 @@ export function Header() {
             </ul>
             <Cta asChild className="mt-10 w-full">
               <a href="#contact" onClick={() => setOpen(false)}>
-                Записаться на консультацию
+                Обсудить задачу
               </a>
             </Cta>
           </div>
