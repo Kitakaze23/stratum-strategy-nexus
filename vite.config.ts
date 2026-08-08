@@ -12,4 +12,10 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Deploy target outside Lovable: plain Node.js SSR server.
+  // Produces .output/server/index.mjs, started with `npm run start:prod`.
+  // Inside Lovable's own build the preset is forced to Cloudflare automatically.
+  nitro: {
+    preset: "node-server",
+  },
 });
