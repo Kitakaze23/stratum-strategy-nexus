@@ -13,12 +13,14 @@ export const NAV_LINKS = [
   { href: "#after-launch", label: "Product Review" },
   { href: "#process", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
+  { href: "#team", label: "Команда" },
   { href: "#pricing", label: "Форматы" },
   { href: "#contact", label: "Контакты" },
 ] as const;
 
 export const FOOTER_LINKS = [
   { href: "#expertise", label: "Экспертиза" },
+  { href: "#team", label: "Команда экспертов" },
   { href: "#services", label: "Услуги" },
   { href: "#pricing", label: "Стоимость" },
   { href: "#contact", label: "Контакты" },
