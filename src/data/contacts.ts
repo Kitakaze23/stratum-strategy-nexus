@@ -9,11 +9,10 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#services", label: "Услуги" },
   { href: "#after-launch", label: "Product Review" },
-  { href: "#process", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
-  // { href: "#team", label: "Команда" },
+  { href: "#services", label: "Услуги" },
+  { href: "#process", label: "Подход" },
   { href: "#pricing", label: "Форматы" },
   { href: "#contact", label: "Контакты" },
 ] as const;
