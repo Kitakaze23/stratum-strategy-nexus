@@ -13,7 +13,6 @@ import { Hero } from "@/components/site/Hero";
 import { Pricing } from "@/components/site/Pricing";
 import { Process } from "@/components/site/Process";
 import { Services } from "@/components/site/Services";
-import { Team } from "@/components/site/Team";
 import { WhyStratum } from "@/components/site/WhyStratum";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
@@ -102,7 +101,6 @@ function Index() {
         <Expertise />
         <Services />
         <WhyStratum />
-        <Team />
         <Achievements />
         <Experience />
         <Process />
