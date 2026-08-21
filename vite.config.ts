@@ -20,6 +20,6 @@ export default defineConfig({
     // Rolldown can create a circular runtime-helper dependency across SSR chunks,
     // which crashes on Node with "__exportAll is not a function". Keeping the
     // server bundle together avoids that broken chunk boundary without disabling SSR.
-    inlineDynamicImports: true,
+    ...{ inlineDynamicImports: true },
   },
 });
