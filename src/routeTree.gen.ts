@@ -20,6 +20,7 @@ import { Route as ServicesProductAuditRouteImport } from './routes/services.prod
 import { Route as ServicesProductDiscoveryRouteImport } from './routes/services.product-discovery'
 import { Route as ServicesProductStrategyRouteImport } from './routes/services.product-strategy'
 import { Route as ApiPublicConsultationRouteImport } from './routes/api/public/consultation'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -77,6 +78,12 @@ const ApiPublicConsultationRoute = ApiPublicConsultationRouteImport.update({
   path: '/api/public/consultation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesByTo {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,6 +126,7 @@ export interface FileRoutesById {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -158,6 +170,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -172,6 +185,7 @@ export interface RootRouteChildren {
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
   ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicConsultationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -268,6 +289,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
   ServicesProductStrategyRoute: ServicesProductStrategyRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
