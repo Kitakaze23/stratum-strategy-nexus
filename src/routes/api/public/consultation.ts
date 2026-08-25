@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { z } from "zod";
 
+import { sendTemplateEmail } from "@/lib/email-templates/send-email";
+
 const bodySchema = z.object({
   name: z.string().trim().min(2).max(100),
   company: z.string().trim().min(2).max(120),
@@ -23,9 +25,25 @@ export const Route = createFileRoute("/api/public/consultation")({
           return Response.json({ ok: false, error: "invalid_payload" }, { status: 400 });
         }
 
-        // Placeholder sink: replace with CRM / e-mail delivery when the backend is chosen.
-        // Deliberately does not log personal data.
-        console.info("consultation_request_received", { company: parsed.company.length > 0 });
+        const submissionId = crypto.randomUUID();
+
+        try {
+          await sendTemplateEmail("consultation-request", "", {
+            templateData: {
+              name: parsed.name,
+              company: parsed.company,
+              role: parsed.role ?? "",
+              email: parsed.email,
+              phone: parsed.phone,
+              message: parsed.message,
+            },
+            idempotencyKey: `consultation-request-${submissionId}`,
+            replyTo: parsed.email,
+          });
+        } catch (error) {
+          console.error("consultation_request_send_failed", error);
+          return Response.json({ ok: false, error: "send_failed" }, { status: 502 });
+        }
 
         return Response.json({ ok: true });
       },
