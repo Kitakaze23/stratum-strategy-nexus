@@ -6,12 +6,27 @@ export interface PricingFormat {
   price: string;
   cta: string;
   recommended?: boolean;
+  /** Free entry point — opens the lightweight question form instead of the contact section. */
+  entry?: boolean;
 }
 
 export const PRICING_NOTE =
   "Если вы не уверены, какой формат подойдет именно вам, оставьте заявку. Мы обсудим задачу и подберем наиболее подходящий формат консультации.";
 
 export const PRICING_FORMATS: PricingFormat[] = [
+  {
+    title: "Задать вопрос",
+    duration: "Один конкретный вопрос по вашему продукту или ситуации.",
+    listLabel: "Как это работает",
+    items: [
+      "вы описываете ситуацию или вопрос",
+      "мы даём предварительное мнение",
+      "подскажем, стоит ли разбирать задачу глубже",
+    ],
+    price: "Бесплатно",
+    cta: "Задать вопрос →",
+    entry: true,
+  },
   {
     title: "Экспресс-консультация",
     duration: "30 минут",
@@ -20,6 +35,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     price: "от 25 000 ₽",
     cta: "Обсудить задачу",
   },
+
   {
     title: "Стратегическая консультация",
     duration: "60 минут",
