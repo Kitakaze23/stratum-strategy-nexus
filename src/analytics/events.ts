@@ -43,15 +43,17 @@ export function trackEvent(name: AnalyticsEventName | string, params: AnalyticsP
 
 /* ------------------------------ page views ------------------------------- */
 
-export function trackPageView(pathname: string, title?: string): void {
+export function trackPageView(pathname: string, title?: string, sendHit = true): void {
   if (typeof window === "undefined") return;
-  try {
-    metricaHit(window.location.origin + pathname + window.location.search, {
-      title: title ?? document.title,
-      referer: document.referrer,
-    });
-  } catch {
-    /* ignored */
+  if (sendHit) {
+    try {
+      metricaHit(window.location.origin + pathname + window.location.search, {
+        title: title ?? document.title,
+        referer: document.referrer,
+      });
+    } catch {
+      /* ignored */
+    }
   }
   trackEvent("page_view", { page: pathname, title: title ?? undefined });
 }

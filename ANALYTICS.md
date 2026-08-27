@@ -35,10 +35,11 @@ ym(112000998, 'init', {
 });
 ```
 
-`tag.js` is loaded asynchronously, so it never blocks rendering. Initial
-tracking is handled by the official tag; subsequent SPA route changes are sent
-with `ym(id, "hit", ...)`. Scroll maps, form analytics, traffic sources and UTM
-attribution keep working natively.
+`tag.js` is loaded asynchronously, so it never blocks rendering. The initial
+page hit is handled by the official `init`; subsequent SPA route changes are
+sent with `ym(id, "hit", ...)`, preventing a duplicate first-page hit. The
+custom `page_view` goal is still emitted on every route. Scroll maps, form
+analytics, traffic sources and UTM attribution keep working natively.
 `ecommerce: "dataLayer"` is configured but no purchase/revenue events are ever
 pushed — `payment_received`, `lead_qualified` and `meeting_booked` stay reserved
 for real business actions from a future CRM/payment integration.
