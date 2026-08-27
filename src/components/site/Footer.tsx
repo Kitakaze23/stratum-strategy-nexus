@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 
+import { trackContactClick } from "@/analytics/events";
 import { CONTACTS, FOOTER_LINKS, LEGAL_LINKS, SERVICE_LINKS } from "@/data/contacts";
 
 const CHANNELS = [
-  { icon: Phone, label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref },
-  { icon: Send, label: "Telegram", value: CONTACTS.telegram, href: CONTACTS.telegramHref },
-  { icon: MessageCircle, label: "WhatsApp", value: CONTACTS.phone, href: CONTACTS.whatsappHref },
-  { icon: Mail, label: "E-mail", value: CONTACTS.email, href: CONTACTS.emailHref },
-];
+  { icon: Phone, label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref, channel: "phone" },
+  { icon: Send, label: "Telegram", value: CONTACTS.telegram, href: CONTACTS.telegramHref, channel: "telegram" },
+  { icon: MessageCircle, label: "WhatsApp", value: CONTACTS.phone, href: CONTACTS.whatsappHref, channel: "whatsapp" },
+  { icon: Mail, label: "E-mail", value: CONTACTS.email, href: CONTACTS.emailHref, channel: "email" },
+] as const;
 
 export function Footer() {
   return (
@@ -86,6 +87,7 @@ export function Footer() {
             <li key={channel.label}>
               <a
                 href={channel.href}
+                onClick={() => trackContactClick(channel.channel, "footer")}
                 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 transition-colors duration-200 hover:text-navy-foreground"
               >
                 <channel.icon className="h-6 w-6 shrink-0 text-navy-foreground/60" strokeWidth={1.5} aria-hidden="true" />

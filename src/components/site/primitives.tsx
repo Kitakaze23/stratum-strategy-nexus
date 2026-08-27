@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import { useSectionView } from "@/analytics/hooks";
 import { cn } from "@/lib/utils";
 
 /* ---------------------------------- CTA ---------------------------------- */
@@ -40,21 +41,26 @@ export function Section({
   className,
   children,
   labelledBy,
+  trackId,
 }: {
   id?: string;
   tone?: "light" | "surface" | "navy";
   className?: string;
   children: ReactNode;
   labelledBy?: string;
+  /** Stable analytics section id — fires `section_view` once per page view. */
+  trackId?: string;
 }) {
   const tones = {
     light: "bg-background",
     surface: "bg-surface",
     navy: "bg-navy text-navy-foreground",
   } as const;
+  const ref = useSectionView<HTMLElement>(trackId);
 
   return (
     <section
+      ref={ref}
       id={id}
       aria-labelledby={labelledBy}
       className={cn("scroll-mt-20 py-24 md:py-[7.5rem] lg:py-[8.75rem]", tones[tone], className)}

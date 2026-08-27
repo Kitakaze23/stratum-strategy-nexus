@@ -29,7 +29,7 @@ const CARDS = [
 
 export function Challenges() {
   return (
-    <Section id="challenges" tone="surface" labelledBy="challenges-title">
+    <Section id="challenges" tone="surface" labelledBy="challenges-title" trackId="business_challenges">
       <SectionHead
         id="challenges-title"
         eyebrow="Задачи"

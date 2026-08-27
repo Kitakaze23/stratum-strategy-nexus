@@ -1,6 +1,8 @@
 import { Check } from "lucide-react";
 import { useState } from "react";
 
+import { trackCtaClick, trackEvent, trackFunnelClick } from "@/analytics/events";
+import { useSectionView } from "@/analytics/hooks";
 import { PRICING_FORMATS, PRICING_NOTE } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
@@ -9,9 +11,12 @@ import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
 export function Pricing() {
   const [questionOpen, setQuestionOpen] = useState(false);
+  const entryRef = useSectionView<HTMLDivElement>("ask_question_card", () =>
+    trackEvent("ask_question_view", { location: "pricing" }),
+  );
 
   return (
-    <Section id="pricing" tone="surface" labelledBy="pricing-title">
+    <Section id="pricing" tone="surface" labelledBy="pricing-title" trackId="consultation_formats">
       <SectionHead
         id="pricing-title"
         eyebrow="Форматы"
@@ -22,6 +27,7 @@ export function Pricing() {
       <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {PRICING_FORMATS.map((format, index) => (
           <Reveal key={format.title} delay={index * 0.05} className="h-full">
+            <div ref={format.entry ? entryRef : undefined} className="h-full">
             <article
               className={cn(
                 "flex h-full flex-col rounded-[14px] p-8 shadow-card xl:p-7 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg",
@@ -64,7 +70,11 @@ export function Pricing() {
                   <Cta
                     variant="secondary"
                     className="mt-6 h-12 w-full whitespace-nowrap px-4 text-sm"
-                    onClick={() => setQuestionOpen(true)}
+                    onClick={() => {
+                      trackCtaClick(format.ctaName, "pricing");
+                      trackEvent("ask_question_click", { location: "pricing", source: "pricing" });
+                      setQuestionOpen(true);
+                    }}
                   >
                     {format.cta}
                   </Cta>
@@ -74,11 +84,20 @@ export function Pricing() {
                     variant={format.recommended ? "primary" : "secondary"}
                     className="mt-6 h-12 w-full px-5 text-sm"
                   >
-                    <a href="#contact">{format.cta}</a>
+                    <a
+                      href="#contact"
+                      onClick={() => {
+                        trackCtaClick(format.ctaName, "pricing");
+                        if (format.ctaName === "product_review") trackFunnelClick("product_review", "pricing");
+                      }}
+                    >
+                      {format.cta}
+                    </a>
                   </Cta>
                 )}
               </div>
             </article>
+            </div>
           </Reveal>
         ))}
       </div>

@@ -42,7 +42,7 @@ const AREAS = [
 
 export function Expertise() {
   return (
-    <Section id="expertise" labelledBy="expertise-title">
+    <Section id="expertise" labelledBy="expertise-title" trackId="expertise">
       <SectionHead
         id="expertise-title"
         eyebrow="Экспертиза"

@@ -6,6 +6,8 @@ export interface PricingFormat {
   price: string;
   cta: string;
   recommended?: boolean;
+  /** Stable analytics identifier for cta_click — never derived from visible text. */
+  ctaName: string;
   /** Free entry point — opens the lightweight question form instead of the contact section. */
   entry?: boolean;
 }
@@ -25,6 +27,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     ],
     price: "Бесплатно",
     cta: "Задать вопрос →",
+    ctaName: "ask_question",
     entry: true,
   },
   {
@@ -34,6 +37,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     items: ["одного вопроса", "проверки гипотезы", "второго мнения"],
     price: "от 25 000 ₽",
     cta: "Обсудить задачу",
+    ctaName: "discuss_task",
   },
 
   {
@@ -43,6 +47,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     items: ["Product Discovery", "аналитики", "стратегии развития продукта"],
     price: "от 45 000 ₽",
     cta: "Проверить стратегию",
+    ctaName: "strategy_review",
     recommended: true,
   },
   {
@@ -52,6 +57,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     items: ["сложных продуктов", "анализа нескольких сценариев", "подготовки рекомендаций"],
     price: "от 80 000 ₽",
     cta: "Разобрать продукт",
+    ctaName: "product_review",
   },
   {
     title: "Критичный разбор продукта",
@@ -60,5 +66,6 @@ export const PRICING_FORMATS: PricingFormat[] = [
     items: ["анализ материалов", "консультацию", "письменные рекомендации"],
     price: "от 120 000 ₽",
     cta: "Оценить продукт",
+    ctaName: "product_assessment",
   },
 ];

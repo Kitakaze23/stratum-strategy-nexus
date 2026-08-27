@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+import { trackFunnelClick, trackServiceClick } from "@/analytics/events";
 import { SERVICES_CONTENT } from "@/data/services";
 
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
@@ -14,36 +15,41 @@ const SERVICES = [
     outcome:
       "Понимание реальных потребностей пользователей и приоритетных направлений развития продукта.",
     path: "/services/product-discovery",
+    id: "product_discovery",
   },
   {
     title: "Аудит цифрового продукта",
     text: "Независимая оценка продукта: ценностное предложение, процессы, метрики и качество решений.",
     outcome: "Список сильных и слабых сторон продукта с конкретными рекомендациями.",
     path: "/services/product-audit",
+    id: "product_audit",
   },
   {
     title: "Стратегия цифрового продукта",
     text: "Проверка позиционирования, приоритетов развития и логики уже принятых решений.",
     outcome: "Независимая профессиональная оценка продуктовой стратегии и приоритетов.",
     path: "/services/product-strategy",
+    id: "product_strategy",
   },
   {
     title: "Аудит MVP",
     text: "Разбор запущенного MVP: спрос, ценность, онбординг и причины отсутствия роста.",
     outcome: "Обоснованное решение о следующем шаге: продолжать, менять или остановиться.",
     path: "/services/mvp-review",
+    id: "mvp_review",
   },
   {
     title: "Правовая поддержка цифровых продуктов",
     text: "Помогаем компаниям оценивать юридические риски цифровых продуктов, защищать интеллектуальную собственность и создавать надёжную правовую основу для развития технологий.",
     outcome: "Карта правовых рисков и приоритетные действия до запуска, инвестиций или масштабирования.",
     path: "/services/legal-support",
+    id: "legal_support",
   },
 ] as const;
 
 export function Services() {
   return (
-    <Section id="services" tone="surface" labelledBy="services-title">
+    <Section id="services" tone="surface" labelledBy="services-title" trackId="services">
       <SectionHead
         id="services-title"
         eyebrow="Направления работы"
@@ -65,7 +71,15 @@ export function Services() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Cta asChild className="h-12 px-6">
-                  <Link to={FLAGSHIP.path}>Оценить продукт</Link>
+                  <Link
+                    to={FLAGSHIP.path}
+                    onClick={() => {
+                      trackServiceClick("ai_product_review", "services");
+                      trackFunnelClick("ai_product_review", "services");
+                    }}
+                  >
+                    Оценить продукт
+                  </Link>
                 </Cta>
               </div>
             </div>
@@ -97,6 +111,7 @@ export function Services() {
               </div>
               <Link
                 to={service.path}
+                onClick={() => trackServiceClick(service.id, "services")}
                 className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
               >
                 Подробнее

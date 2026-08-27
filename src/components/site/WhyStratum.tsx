@@ -31,7 +31,7 @@ const BLOCKS = [
 
 export function WhyStratum() {
   return (
-    <Section id="why" tone="navy" labelledBy="why-title">
+    <Section id="why" tone="navy" labelledBy="why-title" trackId="why_stratum">
       <SectionHead
         id="why-title"
         eyebrow="Почему Stratum"

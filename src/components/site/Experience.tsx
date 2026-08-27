@@ -25,7 +25,7 @@ const ITEMS = [
 
 export function Experience() {
   return (
-    <Section id="experience" labelledBy="experience-title">
+    <Section id="experience" labelledBy="experience-title" trackId="industrial_experience">
       <SectionHead
         id="experience-title"
         eyebrow="Опыт"

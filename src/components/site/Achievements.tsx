@@ -3,7 +3,7 @@ import { ACHIEVEMENTS, BRIDGE_POINTS, INDUSTRIAL_HIGHLIGHTS } from "@/data/team"
 
 export function Achievements() {
   return (
-    <Section id="achievements" tone="surface" labelledBy="achievements-title">
+    <Section id="achievements" tone="surface" labelledBy="achievements-title" trackId="achievements">
       <SectionHead
         id="achievements-title"
         eyebrow="Практика"
