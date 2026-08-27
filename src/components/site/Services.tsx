@@ -43,7 +43,7 @@ const SERVICES = [
 
 export function Services() {
   return (
-    <Section id="services" tone="surface" labelledBy="services-title">
+    <Section id="services" tone="surface" labelledBy="services-title" trackId="services">
       <SectionHead
         id="services-title"
         eyebrow="Направления работы"

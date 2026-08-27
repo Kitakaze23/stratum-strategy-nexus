@@ -10,7 +10,7 @@ const STEPS = [
 
 export function Process() {
   return (
-    <Section id="process" tone="surface" labelledBy="process-title">
+    <Section id="process" tone="surface" labelledBy="process-title" trackId="process">
       <SectionHead
         id="process-title"
         eyebrow="Процесс"

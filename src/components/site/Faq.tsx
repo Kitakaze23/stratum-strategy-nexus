@@ -10,7 +10,7 @@ import { Section, SectionHead } from "./primitives";
 
 export function Faq() {
   return (
-    <Section id="faq" labelledBy="faq-title">
+    <Section id="faq" labelledBy="faq-title" trackId="faq">
       <div className="grid gap-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <SectionHead

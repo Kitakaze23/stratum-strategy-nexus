@@ -11,7 +11,7 @@ export function Pricing() {
   const [questionOpen, setQuestionOpen] = useState(false);
 
   return (
-    <Section id="pricing" tone="surface" labelledBy="pricing-title">
+    <Section id="pricing" tone="surface" labelledBy="pricing-title" trackId="consultation_formats">
       <SectionHead
         id="pricing-title"
         eyebrow="Форматы"

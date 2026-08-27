@@ -24,7 +24,7 @@ const CARDS = [
 
 export function AfterLaunch() {
   return (
-    <Section id="after-launch" labelledBy="after-launch-title">
+    <Section id="after-launch" labelledBy="after-launch-title" trackId="product_review">
       <SectionHead
         id="after-launch-title"
         eyebrow="После запуска"

@@ -43,7 +43,7 @@ export function Contact() {
   };
 
   return (
-    <Section id="contact" labelledBy="contact-title">
+    <Section id="contact" labelledBy="contact-title" trackId="contact">
       <div className="grid gap-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <SectionHead

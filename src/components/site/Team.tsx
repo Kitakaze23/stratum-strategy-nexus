@@ -4,7 +4,7 @@ import { EXPERTS, UPCOMING_PRACTICES } from "@/data/team";
 
 export function Team() {
   return (
-    <Section id="team" labelledBy="team-title">
+    <Section id="team" labelledBy="team-title" trackId="team">
       <SectionHead
         id="team-title"
         eyebrow="Команда"
