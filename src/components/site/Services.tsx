@@ -111,6 +111,7 @@ export function Services() {
               </div>
               <Link
                 to={service.path}
+                onClick={() => trackServiceClick(service.id, "services")}
                 className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
               >
                 Подробнее

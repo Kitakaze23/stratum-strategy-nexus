@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+import { trackFunnelClick, trackServiceClick } from "@/analytics/events";
+
 import { Reveal, Section, SectionHead } from "./primitives";
 
 const CARDS = [
@@ -47,6 +49,11 @@ export function AfterLaunch() {
       <Reveal delay={0.08} className="mt-12">
         <Link
           to="/services/ai-product-review"
+          onClick={() => {
+            trackServiceClick("ai_product_review", "after_launch");
+            trackFunnelClick("ai_product_review", "after_launch");
+            trackFunnelClick("product_review", "after_launch");
+          }}
           className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
         >
           Product Review для AI-продуктов
