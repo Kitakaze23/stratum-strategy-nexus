@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { trackFunnelClick, trackServiceClick } from "@/analytics/events";
+import { useSectionView } from "@/analytics/hooks";
 import { SERVICES_CONTENT } from "@/data/services";
 
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
@@ -48,6 +49,8 @@ const SERVICES = [
 ] as const;
 
 export function Services() {
+  const legalRef = useSectionView<HTMLDivElement>("legal_support");
+
   return (
     <Section id="services" tone="surface" labelledBy="services-title" trackId="services">
       <SectionHead
@@ -102,6 +105,7 @@ export function Services() {
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {SERVICES.map((service, index) => (
           <Reveal key={service.title} delay={index * 0.05}>
+            <div ref={service.id === "legal_support" ? legalRef : undefined} className="h-full">
             <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card">
               <h3 className="text-lg font-semibold">{service.title}</h3>
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{service.text}</p>
@@ -111,7 +115,12 @@ export function Services() {
               </div>
               <Link
                 to={service.path}
-                onClick={() => trackServiceClick(service.id, "services")}
+                onClick={() => {
+                  trackServiceClick(service.id, "services");
+                  if (service.id === "product_audit" || service.id === "mvp_review") {
+                    trackFunnelClick("product_review", "services");
+                  }
+                }}
                 className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
               >
                 Подробнее
@@ -122,6 +131,7 @@ export function Services() {
                 />
               </Link>
             </article>
+            </div>
           </Reveal>
         ))}
       </div>

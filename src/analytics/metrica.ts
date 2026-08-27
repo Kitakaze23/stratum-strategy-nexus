@@ -50,11 +50,15 @@ export function initMetrica(): void {
     getYm()?.(METRICA_ID, "init", {
       // page views are sent manually so SPA navigation is counted exactly once
       defer: true,
+      ssr: true,
       clickmap: true,
       trackLinks: true,
       accurateTrackBounce: true,
       webvisor: true,
       trackHash: false,
+      ecommerce: "dataLayer",
+      referrer: document.referrer,
+      url: window.location.href,
     });
   } catch {
     /* analytics must never break the app */

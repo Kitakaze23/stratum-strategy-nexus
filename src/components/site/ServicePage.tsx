@@ -16,11 +16,16 @@ function serviceAnalyticsId(slug: string): string {
   return slug.replace(/-/g, "_");
 }
 
+const funnelViewsSent = new Set<string>();
+
 export function ServicePage({ service }: { service: ServiceContent }) {
   const related = SERVICES_CONTENT.filter((s) => s.slug !== service.slug);
   const serviceId = serviceAnalyticsId(service.slug);
 
   useEffect(() => {
+    // one funnel view per route visit, even if the component mounts twice
+    if (funnelViewsSent.has(service.path)) return;
+    funnelViewsSent.add(service.path);
     if (serviceId === "ai_product_review") {
       trackFunnelView("ai_product_review", service.path);
       trackFunnelView("product_review", service.path);

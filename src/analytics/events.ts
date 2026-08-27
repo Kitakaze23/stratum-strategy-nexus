@@ -85,11 +85,13 @@ export function trackFormOpen(formId: FormId, source: string): void {
   if (formId === "ask_question_form") {
     trackEvent("ask_question_form_open", { source });
   }
+  forEachFunnelIntent((funnel) => trackFunnelFormEvent(funnel, "form_open", { source }));
 }
 
 export function trackFormStart(formId: FormId): void {
   trackEvent("form_start", { form_id: formId });
   if (formId === "ask_question_form") trackEvent("ask_question_form_start", {});
+  forEachFunnelIntent((funnel) => trackFunnelFormEvent(funnel, "form_start"));
 }
 
 export function trackFormFieldFocus(formId: FormId, fieldId: string, fieldType: string): void {
@@ -100,6 +102,7 @@ export function trackFormFieldFocus(formId: FormId, fieldId: string, fieldType: 
 export function trackFormSubmit(formId: FormId, extra: AnalyticsParams = {}): void {
   trackEvent("form_submit", { form_id: formId, ...extra });
   if (formId === "ask_question_form") trackEvent("ask_question_form_submit", extra);
+  forEachFunnelIntent((funnel) => trackFunnelFormEvent(funnel, "form_submit", extra));
 }
 
 export function trackFormAbandon(formId: FormId, lastFieldId?: string): void {
@@ -108,20 +111,48 @@ export function trackFormAbandon(formId: FormId, lastFieldId?: string): void {
 
 /* ------------------------- service-level funnels -------------------------- */
 
+type Funnel = "product_review" | "ai_product_review";
+
+const INTENT_KEY = "stratum_funnel_intent";
+
+/** Remembers which funnel the visitor came from, so form events can be attributed. */
+function rememberFunnelIntent(funnel: Funnel): void {
+  try {
+    const current = new Set(readFunnelIntent());
+    current.add(funnel);
+    sessionStorage.setItem(INTENT_KEY, JSON.stringify([...current]));
+  } catch {
+    /* storage unavailable — funnel form events are simply not attributed */
+  }
+}
+
+function readFunnelIntent(): Funnel[] {
+  try {
+    const raw = sessionStorage.getItem(INTENT_KEY);
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? (parsed.filter((v) => typeof v === "string") as Funnel[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function forEachFunnelIntent(fn: (funnel: Funnel) => void): void {
+  for (const funnel of readFunnelIntent()) fn(funnel);
+}
+
 /** `product_review` / `ai_product_review` view + click + form funnels. */
-export function trackFunnelView(funnel: "product_review" | "ai_product_review", page: string): void {
+export function trackFunnelView(funnel: Funnel, page: string): void {
   trackEvent(`${funnel}_view`, { page });
 }
 
-export function trackFunnelClick(
-  funnel: "product_review" | "ai_product_review",
-  location: string,
-): void {
+export function trackFunnelClick(funnel: Funnel, location: string): void {
+  rememberFunnelIntent(funnel);
   trackEvent(`${funnel}_click`, { location });
 }
 
 export function trackFunnelFormEvent(
-  funnel: "product_review" | "ai_product_review",
+  funnel: Funnel,
   stage: "form_open" | "form_start" | "form_submit",
   params: AnalyticsParams = {},
 ): void {
