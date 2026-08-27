@@ -17,8 +17,13 @@ import type { AnalyticsParams, FormId } from "./types";
  * Fires `section_view` once per page view when the section enters the viewport.
  * Uses a stable analytics id, independent from the DOM anchor id.
  */
-export function useSectionView<T extends HTMLElement = HTMLElement>(sectionId?: string) {
+export function useSectionView<T extends HTMLElement = HTMLElement>(
+  sectionId?: string,
+  onView?: () => void,
+) {
   const ref = useRef<T | null>(null);
+  const onViewRef = useRef(onView);
+  onViewRef.current = onView;
 
   useEffect(() => {
     if (!sectionId) return;
@@ -32,6 +37,7 @@ export function useSectionView<T extends HTMLElement = HTMLElement>(sectionId?: 
           if (entry.isIntersecting && !sent) {
             sent = true;
             trackSectionView(sectionId);
+            onViewRef.current?.();
             observer.disconnect();
           }
         }

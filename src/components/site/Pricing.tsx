@@ -11,7 +11,9 @@ import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
 export function Pricing() {
   const [questionOpen, setQuestionOpen] = useState(false);
-  const entryRef = useSectionView<HTMLDivElement>("ask_question_card");
+  const entryRef = useSectionView<HTMLDivElement>("ask_question_card", () =>
+    trackEvent("ask_question_view", { location: "pricing" }),
+  );
 
   return (
     <Section id="pricing" tone="surface" labelledBy="pricing-title" trackId="consultation_formats">
