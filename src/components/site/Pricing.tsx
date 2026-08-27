@@ -24,7 +24,7 @@ export function Pricing() {
           <Reveal key={format.title} delay={index * 0.05} className="h-full">
             <article
               className={cn(
-                "flex h-full flex-col rounded-[14px] p-8 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg",
+                "flex h-full flex-col rounded-[14px] p-8 shadow-card xl:p-7 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg",
                 format.entry
                   ? "border border-dashed border-primary/50 bg-accent/40"
                   : format.recommended
@@ -63,7 +63,7 @@ export function Pricing() {
                 {format.entry ? (
                   <Cta
                     variant="secondary"
-                    className="mt-6 h-12 w-full px-5 text-sm"
+                    className="mt-6 h-12 w-full whitespace-nowrap px-4 text-sm"
                     onClick={() => setQuestionOpen(true)}
                   >
                     {format.cta}
