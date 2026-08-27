@@ -20,6 +20,7 @@ import { Route as ServicesProductAuditRouteImport } from './routes/services.prod
 import { Route as ServicesProductDiscoveryRouteImport } from './routes/services.product-discovery'
 import { Route as ServicesProductStrategyRouteImport } from './routes/services.product-strategy'
 import { Route as ApiPublicConsultationRouteImport } from './routes/api/public/consultation'
+import { Route as ApiPublicQuestionRouteImport } from './routes/api/public/question'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -78,6 +79,11 @@ const ApiPublicConsultationRoute = ApiPublicConsultationRouteImport.update({
   path: '/api/public/consultation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicQuestionRoute = ApiPublicQuestionRouteImport.update({
+  id: '/api/public/question',
+  path: '/api/public/question',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
+  '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/api/public/question'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/api/public/question'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -170,6 +181,7 @@ export interface FileRouteTypes {
     | '/services/product-discovery'
     | '/services/product-strategy'
     | '/api/public/consultation'
+    | '/api/public/question'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -185,6 +197,7 @@ export interface RootRouteChildren {
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
   ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
+  ApiPublicQuestionRoute: typeof ApiPublicQuestionRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicConsultationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/question': {
+      id: '/api/public/question'
+      path: '/api/public/question'
+      fullPath: '/api/public/question'
+      preLoaderRoute: typeof ApiPublicQuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -289,6 +309,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
   ServicesProductStrategyRoute: ServicesProductStrategyRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
+  ApiPublicQuestionRoute: ApiPublicQuestionRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
