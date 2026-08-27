@@ -18,4 +18,5 @@ export interface TemplateEntry {
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'consultation-request': consultationRequestTemplate,
+  'question-request': questionRequestTemplate,
 }
