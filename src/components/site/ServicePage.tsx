@@ -5,7 +5,7 @@ import { trackCtaClick, trackFunnelView, trackServiceClick } from "@/analytics/e
 import type { ServiceContent } from "@/data/services";
 import { SERVICES_CONTENT } from "@/data/services";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -20,7 +20,12 @@ export function ServicePage({ service }: { service: ServiceContent }) {
   const related = SERVICES_CONTENT.filter((s) => s.slug !== service.slug);
   const serviceId = serviceAnalyticsId(service.slug);
 
+  const funnelViewSent = useRef<string | null>(null);
+
   useEffect(() => {
+    // one funnel view per route, even if the effect re-runs (StrictMode/HMR)
+    if (funnelViewSent.current === service.path) return;
+    funnelViewSent.current = service.path;
     if (serviceId === "ai_product_review") {
       trackFunnelView("ai_product_review", service.path);
       trackFunnelView("product_review", service.path);
