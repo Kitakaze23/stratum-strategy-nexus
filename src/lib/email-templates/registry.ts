@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 
 import { template as consultationRequestTemplate } from './consultation-request'
+import { template as questionRequestTemplate } from './question-request'
 
 export interface TemplateEntry {
   component: ComponentType<any>
