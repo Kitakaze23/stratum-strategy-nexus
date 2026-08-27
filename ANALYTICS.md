@@ -10,27 +10,35 @@ directly: everything goes through `src/analytics`.
 | `VITE_YANDEX_METRICA_ID` | Yandex Metrica counter ID (`112000998`). If empty/missing, all analytics calls become no-ops and the site works normally. |
 
 The counter ID exists in exactly one place (`src/analytics/metrica.ts`, read from
-the env var) and `init` runs once per browser session — verified in QA.
+the env var). The official counter-specific tag URL is loaded:
+
+```text
+https://mc.yandex.ru/metrika/tag.js?id=112000998
+```
+
+`init` runs once per browser session. A marker stored on `window` prevents a
+React remount or duplicate analytics mount from initializing the same counter
+again.
 
 Init options:
 
 ```js
 ym(112000998, 'init', {
-  defer: true,            // SPA page views are sent manually — no double counting
   ssr: true,
-  webvisor: true,
   clickmap: true,
+  webvisor: true,
   ecommerce: 'dataLayer',
   referrer: document.referrer,
   url: location.href,
   accurateTrackBounce: true,
   trackLinks: true,
-  trackHash: false,
 });
 ```
 
-`tag.js` is loaded async + defer, so it never blocks rendering. Scroll maps,
-form analytics, traffic sources and UTM attribution keep working natively.
+`tag.js` is loaded asynchronously, so it never blocks rendering. Initial
+tracking is handled by the official tag; subsequent SPA route changes are sent
+with `ym(id, "hit", ...)`. Scroll maps, form analytics, traffic sources and UTM
+attribution keep working natively.
 `ecommerce: "dataLayer"` is configured but no purchase/revenue events are ever
 pushed — `payment_received`, `lead_qualified` and `meeting_booked` stay reserved
 for real business actions from a future CRM/payment integration.
@@ -131,10 +139,15 @@ Every event listed above carries only technical identifiers. Specifically:
   phones, e-mails, Telegram/WhatsApp handles, question text or product URLs.
 - `contact_click` sends the channel name, never the phone number or address.
 
-## QA (verified in a real browser)
+## QA
 
-Metrica initialized exactly once with ID `112000998`; one `hit` per route
-including client-side SPA transitions and back-navigation; `scroll_depth`
+Verification must inspect actual browser network traffic to `mc.yandex.ru`, not
+only the existence of `window.ym` or queued `ym.a` calls. A passing check shows
+requests other than `tag.js` after initial load, SPA navigation, CTA/form-open
+actions, and a successful form submission.
+
+Metrica initializes exactly once with ID `112000998`; SPA route transitions and
+back-navigation issue `hit` calls; `scroll_depth`
 25/50/75/90 once each; `section_view` once per section; CTA, service and contact
 clicks recorded; contact and question form `form_open` → `form_start` →
 `form_field_focus` → `form_submit` recorded with identifiers only; UTM
