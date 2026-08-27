@@ -1,15 +1,33 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
+import { trackCtaClick, trackFunnelView, trackServiceClick } from "@/analytics/events";
 import type { ServiceContent } from "@/data/services";
 import { SERVICES_CONTENT } from "@/data/services";
+
+import { useEffect } from "react";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
+/** Stable analytics identifier derived from the service slug, not from copy. */
+function serviceAnalyticsId(slug: string): string {
+  return slug.replace(/-/g, "_");
+}
+
 export function ServicePage({ service }: { service: ServiceContent }) {
   const related = SERVICES_CONTENT.filter((s) => s.slug !== service.slug);
+  const serviceId = serviceAnalyticsId(service.slug);
+
+  useEffect(() => {
+    if (serviceId === "ai_product_review") {
+      trackFunnelView("ai_product_review", service.path);
+      trackFunnelView("product_review", service.path);
+    } else if (serviceId === "mvp_review" || serviceId === "product_audit") {
+      trackFunnelView("product_review", service.path);
+    }
+  }, [serviceId, service.path]);
 
   return (
     <>
@@ -33,10 +51,23 @@ export function ServicePage({ service }: { service: ServiceContent }) {
               <p className="mt-6 text-lg leading-[1.75] text-muted-foreground">{service.subtitle}</p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Cta asChild>
-                  <a href="/#contact">{service.cta}</a>
+                  <a
+                    href="/#contact"
+                    onClick={() => {
+                      trackCtaClick("service_primary", "service_hero");
+                      trackServiceClick(serviceId, "service_hero");
+                    }}
+                  >
+                    {service.cta}
+                  </a>
                 </Cta>
                 <Cta asChild variant="secondary">
-                  <a href="/#contact">Обсудить задачу</a>
+                  <a
+                    href="/#contact"
+                    onClick={() => trackCtaClick("discuss_task", "service_hero")}
+                  >
+                    Обсудить задачу
+                  </a>
                 </Cta>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">{service.ctaNote}</p>
@@ -141,7 +172,15 @@ export function ServicePage({ service }: { service: ServiceContent }) {
           </ul>
           <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-navy-foreground/15 pt-10">
             <Cta asChild variant="ghostLight">
-              <a href="/#contact">{service.cta}</a>
+              <a
+                href="/#contact"
+                onClick={() => {
+                  trackCtaClick("service_primary", "service_audience");
+                  trackServiceClick(serviceId, "service_audience");
+                }}
+              >
+                {service.cta}
+              </a>
             </Cta>
             <p className="text-sm text-navy-foreground/70">
               Работа не связана с разработкой — только независимая оценка и рекомендации.
@@ -163,6 +202,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
                 ))}
                 <Link
                   to={service.crossRef.linkTo}
+                  onClick={() => trackServiceClick(serviceId, "service_crossref")}
                   className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
                 >
                   {service.crossRef.linkLabel}
@@ -191,6 +231,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
               <li key={item.slug}>
                 <Link
                   to={item.path}
+                  onClick={() => trackServiceClick(serviceAnalyticsId(item.slug), "service_related")}
                   className="group flex h-full flex-col rounded-[14px] border border-border bg-card p-7 shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
                 >
                   <h3 className="text-lg font-semibold">{item.navLabel}</h3>
