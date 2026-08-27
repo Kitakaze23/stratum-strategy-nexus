@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useFormAnalytics } from "@/analytics/hooks";
 import { questionSchema, submitQuestion, type QuestionRequest } from "@/lib/question";
 
 import { Cta } from "./primitives";
@@ -21,11 +22,14 @@ const fieldClass =
 export function QuestionDialog({
   open,
   onOpenChange,
+  source = "pricing",
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  source?: string;
 }) {
   const [sent, setSent] = useState(false);
+  const analytics = useFormAnalytics("ask_question_form", { source, open });
   const {
     register,
     handleSubmit,
@@ -46,6 +50,8 @@ export function QuestionDialog({
       toast.error("Вопрос не отправлен", { description: result.message });
       return;
     }
+    // fires only after the API confirms the submission — no field values sent
+    analytics.onSubmitSuccess();
     reset();
     setSent(true);
   };
@@ -89,6 +95,7 @@ export function QuestionDialog({
                   placeholder="Алексей"
                   aria-invalid={!!errors.name}
                   {...register("name")}
+                  {...analytics.fieldProps("name", "text")}
                 />
                 {errors.name ? (
                   <p role="alert" className="mt-2 text-sm text-destructive">
@@ -107,6 +114,7 @@ export function QuestionDialog({
                   placeholder="E-mail, телефон или Telegram"
                   aria-invalid={!!errors.contact}
                   {...register("contact")}
+                  {...analytics.fieldProps("contact", "text")}
                 />
                 {errors.contact ? (
                   <p role="alert" className="mt-2 text-sm text-destructive">
@@ -126,6 +134,7 @@ export function QuestionDialog({
                   placeholder="Ситуация и вопрос, на который нужен взгляд со стороны"
                   aria-invalid={!!errors.question}
                   {...register("question")}
+                  {...analytics.fieldProps("question", "textarea")}
                 />
                 {errors.question ? (
                   <p role="alert" className="mt-2 text-sm text-destructive">
@@ -145,6 +154,7 @@ export function QuestionDialog({
                   placeholder="https://"
                   aria-invalid={!!errors.productUrl}
                   {...register("productUrl")}
+                  {...analytics.fieldProps("product_url", "url")}
                 />
                 {errors.productUrl ? (
                   <p role="alert" className="mt-2 text-sm text-destructive">
