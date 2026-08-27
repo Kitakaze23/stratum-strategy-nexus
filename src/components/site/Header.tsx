@@ -1,6 +1,8 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import { trackCtaClick } from "@/analytics/events";
+
 import { Cta } from "./primitives";
 import { NAV_LINKS } from "./contacts";
 
@@ -54,7 +56,9 @@ export function Header() {
               </a>
             ))}
             <Cta asChild className="h-11 px-5 text-sm">
-              <a href="#contact">Обсудить задачу</a>
+              <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
+                Обсудить задачу
+              </a>
             </Cta>
           </nav>
 
@@ -92,7 +96,13 @@ export function Header() {
               ))}
             </ul>
             <Cta asChild className="mt-10 w-full">
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <a
+                href="#contact"
+                onClick={() => {
+                  trackCtaClick("discuss_task", "mobile_nav");
+                  setOpen(false);
+                }}
+              >
                 Обсудить задачу
               </a>
             </Cta>

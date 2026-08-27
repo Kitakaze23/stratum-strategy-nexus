@@ -1,3 +1,6 @@
+import { trackCtaClick } from "@/analytics/events";
+import { useSectionView } from "@/analytics/hooks";
+
 import { Cta, Reveal } from "./primitives";
 import { HeroFigure } from "./HeroFigure";
 
@@ -11,8 +14,10 @@ const TAGS = [
 ];
 
 export function Hero() {
+  const sectionRef = useSectionView<HTMLElement>("hero");
+
   return (
-    <section id="top" className="border-b border-border pt-[76px]">
+    <section ref={sectionRef} id="top" className="border-b border-border pt-[76px]">
       <div className="container-page grid gap-16 py-24 md:py-[7.5rem] lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <Reveal>
@@ -34,10 +39,14 @@ export function Hero() {
 
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
             <Cta asChild>
-              <a href="#contact">Обсудить задачу</a>
+              <a href="#contact" onClick={() => trackCtaClick("discuss_task", "hero")}>
+                Обсудить задачу
+              </a>
             </Cta>
             <Cta asChild variant="secondary">
-              <a href="#contact">Получить независимое мнение</a>
+              <a href="#contact" onClick={() => trackCtaClick("independent_opinion", "hero")}>
+                Получить независимое мнение
+              </a>
             </Cta>
           </Reveal>
         </div>
