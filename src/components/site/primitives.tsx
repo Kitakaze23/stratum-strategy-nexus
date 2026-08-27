@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import { useSectionView } from "@/analytics/hooks";
 import { cn } from "@/lib/utils";
 
 /* ---------------------------------- CTA ---------------------------------- */
