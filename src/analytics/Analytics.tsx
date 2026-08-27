@@ -15,6 +15,7 @@ export function Analytics() {
   const router = useRouter();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const lastPath = useRef<string | null>(null);
+  const isInitialPage = useRef(true);
 
   useEffect(() => {
     captureAttribution();
@@ -25,7 +26,11 @@ export function Analytics() {
     if (lastPath.current === pathname) return;
     lastPath.current = pathname;
     // let the route's head() apply so document.title is correct
-    const timer = window.setTimeout(() => trackPageView(pathname), 60);
+    // The official init sends the initial page hit. Manual hits are only for
+    // client-side route changes, while page_view remains available as a goal.
+    const sendHit = !isInitialPage.current;
+    isInitialPage.current = false;
+    const timer = window.setTimeout(() => trackPageView(pathname, undefined, sendHit), 60);
     return () => window.clearTimeout(timer);
   }, [pathname, router]);
 
