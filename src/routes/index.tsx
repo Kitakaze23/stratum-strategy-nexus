@@ -4,21 +4,21 @@ import { Achievements } from "@/components/site/Achievements";
 import { AfterLaunch } from "@/components/site/AfterLaunch";
 import { Challenges } from "@/components/site/Challenges";
 import { Contact } from "@/components/site/Contact";
-import { Experience } from "@/components/site/Experience";
-import { Expertise } from "@/components/site/Expertise";
 import { Faq } from "@/components/site/Faq";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
+import { Insights } from "@/components/site/Insights";
+import { Portfolio } from "@/components/site/Portfolio";
 import { Pricing } from "@/components/site/Pricing";
 import { Process } from "@/components/site/Process";
 import { Services } from "@/components/site/Services";
-import { WhyStratum } from "@/components/site/WhyStratum";
+import { Team } from "@/components/site/Team";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
 
 
-const TITLE = "Stratum Consulting — независимый Product Advisor и Product Review";
+const TITLE = "Независимый Product Advisor — Product Review AI и цифровых продуктов | Stratum Consulting";
 const DESCRIPTION =
   "Независимая продуктовая экспертиза: Product Review, аудит цифрового продукта и MVP, Product Discovery и стратегия. Помогаем принимать обоснованные продуктовые решения.";
 
@@ -51,8 +51,8 @@ export const Route = createFileRoute("/")({
               "@type": "Organization",
               name: "Stratum Consulting",
               description: DESCRIPTION,
-              telephone: "+7 (915) 116-73-76",
-              email: "kolesnikov_msu@mail.ru",
+              telephone: "+7 (925) 539-33-53",
+              email: "stratum.cons@inbox.ru",
             },
             {
               "@type": "ProfessionalService",
@@ -68,8 +68,8 @@ export const Route = createFileRoute("/")({
                 "Executive advisory",
               ],
               priceRange: "от 25 000 ₽",
-              telephone: "+7 (915) 116-73-76",
-              email: "kolesnikov_msu@mail.ru",
+              telephone: "+7 (925) 539-33-53",
+              email: "stratum.cons@inbox.ru",
             },
           ],
         }),
@@ -98,16 +98,15 @@ function Index() {
         <Hero />
         <Challenges />
         <AfterLaunch />
-        <Expertise />
         <Services />
-        <WhyStratum />
         <Achievements />
-        <Experience />
+        <Portfolio />
+        <Team />
+        <Insights />
         <Process />
         <Pricing />
         <Faq />
         <Contact />
-
       </main>
       <Footer />
       <Toaster />

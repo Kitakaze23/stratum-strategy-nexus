@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
@@ -41,6 +43,16 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
@@ -96,12 +108,14 @@ export interface FileRoutesByFullPath {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -111,12 +125,14 @@ export interface FileRoutesByTo {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -127,12 +143,14 @@ export interface FileRoutesById {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -144,12 +162,14 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -159,12 +179,14 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -174,12 +196,14 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -190,12 +214,14 @@ export interface RootRouteChildren {
   ConsentRoute: typeof ConsentRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
   ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
   ServicesProductAuditRoute: typeof ServicesProductAuditRoute
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
   ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
   ApiPublicQuestionRoute: typeof ApiPublicQuestionRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -229,6 +255,20 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/ai-product-review': {
@@ -302,12 +342,14 @@ const rootRouteChildren: RootRouteChildren = {
   ConsentRoute: ConsentRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  InsightsSlugRoute: InsightsSlugRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
   ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,
   ServicesProductAuditRoute: ServicesProductAuditRoute,
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
   ServicesProductStrategyRoute: ServicesProductStrategyRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
   ApiPublicQuestionRoute: ApiPublicQuestionRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,

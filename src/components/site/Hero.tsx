@@ -4,15 +4,6 @@ import { useSectionView } from "@/analytics/hooks";
 import { Cta, Reveal } from "./primitives";
 import { HeroFigure } from "./HeroFigure";
 
-const TAGS = [
-  "Product Discovery",
-  "Product Review",
-  "Product-Market Fit",
-  "Enterprise Analytics",
-  "Artificial Intelligence",
-  "Legal Support",
-];
-
 export function Hero() {
   const sectionRef = useSectionView<HTMLElement>("hero");
 
@@ -27,14 +18,10 @@ export function Hero() {
               дорогостоящими ошибками
             </h1>
             <p className="mt-7 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
-              Независимая продуктовая экспертиза для AI и цифровых решений — от стартапов до крупных
-              корпоративных и промышленных систем.
+              Независимая продуктовая экспертиза для стартапов, технологических компаний, крупного
+              бизнеса и промышленных предприятий. Product Discovery, стратегический аудит, AI и
+              аналитика для принятия более обоснованных решений.
             </p>
-            <p className="mt-4 max-w-[600px] text-[1.0625rem] leading-[1.75] text-muted-foreground">
-              Product Review, стратегия, аналитика и экспертная оценка для принятия более
-              обоснованных решений.
-            </p>
-
           </Reveal>
 
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
@@ -59,22 +46,18 @@ export function Hero() {
       </div>
 
       <div className="container-page">
-        <div className="border-t border-border py-12">
-          <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Направления экспертизы
+        <div className="border-t border-border py-14">
+          <p className="text-[1.5rem] font-semibold leading-[1.3] md:text-[2rem]">
+            Better Decisions. Better Products.
           </p>
-          <ul className="mt-6 flex flex-wrap gap-3">
-            {TAGS.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full border border-border bg-surface px-4 py-2 text-[0.8125rem] text-foreground"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <p className="mt-4 max-w-[720px] text-[1.0625rem] leading-[1.75] text-muted-foreground">
+            Дорогие продуктовые ошибки почти всегда рождаются из неверных предположений, сделанных
+            до разработки. Наша задача — снизить неопределённость до того, как вложены значительные
+            средства.
+          </p>
         </div>
       </div>
+
     </section>
   );
 }

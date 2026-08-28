@@ -3,7 +3,12 @@ import { useState } from "react";
 
 import { trackCtaClick, trackEvent, trackFunnelClick } from "@/analytics/events";
 import { useSectionView } from "@/analytics/hooks";
-import { PRICING_FORMATS, PRICING_NOTE } from "@/data/pricing";
+import {
+  PRICING_FORMATS,
+  PRICING_NOTE_LINK,
+  PRICING_NOTE_PREFIX,
+  PRICING_NOTE_SUFFIX,
+} from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 import { QuestionDialog } from "./QuestionDialog";
@@ -24,7 +29,7 @@ export function Pricing() {
         description="Начать можно с одного вопроса — и двигаться дальше по мере того, как становится понятна сложность задачи. Если требуется предварительное изучение материалов или участие нескольких заинтересованных сторон, итоговая стоимость определяется индивидуально."
       />
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {PRICING_FORMATS.map((format, index) => (
           <Reveal key={format.title} delay={index * 0.05} className="h-full">
             <div ref={format.entry ? entryRef : undefined} className="h-full">
@@ -107,7 +112,15 @@ export function Pricing() {
 
       <Reveal delay={0.1}>
         <p className="mt-12 max-w-[760px] border-l-2 border-primary pl-6 text-[0.9375rem] leading-[1.7] text-muted-foreground">
-          {PRICING_NOTE}
+          {PRICING_NOTE_PREFIX}
+          <a
+            href="#contact"
+            onClick={() => trackCtaClick("pricing_note_request", "pricing")}
+            className="font-medium text-primary underline underline-offset-4"
+          >
+            {PRICING_NOTE_LINK}
+          </a>
+          {PRICING_NOTE_SUFFIX}
         </p>
       </Reveal>
     </Section>

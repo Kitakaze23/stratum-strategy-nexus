@@ -22,7 +22,7 @@ export const EXPERTS: readonly Expert[] = [
   {
     slug: "vasiliy-kolesnikov",
     name: "Василий Колесников",
-    role: "Founder & Product Advisor",
+    role: "Product Advisor",
     descriptor: "Основатель Stratum Consulting",
     photo: "/experts/vasiliy-kolesnikov.jpg",
     primaryExpertise: {
@@ -31,7 +31,7 @@ export const EXPERTS: readonly Expert[] = [
     },
     tags: ["Product Review", "AI & Digital Products", "Industrial & Energy"],
     bio: [
-      "Василий Колесников — Product Advisor с опытом создания и развития цифровых продуктов для крупного бизнеса и промышленности.",
+      "Независимый Product Advisor. Помогает оценивать цифровые продукты, AI-решения и сложные продуктовые инициативы до существенных инвестиций в разработку и масштабирование.",
       "Работал с продуктами в банковской и промышленной среде, объединяя продуктовую стратегию, аналитику, AI и системный подход к сложным инженерным задачам.",
       "В настоящее время — Product Manager / Stream Lead в Сбербанке, где отвечает за развитие аналитической платформы для предпринимателей.",
       "Ранее более 10 лет работал в сфере промышленной цифровизации и геотехнического контроля в ЯМАЛ СПГ.",

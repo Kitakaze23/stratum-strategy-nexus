@@ -10,17 +10,17 @@ export const CONTACTS = {
 
 export const NAV_LINKS = [
   { href: "#after-launch", label: "Product Review" },
-  { href: "#expertise", label: "Экспертиза" },
-  { href: "#services", label: "Услуги" },
-  { href: "#process", label: "Подход" },
+  { href: "#portfolio", label: "Опыт" },
+  { href: "#team", label: "Команда" },
+  { href: "#insights", label: "Статьи" },
   { href: "#pricing", label: "Форматы" },
   { href: "#contact", label: "Контакты" },
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#expertise", label: "Экспертиза" },
-  // { href: "#team", label: "Команда экспертов" },
-  { href: "#services", label: "Услуги" },
+  { href: "#portfolio", label: "Избранный опыт" },
+  { href: "#team", label: "Команда экспертов" },
+  { href: "#insights", label: "Статьи" },
   { href: "#pricing", label: "Стоимость" },
   { href: "#contact", label: "Контакты" },
 ] as const;
