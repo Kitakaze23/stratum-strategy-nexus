@@ -37,11 +37,6 @@ export async function sendTemplateEmail(
   to: string,
   options: SendTemplateEmailOptions = {}
 ): Promise<SendTemplateEmailResult> {
-  const apiKey = process.env['LOVABLE_API_KEY']
-  if (!apiKey) {
-    throw new Error('LOVABLE_API_KEY is not configured')
-  }
-
   const template = TEMPLATES[templateName]
   if (!template) {
     throw new Error(
@@ -64,6 +59,16 @@ export async function sendTemplateEmail(
     typeof template.subject === 'function'
       ? template.subject(templateData)
       : template.subject
+
+  const apiKey = process.env['LOVABLE_API_KEY']
+
+  // Provider selection: Lovable Managed Email when LOVABLE_API_KEY is present
+  // (Lovable hosting/preview); otherwise SMTP (external Node.js hosting).
+  if (!apiKey) {
+    const smtpTo = process.env['SMTP_TO'] || recipient
+    await sendViaSmtp({ to: smtpTo, subject, html, text })
+    return { sent: true }
+  }
 
   try {
     await sendLovableEmail(
@@ -89,4 +94,66 @@ export async function sendTemplateEmail(
   }
 
   return { sent: true }
+}
+
+// ---------------------------------------------------------------------------
+// SMTP fallback (external Node.js hosting without LOVABLE_API_KEY)
+// ---------------------------------------------------------------------------
+
+interface SmtpMessage {
+  to: string
+  subject: string
+  html: string
+  text: string
+}
+
+/**
+ * Sends via SMTP (STARTTLS) using env-provided credentials. Used only when
+ * LOVABLE_API_KEY is absent (self-hosted production). Credentials are never
+ * logged; SMTP errors are logged with secrets redacted, then rethrown so the
+ * caller keeps its existing {"ok":false,"error":"send_failed"} behavior.
+ */
+async function sendViaSmtp(message: SmtpMessage): Promise<void> {
+  const host = process.env['SMTP_HOST']
+  const port = Number(process.env['SMTP_PORT'] || 587)
+  const user = process.env['SMTP_USER']
+  const pass = process.env['SMTP_PASSWORD']
+  const from = process.env['SMTP_FROM'] || user
+
+  if (!host || !user || !pass || !from) {
+    throw new Error(
+      'SMTP is not configured: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD and SMTP_FROM are required'
+    )
+  }
+
+  const nodemailer = await import('nodemailer')
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465, // 465 = implicit TLS; otherwise STARTTLS
+    auth: { user, pass },
+  })
+
+  try {
+    await transporter.sendMail({
+      from: `${SITE_NAME} <${from}>`,
+      to: message.to,
+      subject: message.subject,
+      html: message.html,
+      text: message.text,
+    })
+  } catch (error) {
+    // Redact credentials before logging.
+    const redacted =
+      error instanceof Error
+        ? error.message.replaceAll(pass, '[redacted]').replaceAll(user, '[redacted]')
+        : String(error)
+    console.error('[email] SMTP send failed:', redacted, {
+      host,
+      port,
+      from,
+      to: message.to,
+    })
+    throw new Error(`SMTP send failed: ${redacted}`)
+  }
 }
