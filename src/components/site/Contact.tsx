@@ -13,10 +13,34 @@ import { consultationSchema, submitConsultationRequest, type ConsultationRequest
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
 const CHANNELS = [
-  { icon: Phone, label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref, channel: "phone" },
-  { icon: Send, label: "Telegram", value: CONTACTS.telegram, href: CONTACTS.telegramHref, channel: "telegram" },
-  { icon: MessageCircle, label: "WhatsApp", value: CONTACTS.phone, href: CONTACTS.whatsappHref, channel: "whatsapp" },
-  { icon: Mail, label: "E-mail", value: CONTACTS.email, href: CONTACTS.emailHref, channel: "email" },
+  {
+    icon: Send,
+    label: "Написать в Telegram",
+    value: CONTACTS.telegram,
+    href: CONTACTS.telegramHref,
+    channel: "telegram",
+  },
+  {
+    icon: Mail,
+    label: "Написать на Email",
+    value: CONTACTS.email,
+    href: CONTACTS.emailHref,
+    channel: "email",
+  },
+  {
+    icon: Phone,
+    label: "Позвонить",
+    value: CONTACTS.phone,
+    href: CONTACTS.phoneHref,
+    channel: "phone",
+  },
+  {
+    icon: MessageCircle,
+    label: "Написать в WhatsApp",
+    value: CONTACTS.phone,
+    href: CONTACTS.whatsappHref,
+    channel: "whatsapp",
+  },
 ] as const;
 
 const fieldClass =
@@ -54,7 +78,7 @@ export function Contact() {
           <SectionHead
             id="contact-title"
             eyebrow="Контакты"
-            title="Обсудим вашу задачу"
+            title="Связаться со Stratum"
             description="Опишите задачу, с которой вы столкнулись. После получения заявки мы свяжемся с вами, чтобы уточнить детали и предложить наиболее подходящий формат работы."
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -67,10 +91,10 @@ export function Contact() {
                 >
                   <channel.icon className="h-6 w-6 shrink-0 text-primary" strokeWidth={1.5} aria-hidden="true" />
                   <span className="min-w-0">
-                    <span className="block text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                      {channel.label}
+                    <span className="block text-[0.9375rem] font-medium">{channel.label}</span>
+                    <span className="block truncate text-[0.8125rem] text-muted-foreground">
+                      {channel.value}
                     </span>
-                    <span className="block truncate text-[0.9375rem]">{channel.value}</span>
                   </span>
                 </a>
               </li>
