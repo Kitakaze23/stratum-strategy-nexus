@@ -98,16 +98,15 @@ function Index() {
         <Hero />
         <Challenges />
         <AfterLaunch />
-        <Expertise />
         <Services />
-        <WhyStratum />
         <Achievements />
-        <Experience />
+        <Portfolio />
+        <Team />
+        <Insights />
         <Process />
         <Pricing />
         <Faq />
         <Contact />
-
       </main>
       <Footer />
       <Toaster />
