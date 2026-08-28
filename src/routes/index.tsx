@@ -18,7 +18,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
 
 
-const TITLE = "Stratum Consulting — независимый Product Advisor и Product Review";
+const TITLE = "Независимый Product Advisor — Product Review AI и цифровых продуктов | Stratum Consulting";
 const DESCRIPTION =
   "Независимая продуктовая экспертиза: Product Review, аудит цифрового продукта и MVP, Product Discovery и стратегия. Помогаем принимать обоснованные продуктовые решения.";
 
@@ -51,8 +51,8 @@ export const Route = createFileRoute("/")({
               "@type": "Organization",
               name: "Stratum Consulting",
               description: DESCRIPTION,
-              telephone: "+7 (915) 116-73-76",
-              email: "kolesnikov_msu@mail.ru",
+              telephone: "+7 (925) 539-33-53",
+              email: "stratum.cons@inbox.ru",
             },
             {
               "@type": "ProfessionalService",
@@ -68,8 +68,8 @@ export const Route = createFileRoute("/")({
                 "Executive advisory",
               ],
               priceRange: "от 25 000 ₽",
-              telephone: "+7 (915) 116-73-76",
-              email: "kolesnikov_msu@mail.ru",
+              telephone: "+7 (925) 539-33-53",
+              email: "stratum.cons@inbox.ru",
             },
           ],
         }),
