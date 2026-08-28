@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
@@ -41,6 +42,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -127,6 +135,7 @@ export interface FileRoutesById {
   '/consent': typeof ConsentRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/consent'
     | '/privacy'
     | '/sitemap.xml'
+    | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -190,6 +202,7 @@ export interface RootRouteChildren {
   ConsentRoute: typeof ConsentRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
   ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
@@ -229,6 +242,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/ai-product-review': {
@@ -302,6 +322,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConsentRoute: ConsentRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  InsightsSlugRoute: InsightsSlugRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
   ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,
