@@ -37,11 +37,6 @@ export async function sendTemplateEmail(
   to: string,
   options: SendTemplateEmailOptions = {}
 ): Promise<SendTemplateEmailResult> {
-  const apiKey = process.env['LOVABLE_API_KEY']
-  if (!apiKey) {
-    throw new Error('LOVABLE_API_KEY is not configured')
-  }
-
   const template = TEMPLATES[templateName]
   if (!template) {
     throw new Error(
@@ -64,6 +59,15 @@ export async function sendTemplateEmail(
     typeof template.subject === 'function'
       ? template.subject(templateData)
       : template.subject
+
+  const apiKey = process.env['LOVABLE_API_KEY']
+
+  // Provider selection: Lovable Managed Email when LOVABLE_API_KEY is present
+  // (Lovable hosting/preview); otherwise SMTP (external Node.js hosting).
+  if (!apiKey) {
+    await sendViaSmtp({ subject, html, text })
+    return { sent: true }
+  }
 
   try {
     await sendLovableEmail(
