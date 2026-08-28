@@ -65,7 +65,8 @@ export async function sendTemplateEmail(
   // Provider selection: Lovable Managed Email when LOVABLE_API_KEY is present
   // (Lovable hosting/preview); otherwise SMTP (external Node.js hosting).
   if (!apiKey) {
-    await sendViaSmtp({ subject, html, text })
+    const smtpTo = process.env['SMTP_TO'] || recipient
+    await sendViaSmtp({ to: smtpTo, subject, html, text })
     return { sent: true }
   }
 
