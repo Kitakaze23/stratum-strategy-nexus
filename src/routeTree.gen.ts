@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
@@ -42,6 +43,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsSlugRoute = InsightsSlugRouteImport.update({
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
     | '/lovable/email/transactional/preview'
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   ServicesProductAuditRoute: typeof ServicesProductAuditRoute
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
   ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
   ApiPublicQuestionRoute: typeof ApiPublicQuestionRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -242,6 +255,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights/$slug': {
@@ -329,6 +349,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesProductAuditRoute: ServicesProductAuditRoute,
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
   ServicesProductStrategyRoute: ServicesProductStrategyRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
   ApiPublicQuestionRoute: ApiPublicQuestionRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
