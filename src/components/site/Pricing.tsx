@@ -36,14 +36,14 @@ export function Pricing() {
             <article
               className={cn(
                 "flex h-full flex-col rounded-[14px] p-8 shadow-card xl:p-7 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg",
-                format.entry
+                format.entry || format.featured
                   ? "border border-dashed border-primary/50 bg-accent/40"
                   : format.recommended
                     ? "border-2 border-primary bg-card"
                     : "border border-border bg-card",
               )}
             >
-              {format.entry ? (
+              {format.entry || format.featured ? (
                 <p className="mb-5 inline-flex w-fit rounded-full border border-primary/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-primary">
                   С чего начать
                 </p>
