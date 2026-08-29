@@ -10,6 +10,8 @@ export interface PricingFormat {
   ctaName: string;
   /** Free entry point — opens the lightweight question form instead of the contact section. */
   entry?: boolean;
+  /** Visual-only flag — renders with the entry-card accent style but keeps the contact-link CTA. */
+  featured?: boolean;
 }
 
 export const PRICING_NOTE_PREFIX = "Не уверены, какой формат вам подходит? ";
@@ -33,7 +35,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
   },
   {
     title: "Экспресс-консультация",
-    duration: "30 минут",
+    duration: "60 минут",
     listLabel: "Подходит для",
     items: [
       "одного вопроса",
@@ -46,7 +48,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
   },
   {
     title: "Стратегическая консультация",
-    duration: "60 минут",
+    duration: "120 минут",
     listLabel: "Подходит для",
     items: [
       "Product Discovery",
@@ -60,7 +62,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
   },
   {
     title: "Deep Dive",
-    duration: "2 часа",
+    duration: "до 5 часов",
     listLabel: "Подходит для",
     items: [
       "сложных продуктов",
@@ -83,5 +85,6 @@ export const PRICING_FORMATS: PricingFormat[] = [
     price: "от 120 000 ₽",
     cta: "Оценить продукт",
     ctaName: "product_assessment",
+    featured: true,
   },
 ];
