@@ -50,11 +50,6 @@ export function Hero() {
           <p className="text-[1.5rem] font-semibold leading-[1.3] md:text-[2rem]">
             Better Decisions. Better Products.
           </p>
-          <p className="mt-4 max-w-[720px] text-[1.0625rem] leading-[1.75] text-muted-foreground">
-            Дорогие продуктовые ошибки почти всегда рождаются из неверных предположений, сделанных
-            до разработки. Наша задача — снизить неопределённость до того, как вложены значительные
-            средства.
-          </p>
         </div>
       </div>
 

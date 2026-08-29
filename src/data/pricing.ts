@@ -58,7 +58,7 @@ export const PRICING_FORMATS: PricingFormat[] = [
     ctaName: "product_review",
   },
   {
-    title: "Задать вопрос",
+    title: "Критичный разбор продукта",
     duration: "Бесплатно",
     listLabel: "Как это работает",
     items: [
