@@ -109,10 +109,6 @@ export function Services() {
             <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card">
               <h3 className="text-lg font-semibold">{service.title}</h3>
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{service.text}</p>
-              <div className="mt-7 border-t border-border pt-6">
-                <p className="text-xs uppercase tracking-[0.12em] text-primary">Результат</p>
-                <p className="mt-3 text-[0.9375rem] leading-[1.7]">{service.outcome}</p>
-              </div>
               <Link
                 to={service.path}
                 onClick={() => {

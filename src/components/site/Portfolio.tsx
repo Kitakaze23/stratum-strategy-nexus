@@ -8,7 +8,7 @@ export function Portfolio() {
       <SectionHead
         id="portfolio-title"
         eyebrow="Опыт"
-        title="Избранный опыт"
+        title="Примеры проектов"
         description="Проекты приведены без названий клиентов. Указаны только те результаты, которые подтверждены данными проектов."
       />
 
