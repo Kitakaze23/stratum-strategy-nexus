@@ -3,8 +3,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Портрет эксперта с фиксированной пропорцией 4:5.
- * Файл фотографии можно заменить в public/experts/<...>.jpg — вёрстка не меняется.
+ * Квадратный портрет эксперта.
  */
 export function ExpertPortrait({
   src,
@@ -25,7 +24,7 @@ export function ExpertPortrait({
   return (
     <div
       className={cn(
-        "relative aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-border bg-surface",
+        "relative aspect-square w-full overflow-hidden rounded-[14px] border border-border bg-surface",
         className,
       )}
     >

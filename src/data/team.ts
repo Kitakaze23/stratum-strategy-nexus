@@ -1,3 +1,5 @@
+import vasiliyPhoto from "@/assets/experts/vasiliy-kolesnikov.png.asset.json";
+
 export type Expert = {
   slug: string;
   name: string;
@@ -24,33 +26,14 @@ export const EXPERTS: readonly Expert[] = [
     name: "Василий Колесников",
     role: "Product Advisor",
     descriptor: "Основатель Stratum Consulting",
-    photo: "/experts/vasiliy-kolesnikov.jpg",
+    photo: vasiliyPhoto.url,
     primaryExpertise: {
       title: "Product Review для AI и цифровых решений в промышленности и энергетике",
       text: "Независимая оценка цифровых и AI-продуктов: от проверки ценности и продуктовой стратегии до оценки возможностей масштабирования в сложных корпоративных и промышленных средах.",
     },
-    tags: ["Product Review", "AI & Digital Products", "Industrial & Energy"],
-    bio: [
-      "Независимый Product Advisor. Помогает оценивать цифровые продукты, AI-решения и сложные продуктовые инициативы до существенных инвестиций в разработку и масштабирование.",
-      "Работал с продуктами в банковской и промышленной среде, объединяя продуктовую стратегию, аналитику, AI и системный подход к сложным инженерным задачам.",
-      "В настоящее время — Product Manager / Stream Lead в Сбербанке, где отвечает за развитие аналитической платформы для предпринимателей.",
-      "Ранее более 10 лет работал в сфере промышленной цифровизации и геотехнического контроля в ЯМАЛ СПГ.",
-      "В Stratum Consulting специализируется на независимой оценке AI и цифровых продуктов, Product Discovery и принятии стратегических продуктовых решений.",
-    ],
-    experience: [
-      {
-        org: "Сбербанк",
-        role: "Product Manager / Stream Lead",
-        text: "Развитие аналитической платформы для предпринимателей.",
-        period: "2024 — настоящее время",
-      },
-      {
-        org: "ЯМАЛ СПГ",
-        role: "Руководитель направления / Product Owner",
-        text: "Цифровизация геотехнического контроля и мониторинга критической инфраструктуры.",
-        period: "2013 — 2024",
-      },
-    ],
+    tags: [],
+    bio: [],
+    experience: [],
   },
 ];
 

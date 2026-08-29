@@ -37,47 +37,6 @@ export function Team() {
                   </p>
                 </div>
 
-                <ul className="mt-8 flex flex-wrap gap-3">
-                  {expert.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-border bg-surface px-4 py-2 text-[0.8125rem]"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-8 max-w-[680px] space-y-4 text-[0.9375rem] leading-[1.75] text-muted-foreground">
-                  {expert.bio.map((paragraph) => (
-                    <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                  ))}
-                </div>
-
-                <div className="mt-10">
-                  <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Опыт</p>
-                  <ol className="mt-6 border-l border-border pl-7">
-                    {expert.experience.map((item) => (
-                      <li key={item.org} className="relative pb-8 last:pb-0">
-                        <span
-                          aria-hidden="true"
-                          className="absolute -left-[calc(1.75rem+4.5px)] top-2 h-[9px] w-[9px] rounded-full bg-primary"
-                        />
-                        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                          <h4 className="text-base font-semibold">{item.org}</h4>
-                          <span className="text-[0.8125rem] tabular-nums text-muted-foreground">
-                            {item.period}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-[0.9375rem] text-foreground/80">{item.role}</p>
-                        <p className="mt-1 max-w-[560px] text-[0.9375rem] leading-[1.7] text-muted-foreground">
-                          {item.text}
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-
                 <div className="mt-10">
                   <Cta asChild>
                     <a href="#contact">Обсудить задачу</a>
