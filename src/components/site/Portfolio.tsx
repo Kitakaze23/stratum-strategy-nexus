@@ -9,7 +9,7 @@ export function Portfolio() {
         id="portfolio-title"
         eyebrow="Опыт"
         title="Реализованные проекты"
-        description="Проекты приведены без названий клиентов. Указаны только те результаты, которые подтверждены данными проектов."
+        description="Результаты, подтвержденые данными."
       />
 
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
