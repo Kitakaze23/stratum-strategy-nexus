@@ -17,7 +17,10 @@ export function Hero() {
               Помогаем принимать сложные продуктовые решения до того, как они становятся
               дорогостоящими ошибками
             </h1>
-            <p className="mt-7 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
+            <p className="mt-6 text-[1.375rem] font-semibold leading-[1.35] text-primary md:text-[1.625rem]">
+              Better Decisions. Better Products.
+            </p>
+            <p className="mt-6 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
               Независимая продуктовая экспертиза для стартапов, технологических компаний, крупного
               бизнеса и промышленных предприятий. Product Discovery, стратегический аудит, AI и
               аналитика для принятия более обоснованных решений.
