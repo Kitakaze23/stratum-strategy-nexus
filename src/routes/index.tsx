@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Achievements } from "@/components/site/Achievements";
-import { AfterLaunch } from "@/components/site/AfterLaunch";
-import { Challenges } from "@/components/site/Challenges";
 import { Contact } from "@/components/site/Contact";
 import { Faq } from "@/components/site/Faq";
 import { Footer } from "@/components/site/Footer";
@@ -96,10 +93,7 @@ function Index() {
       <Header />
       <main>
         <Hero />
-        <Challenges />
-        <AfterLaunch />
         <Services />
-        <Achievements />
         <Portfolio />
         <Team />
         <Insights />
