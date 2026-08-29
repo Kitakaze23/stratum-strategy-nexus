@@ -29,7 +29,7 @@ export function Pricing() {
         description="Начать можно с одного вопроса — и двигаться дальше по мере того, как становится понятна сложность задачи. Если требуется предварительное изучение материалов или участие нескольких заинтересованных сторон, итоговая стоимость определяется индивидуально."
       />
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {PRICING_FORMATS.map((format, index) => (
           <Reveal key={format.title} delay={index * 0.05} className="h-full">
             <div ref={format.entry ? entryRef : undefined} className="h-full">
