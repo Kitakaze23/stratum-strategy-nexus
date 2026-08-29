@@ -25,10 +25,7 @@ export function Insights() {
               onClick={() => trackCtaClick(`insight_${article.slug}`, "insights")}
               className="group flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
             >
-              <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                {article.readingTime}
-              </p>
-              <h3 className="mt-4 text-lg font-semibold leading-[1.35]">{article.title}</h3>
+              <h3 className="text-lg font-semibold leading-[1.35]">{article.title}</h3>
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
                 {article.excerpt}
               </p>

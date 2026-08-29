@@ -18,7 +18,7 @@ export const NAV_LINKS = [
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#portfolio", label: "Избранный опыт" },
+  { href: "#portfolio", label: "Примеры проектов" },
   { href: "#team", label: "Команда экспертов" },
   { href: "#insights", label: "Статьи" },
   { href: "#pricing", label: "Стоимость" },

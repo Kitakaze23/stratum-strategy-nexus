@@ -67,7 +67,7 @@ export const Route = createFileRoute("/")({
               ],
               priceRange: "от 25 000 ₽",
               telephone: "+7 (925) 539-33-53",
-              email: "stratum.cons@inbox.ru",
+              email: "inbox@stratum-consulting.ru",
             },
           ],
         }),
