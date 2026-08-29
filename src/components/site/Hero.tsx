@@ -48,14 +48,6 @@ export function Hero() {
         </Reveal>
       </div>
 
-      <div className="container-page">
-        <div className="border-t border-border py-14">
-          <p className="text-[1.5rem] font-semibold leading-[1.3] md:text-[2rem]">
-            Better Decisions. Better Products.
-          </p>
-        </div>
-      </div>
-
     </section>
   );
 }
