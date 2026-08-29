@@ -78,7 +78,7 @@ export function Contact() {
           <SectionHead
             id="contact-title"
             eyebrow="Контакты"
-            title="Связаться со Stratum"
+            title="Обсудим вашу задачу"
             description="Опишите задачу, с которой вы столкнулись. После получения заявки мы свяжемся с вами, чтобы уточнить детали и предложить наиболее подходящий формат работы."
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2">
