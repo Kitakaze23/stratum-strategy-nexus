@@ -4,8 +4,8 @@ export const CONTACTS = {
   telegram: "@kitakaze23",
   telegramHref: "https://t.me/kitakaze23",
   whatsappHref: "https://wa.me/79255393353",
-  email: "stratum.cons@inbox.ru",
-  emailHref: "mailto:stratum.cons@inbox.ru",
+  email: "inbox@stratum-consulting.ru",
+  emailHref: "mailto:inbox@stratum-consulting.ru",
 } as const;
 
 export const NAV_LINKS = [

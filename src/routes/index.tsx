@@ -49,7 +49,8 @@ export const Route = createFileRoute("/")({
               name: "Stratum Consulting",
               description: DESCRIPTION,
               telephone: "+7 (925) 539-33-53",
-              email: "stratum.cons@inbox.ru",
+              email: "inbox@stratum-consulting.ru",
+
             },
             {
               "@type": "ProfessionalService",
