@@ -54,7 +54,7 @@ export const INSIGHTS: readonly InsightArticle[] = [
   {
     slug: "nuzhen-li-produkt-rynku",
     title: "Как понять, нужен ли продукт рынку до новых затрат на разработку",
-    metaTitle: "Как понять, нужен ли продукт рынку — проверка идеи приложения | Stratum Consulting",
+    metaTitle: "Как понять, нужен ли продукт рынку - проверка идеи приложения | Stratum Consulting",
     metaDescription:
       "Как проверить идею приложения и признаки Product-Market Fit до новых затрат на разработку: простые критерии и порядок действий.",
     excerpt:
