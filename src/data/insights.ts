@@ -58,7 +58,7 @@ export const INSIGHTS: readonly InsightArticle[] = [
     metaDescription:
       "Как проверить идею приложения и признаки Product-Market Fit до новых затрат на разработку: простые критерии и порядок действий.",
     excerpt:
-      "Product-Market Fit — это не ощущение, а набор наблюдаемых признаков. Показываем, какие именно.",
+      "Product-Market Fit - это не ощущение, а набор наблюдаемых признаков. Показываем, какие именно.",
     readingTime: "7 минут",
     blocks: [
       {

@@ -8,7 +8,7 @@ export function Portfolio() {
       <SectionHead
         id="portfolio-title"
         eyebrow="Опыт"
-        title="Реализованные проекты"
+        title="Кейсы"
         description="Результаты, подтвержденые данными."
       />
 
