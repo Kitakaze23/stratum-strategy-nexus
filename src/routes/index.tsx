@@ -93,10 +93,10 @@ function Index() {
       <main>
         <Hero />
         <Services />
+        <Process />
         <Portfolio />
         <Team />
         <Insights />
-        <Process />
         <Pricing />
         <Faq />
         <Contact />
