@@ -19,6 +19,10 @@ export type AnalyticsEventName =
   | "form_submit"
   | "form_abandon"
   | "scroll_depth"
+  | "digital_review_predev_click"
+  | "digital_review_vendor_click"
+  | "digital_due_diligence_click"
+  | "contact_form_submit"
   // "Задать вопрос" funnel (free entry point)
   | "ask_question_view"
   | "ask_question_click"

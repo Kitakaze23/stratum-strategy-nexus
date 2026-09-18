@@ -21,8 +21,8 @@ export function Footer() {
               Stratum <span className="font-normal text-navy-foreground/70">Consulting</span>
             </p>
             <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-navy-foreground/70">
-              Независимая команда экспертов в продуктовой, аналитической и правовой сферах: помогаем
-              принимать обоснованные решения до того, как они становятся дорогостоящими ошибками.
+              Stratum Consulting — независимая экспертиза цифровых решений и разработок. Помогаем
+              принимать обоснованные решения до существенных затрат.
             </p>
 
           </div>

@@ -1,11 +1,11 @@
 import { Reveal, Section, SectionHead } from "./primitives";
 
 const STEPS = [
-  { step: "01", title: "Первичное знакомство", text: "15–20 минут" },
-  { step: "02", title: "Формулирование задачи", text: "Определяем цели консультации и ожидаемый результат." },
-  { step: "03", title: "Подготовка", text: "Изучение материалов и предварительный анализ." },
-  { step: "04", title: "Консультация", text: "Структурированное обсуждение задачи с рекомендациями." },
-  { step: "05", title: "Итоги", text: "Краткое письменное резюме и дальнейшие рекомендации." },
+  { step: "01", title: "Знакомство", meta: "15–20 минут", text: "Уточняем ситуацию, участников и решение, которое предстоит принять." },
+  { step: "02", title: "Формулирование задачи", text: "Определяем, что именно необходимо проверить и какой результат нужен для принятия решения." },
+  { step: "03", title: "Анализ", text: "Изучаем предоставленные материалы, цифровое решение, данные и контекст." },
+  { step: "04", title: "Независимая оценка", text: "Проверяем ключевые гипотезы, решения, ограничения и риски." },
+  { step: "05", title: "Результат", text: "Передаём структурированное заключение и обсуждаем следующие шаги." },
 ];
 
 export function Process() {
@@ -15,7 +15,7 @@ export function Process() {
         id="process-title"
         eyebrow="Процесс"
         title="Как проходит работа"
-        description="Пять последовательных шагов от первого разговора до письменного резюме."
+        description="От постановки задачи до независимого заключения."
       />
 
       <div className="relative mt-16">
@@ -30,6 +30,7 @@ export function Process() {
                 <span aria-hidden="true" className="block h-[11px] w-[11px] rounded-full bg-primary" />
                 <p className="mt-6 text-sm font-semibold tabular-nums text-primary">{item.step}</p>
                 <h3 className="mt-2 text-base font-semibold">{item.title}</h3>
+                {"meta" in item ? <p className="mt-1 text-sm font-medium text-primary">{item.meta}</p> : null}
                 <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{item.text}</p>
               </li>
             </Reveal>

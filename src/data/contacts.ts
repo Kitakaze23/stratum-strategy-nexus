@@ -9,7 +9,7 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#after-launch", label: "Product Review" },
+  { href: "#services", label: "Как помогаем" },
   { href: "#portfolio", label: "Опыт" },
   { href: "#team", label: "Команда" },
   { href: "#insights", label: "Статьи" },
@@ -18,7 +18,8 @@ export const NAV_LINKS = [
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#portfolio", label: "Примеры проектов" },
+  { href: "#services", label: "Как помогаем" },
+  { href: "#portfolio", label: "Опыт" },
   { href: "#team", label: "Команда экспертов" },
   { href: "#insights", label: "Статьи" },
   { href: "#pricing", label: "Стоимость" },

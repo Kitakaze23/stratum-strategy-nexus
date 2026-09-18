@@ -12,18 +12,16 @@ export function Hero() {
       <div className="container-page grid gap-16 py-24 md:py-[7.5rem] lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="eyebrow">Independent Strategic Advisory</p>
+            <p className="eyebrow">Independent Digital Advisory</p>
             <h1 className="mt-6 text-[2.125rem] font-semibold leading-[1.14] md:text-[3.125rem]">
-              Помогаем принимать сложные продуктовые решения до того, как они становятся
-              дорогостоящими ошибками
+              Независимая оценка цифровых решений
             </h1>
+            <p className="mt-6 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
+              Помогаем понять, что стоит разрабатывать, проверить результат работы подрядчика или
+              оценить цифровой проект перед инвестициями.
+            </p>
             <p className="mt-6 text-[1.375rem] font-semibold leading-[1.35] text-primary md:text-[1.625rem]">
               Better Decisions. Better Products.
-            </p>
-            <p className="mt-6 max-w-[600px] text-lg leading-[1.75] text-muted-foreground">
-              Независимая продуктовая экспертиза для стартапов, технологических компаний, крупного
-              бизнеса и промышленных предприятий. Product Discovery, стратегический аудит, AI и
-              продуктовая аналитика.
             </p>
           </Reveal>
 
@@ -35,7 +33,7 @@ export function Hero() {
             </Cta>
             <Cta asChild variant="secondary">
               <a href="#contact" onClick={() => trackCtaClick("independent_opinion", "hero")}>
-                Получить независимое мнение
+                Получить независимую оценку
               </a>
             </Cta>
           </Reveal>

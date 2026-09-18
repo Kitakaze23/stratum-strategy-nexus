@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
-import { trackContactClick } from "@/analytics/events";
+import { trackContactClick, trackEvent } from "@/analytics/events";
 import { useFormAnalytics } from "@/analytics/hooks";
 import { CONTACTS } from "@/data/contacts";
 import { consultationSchema, submitConsultationRequest, type ConsultationRequest } from "@/lib/consultation";
@@ -67,6 +67,7 @@ export function Contact() {
     }
     // fires only after the API confirms the submission — no field values sent
     analytics.onSubmitSuccess();
+    trackEvent("contact_form_submit", { source: "contact_section" });
     reset();
     setSent(true);
   };
@@ -78,8 +79,8 @@ export function Contact() {
           <SectionHead
             id="contact-title"
             eyebrow="Контакты"
-            title="Обсудим вашу задачу"
-            description="Опишите задачу, с которой вы столкнулись. После получения заявки мы свяжемся с вами, чтобы уточнить детали и предложить наиболее подходящий формат работы."
+            title="Обсудим задачу"
+            description="Опишите цифровое решение, разработку или проект, который необходимо оценить. Мы уточним задачу и предложим подходящий формат работы."
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2">
             {CHANNELS.map((channel) => (
@@ -186,7 +187,7 @@ export function Contact() {
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Cta type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Отправляем…" : "Отправить заявку"}
+                  {isSubmitting ? "Отправляем…" : "Обсудить задачу"}
                 </Cta>
                 <p className="text-sm text-muted-foreground">Ответ в течение одного рабочего дня.</p>
               </div>
