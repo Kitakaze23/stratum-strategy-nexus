@@ -1,90 +1,42 @@
 export interface PricingFormat {
   title: string;
   duration: string;
-  listLabel: string;
-  items: string[];
+  result: string;
   price: string;
   cta: string;
   recommended?: boolean;
   /** Stable analytics identifier for cta_click — never derived from visible text. */
   ctaName: string;
-  /** Free entry point — opens the lightweight question form instead of the contact section. */
-  entry?: boolean;
-  /** Visual-only flag — renders with the entry-card accent style but keeps the contact-link CTA. */
-  featured?: boolean;
 }
 
-export const PRICING_NOTE_PREFIX = "Не уверены, какой формат вам подходит? ";
-export const PRICING_NOTE_LINK = "Оставьте заявку";
-export const PRICING_NOTE_SUFFIX = " — обсудим задачу и предложим оптимальный формат.";
+export const PRICING_NOTE_PREFIX = "Если вы не уверены, какой формат подходит для вашей ситуации, ";
+export const PRICING_NOTE_LINK = "оставьте заявку";
+export const PRICING_NOTE_SUFFIX = ". Мы обсудим задачу и определим объём необходимой оценки.";
 
 export const PRICING_FORMATS: PricingFormat[] = [
   {
-    title: "Задать вопрос",
-    duration: "Один конкретный вопрос по вашему продукту или ситуации.",
-    listLabel: "Как это работает",
-    items: [
-      "вы описываете ситуацию или вопрос",
-      "мы даём предварительное мнение",
-      "подскажем, стоит ли разбирать задачу глубже",
-    ],
-    price: "Бесплатно",
-    cta: "Задать вопрос →",
-    ctaName: "ask_question",
-    entry: true,
-  },
-  {
-    title: "Экспресс-консультация",
-    duration: "60 минут",
-    listLabel: "Подходит для",
-    items: [
-      "одного вопроса",
-      "проверки гипотезы",
-      "второго мнения",
-    ],
-    price: "от 25 000 ₽",
+    title: "Оценка до разработки",
+    duration: "5–7 рабочих дней",
+    result: "Структурированная оценка идеи, ключевых гипотез, рисков и следующих шагов.",
+    price: "от 60 000 ₽",
     cta: "Обсудить задачу",
-    ctaName: "discuss_task",
+    ctaName: "digital_review_predev",
   },
   {
-    title: "Стратегическая консультация",
-    duration: "120 минут",
-    listLabel: "Подходит для",
-    items: [
-      "Product Discovery",
-      "аналитики",
-      "стратегии развития продукта",
-    ],
-    price: "от 45 000 ₽",
-    cta: "Проверить стратегию",
-    ctaName: "strategy_review",
+    title: "Независимая оценка разработки",
+    duration: "5–10 рабочих дней",
+    result: "Оценка соответствия решения исходной задаче, выявленные проблемы и рекомендации перед запуском или следующим этапом работ.",
+    price: "от 100 000 ₽",
+    cta: "Проверить разработку",
+    ctaName: "digital_review_vendor",
     recommended: true,
   },
   {
-    title: "Deep Dive",
-    duration: "до 5 часов",
-    listLabel: "Подходит для",
-    items: [
-      "сложных продуктов",
-      "анализа нескольких сценариев",
-      "подготовки рекомендаций",
-    ],
-    price: "от 80 000 ₽",
-    cta: "Разобрать продукт",
-    ctaName: "product_review",
-  },
-  {
-    title: "Критичный разбор продукта",
-    duration: "Индивидуальный формат",
-    listLabel: "Включает",
-    items: [
-      "анализ материалов",
-      "консультацию",
-      "письменные рекомендации",
-    ],
-    price: "от 120 000 ₽",
-    cta: "Оценить продукт",
-    ctaName: "product_assessment",
-    featured: true,
+    title: "Digital Due Diligence",
+    duration: "10–15 рабочих дней",
+    result: "Независимая оценка цифрового проекта, подтверждённых фактов, неопределённостей и ключевых рисков перед инвестиционным решением.",
+    price: "от 200 000 ₽",
+    cta: "Обсудить проект",
+    ctaName: "digital_due_diligence",
   },
 ];

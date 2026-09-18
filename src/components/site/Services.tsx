@@ -1,135 +1,133 @@
-import { ArrowRight } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Check } from "lucide-react";
 
-import { trackFunnelClick, trackServiceClick } from "@/analytics/events";
-import { useSectionView } from "@/analytics/hooks";
-import { SERVICES_CONTENT } from "@/data/services";
+import { trackCtaClick, trackEvent } from "@/analytics/events";
 
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
-const FLAGSHIP = SERVICES_CONTENT[0]!;
-
-const SERVICES = [
+const SITUATIONS = [
   {
-    title: "Product Discovery",
-    text: "Проверка продуктовых гипотез, исследование пользователей и приоритизация направлений развития.",
-    outcome:
-      "Понимание реальных потребностей пользователей и приоритетных направлений развития продукта.",
-    path: "/services/product-discovery",
-    id: "product_discovery",
+    eyebrow: "До разработки",
+    title: "Нужно ли это вообще разрабатывать?",
+    text: "Помогаем оценить идею и понять, какое цифровое решение действительно имеет смысл создавать до начала существенных затрат на разработку.",
+    checks: [
+      "проблему и целевую аудиторию",
+      "ценность предполагаемого решения",
+      "существующие альтернативы",
+      "ключевые продуктовые гипотезы",
+      "состав первой версии",
+      "основные риски",
+    ],
+    result: "Независимая оценка + конкретные рекомендации по следующим шагам.",
+    cta: "Обсудить задачу",
+    ctaName: "digital_review_predev",
+    event: "digital_review_predev_click",
   },
   {
-    title: "Аудит цифрового продукта",
-    text: "Независимая оценка продукта: ценностное предложение, процессы, метрики и качество решений.",
-    outcome: "Список сильных и слабых сторон продукта с конкретными рекомендациями.",
-    path: "/services/product-audit",
-    id: "product_audit",
+    eyebrow: "В процессе разработки",
+    title: "Подрядчик говорит, что всё готово. Так ли это?",
+    text: "Независимо оцениваем результат разработки перед запуском, следующим этапом работ или новым платежом.",
+    checks: [
+      "соответствие исходной задаче",
+      "реализованные сценарии",
+      "ключевой функционал",
+      "очевидные продуктовые и технологические риски",
+      "готовность решения к следующему этапу",
+    ],
+    result: "Independent Review — независимая оценка результата разработки и перечень необходимых действий.",
+    cta: "Проверить разработку",
+    ctaName: "digital_review_vendor",
+    event: "digital_review_vendor_click",
   },
   {
-    title: "Стратегия цифрового продукта",
-    text: "Проверка позиционирования, приоритетов развития и логики уже принятых решений.",
-    outcome: "Независимая профессиональная оценка продуктовой стратегии и приоритетов.",
-    path: "/services/product-strategy",
-    id: "product_strategy",
-  },
-  {
-    title: "Аудит MVP",
-    text: "Разбор запущенного MVP: спрос, ценность, онбординг и причины отсутствия роста.",
-    outcome: "Обоснованное решение о следующем шаге: продолжать, менять или остановиться.",
-    path: "/services/mvp-review",
-    id: "mvp_review",
-  },
-  {
-    title: "Правовая поддержка цифровых продуктов",
-    text: "Помогаем компаниям оценивать юридические риски цифровых продуктов, защищать интеллектуальную собственность и создавать надёжную правовую основу для развития технологий.",
-    outcome: "Карта правовых рисков и приоритетные действия до запуска, инвестиций или масштабирования.",
-    path: "/services/legal-support",
-    id: "legal_support",
+    eyebrow: "Перед инвестициями",
+    title: "Что на самом деле представляет собой цифровой проект?",
+    text: "Помогаем инвестору или потенциальному покупателю независимо оценить цифровое решение до принятия инвестиционного решения.",
+    checks: [
+      "заявленную ценность",
+      "текущее состояние разработки",
+      "реализованное решение",
+      "технологические и продуктовые риски",
+      "roadmap",
+      "потребность в дальнейших инвестициях",
+      "ключевые вопросы, требующие подтверждения",
+    ],
+    result: "Digital Due Diligence — независимая оценка цифрового проекта и ключевых рисков.",
+    cta: "Обсудить проект",
+    ctaName: "digital_due_diligence",
+    event: "digital_due_diligence_click",
   },
 ] as const;
 
-export function Services() {
-  const legalRef = useSectionView<HTMLDivElement>("legal_support");
+const DECISION_OUTPUTS = [
+  { title: "Факты", text: "Что удалось подтвердить, а что требует дополнительной проверки." },
+  { title: "Риски", text: "Что может повлиять на стоимость, сроки, запуск или дальнейшие инвестиции." },
+  { title: "Следующие шаги", text: "Что имеет смысл делать дальше, что изменить и какие действия пока не стоит предпринимать." },
+] as const;
 
+export function Services() {
   return (
     <Section id="services" tone="surface" labelledBy="services-title" trackId="services">
       <SectionHead
         id="services-title"
-        eyebrow="Направления работы"
-        title="Чем мы можем помочь"
-        description="Каждый формат работы завершается конкретным результатом, который можно использовать при принятии решения."
+        eyebrow="Как помогаем"
+        title="В каких ситуациях мы полезны"
+        description="Независимая оценка нужна в момент, когда предстоит принять решение о деньгах, разработке или запуске цифрового решения."
       />
-
-
-      <Reveal className="mt-16">
-        <article className="rounded-[14px] border border-primary/30 bg-card p-8 shadow-card md:p-12">
-          <p className="text-xs uppercase tracking-[0.12em] text-primary">{FLAGSHIP.eyebrow}</p>
-          <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-6">
-              <h3 className="text-2xl font-semibold leading-[1.2] md:text-[1.875rem]">
-                {FLAGSHIP.title}
-              </h3>
-              <p className="mt-5 text-[1.0625rem] leading-[1.7] text-muted-foreground">
-                {FLAGSHIP.subtitle}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Cta asChild className="h-12 px-6">
-                  <Link
-                    to={FLAGSHIP.path}
-                    onClick={() => {
-                      trackServiceClick("ai_product_review", "services");
-                      trackFunnelClick("ai_product_review", "services");
-                    }}
-                  >
-                    Оценить продукт
-                  </Link>
-                </Cta>
-              </div>
-            </div>
-            <div className="lg:col-span-6">
-              <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
-                Что входит
-              </p>
-              <ul className="mt-5 grid gap-2 text-[0.9375rem] leading-[1.6] sm:grid-cols-2">
-                {FLAGSHIP.deliverables.map((item) => (
-                  <li key={item} className="border-l-2 border-border pl-3 text-muted-foreground">
-                    {item}
+      <div className="mt-16 grid gap-6 lg:grid-cols-3">
+        {SITUATIONS.map((situation, index) => (
+          <Reveal key={situation.eyebrow} delay={index * 0.05} className="h-full">
+            <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{situation.eyebrow}</p>
+              <h3 className="mt-5 text-xl font-semibold leading-[1.3]">{situation.title}</h3>
+              <p className="mt-4 text-[0.9375rem] leading-[1.7] text-muted-foreground">{situation.text}</p>
+              <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Что проверяем</p>
+              <ul className="mt-4 space-y-3 text-[0.9375rem] leading-[1.55] text-muted-foreground">
+                {situation.checks.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </article>
-      </Reveal>
-
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {SERVICES.map((service, index) => (
-          <Reveal key={service.title} delay={index * 0.05}>
-            <div ref={service.id === "legal_support" ? legalRef : undefined} className="h-full">
-            <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card">
-              <h3 className="text-lg font-semibold">{service.title}</h3>
-              <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{service.text}</p>
-              <Link
-                to={service.path}
-                onClick={() => {
-                  trackServiceClick(service.id, "services");
-                  if (service.id === "product_audit" || service.id === "mvp_review") {
-                    trackFunnelClick("product_review", "services");
-                  }
-                }}
-                className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
-              >
-                Подробнее
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-              </Link>
+              <div className="mt-8 border-t border-border pt-6 lg:mt-auto">
+                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Результат</p>
+                <p className="mt-3 text-[0.9375rem] leading-[1.65]">{situation.result}</p>
+                <Cta asChild variant={index === 1 ? "primary" : "secondary"} className="mt-7 w-full px-4">
+                  <a
+                    href="#contact"
+                    onClick={() => {
+                      trackCtaClick(situation.ctaName, "services");
+                      trackEvent(situation.event, { location: "services" });
+                    }}
+                  >
+                    {situation.cta}
+                  </a>
+                </Cta>
+              </div>
             </article>
-            </div>
           </Reveal>
         ))}
+      </div>
+
+      <div className="mt-20 border-t border-border pt-16">
+        <Reveal className="measure">
+          <h3 className="text-2xl font-semibold leading-[1.25] md:text-[2rem]">
+            Не ещё одна консультация. Конкретный результат для принятия решения.
+          </h3>
+          <p className="mt-5 text-[1.0625rem] leading-[1.75] text-muted-foreground">
+            Мы не ограничиваемся обсуждением проблемы. Каждый проект заканчивается структурированным результатом, который можно использовать при принятии следующего решения.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {DECISION_OUTPUTS.map((item, index) => (
+            <Reveal key={item.title} delay={index * 0.05}>
+              <div className="border-l-2 border-primary pl-6">
+                <h4 className="text-lg font-semibold">{item.title}</h4>
+                <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{item.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </Section>
   );

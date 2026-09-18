@@ -8,8 +8,8 @@ export function Portfolio() {
       <SectionHead
         id="portfolio-title"
         eyebrow="Опыт"
-        title="Кейсы"
-        description="Результаты, подтвержденые данными."
+        title="Реальный опыт"
+        description="Опыт принятия продуктовых, технологических и инвестиционно значимых решений в цифровых и промышленных проектах."
       />
 
       <div className="mt-16 grid gap-6 lg:grid-cols-2">

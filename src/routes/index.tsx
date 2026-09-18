@@ -15,9 +15,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
 
 
-const TITLE = "Независимый Product Advisor — Product Review AI и цифровых продуктов | Stratum Consulting";
+const TITLE = "Независимая оценка цифровых решений и разработок | Stratum Consulting";
 const DESCRIPTION =
-  "Независимая продуктовая экспертиза: Product Review, аудит цифрового продукта и MVP, Product Discovery и стратегия. Помогаем принимать обоснованные продуктовые решения.";
+  "Stratum Consulting независимо оценивает цифровые решения перед разработкой, перед запуском и перед инвестициями.";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -58,14 +58,12 @@ export const Route = createFileRoute("/")({
               description: DESCRIPTION,
               areaServed: "RU",
               serviceType: [
-                "Продуктовая стратегия",
-                "Product Discovery",
-                "Цифровая трансформация",
-                "Аналитика уровня предприятия",
-                "Искусственный интеллект",
-                "Executive advisory",
+                "Оценка цифрового решения до разработки",
+                "Независимая оценка результата разработки",
+                "Digital Due Diligence",
+                "Оценка AI-решений",
               ],
-              priceRange: "от 25 000 ₽",
+              priceRange: "от 60 000 ₽",
               telephone: "+7 (925) 539-33-53",
               email: "inbox@stratum-consulting.ru",
             },
@@ -95,10 +93,10 @@ function Index() {
       <main>
         <Hero />
         <Services />
+        <Process />
         <Portfolio />
         <Team />
         <Insights />
-        <Process />
         <Pricing />
         <Faq />
         <Contact />
