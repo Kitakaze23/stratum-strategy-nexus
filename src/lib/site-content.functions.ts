@@ -1,13 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 
-import type { Database } from "@/integrations/supabase/types";
+import type { Database, Json } from "@/integrations/supabase/types";
+
+type Rows = Record<string, Json>;
 
 /** Public read of admin overrides. Returns {} on any failure so the site falls back to defaults. */
 export const getSiteContentRows = createServerFn({ method: "GET" }).handler(async () => {
-  const url = process.env["SUPABASE_URL"] ?? import.meta.env.VITE_SUPABASE_URL;
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) return {} as Record<string, unknown>;
+  const url = process.env["SUPABASE_URL"] ?? import.meta.env["VITE_SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  if (!url || !key) return {} as Rows;
   try {
     const client = createClient<Database>(url, key, {
       auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
@@ -21,12 +23,12 @@ export const getSiteContentRows = createServerFn({ method: "GET" }).handler(asyn
       },
     });
     const { data, error } = await client.from("site_content").select("key, data");
-    if (error || !data) return {} as Record<string, unknown>;
-    const rows: Record<string, unknown> = {};
+    if (error || !data) return {} as Rows;
+    const rows: Rows = {};
     for (const row of data) rows[row.key] = row.data;
     return rows;
   } catch (e) {
     console.error("site_content read failed", e);
-    return {} as Record<string, unknown>;
+    return {} as Rows;
   }
 });

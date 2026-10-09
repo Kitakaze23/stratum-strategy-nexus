@@ -79,7 +79,10 @@ function AdminPage() {
   const reset = async () => {
     if (!confirm("Вернуть исходные тексты этого раздела?")) return;
     const { error } = await supabase.from("site_content").delete().eq("key", active);
-    if (error) return toast.error("Не удалось сбросить", { description: error.message });
+    if (error) {
+      toast.error("Не удалось сбросить", { description: error.message });
+      return;
+    }
     await queryClient.invalidateQueries({ queryKey: siteContentQuery.queryKey });
     toast.success("Восстановлены исходные тексты");
   };
