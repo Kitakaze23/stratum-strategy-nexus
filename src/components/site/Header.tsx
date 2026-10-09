@@ -2,11 +2,27 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { trackCtaClick } from "@/analytics/events";
+import type { SectionKey } from "@/content/defaults";
+import { useSiteContent } from "@/content/useSiteContent";
 
 import { Cta } from "./primitives";
 import { NAV_LINKS } from "./contacts";
 
+const LINK_SECTION: Record<string, SectionKey> = {
+  "#services": "services",
+  "#portfolio": "portfolio",
+  "#team": "team",
+  "#insights": "insights",
+  "#pricing": "pricing",
+  "#contact": "contact",
+};
+
 export function Header() {
+  const content = useSiteContent();
+  const links = NAV_LINKS.filter((l) => {
+    const key = LINK_SECTION[l.href];
+    return !key || content[key].enabled !== false;
+  });
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -46,7 +62,7 @@ export function Header() {
           </a>
 
           <nav aria-label="Основная навигация" className="hidden items-center gap-7 lg:flex">
-            {NAV_LINKS.map((link) => (
+            {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -83,7 +99,7 @@ export function Header() {
         >
           <div className="container-page flex h-full flex-col pt-10">
             <ul className="divide-y divide-border border-y border-border">
-              {NAV_LINKS.map((link) => (
+              {links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}

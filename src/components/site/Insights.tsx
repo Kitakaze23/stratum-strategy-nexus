@@ -2,23 +2,24 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { trackCtaClick } from "@/analytics/events";
-import { INSIGHTS } from "@/data/insights";
+import { useSection } from "@/content/useSiteContent";
 
 import { Reveal, Section, SectionHead } from "./primitives";
 
 export function Insights() {
+  const c = useSection("insights");
   return (
     <Section id="insights" tone="surface" labelledBy="insights-title" trackId="insights">
       <SectionHead
         id="insights-title"
-        eyebrow="Статьи"
-        title="Экспертные материалы"
-        description="Практические материалы о выборе цифрового решения, проверке разработки, оценке AI и рисках до существенных затрат."
+        eyebrow={c.eyebrow}
+        title={c.title}
+        description={c.description}
       />
 
       <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {INSIGHTS.map((article, index) => (
-          <Reveal key={article.slug} delay={index * 0.04} className="h-full">
+        {c.articles.map((article, index) => (
+          <Reveal key={`${article.slug}-${index}`} delay={index * 0.04} className="h-full">
             <Link
               to="/insights/$slug"
               params={{ slug: article.slug }}

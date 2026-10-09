@@ -13,6 +13,7 @@ import { Services } from "@/components/site/Services";
 import { Team } from "@/components/site/Team";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
+import { siteContentQuery, useSiteContent } from "@/content/useSiteContent";
 
 
 const TITLE = "Независимая оценка цифровых решений и разработок | Stratum Consulting";
@@ -20,6 +21,7 @@ const DESCRIPTION =
   "Stratum Consulting независимо оценивает цифровые решения перед разработкой, перед запуском и перед инвестициями.";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Index,
   head: () => ({
     meta: [
@@ -87,19 +89,20 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const c = useSiteContent();
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <Services />
-        <Process />
-        <Portfolio />
-        <Team />
-        <Insights />
-        <Pricing />
-        <Faq />
-        <Contact />
+        {c.hero.enabled ? <Hero /> : <div className="pt-[76px]" />}
+        {c.services.enabled ? <Services /> : null}
+        {c.process.enabled ? <Process /> : null}
+        {c.portfolio.enabled ? <Portfolio /> : null}
+        {c.team.enabled ? <Team /> : null}
+        {c.insights.enabled ? <Insights /> : null}
+        {c.pricing.enabled ? <Pricing /> : null}
+        {c.faq.enabled ? <Faq /> : null}
+        {c.contact.enabled ? <Contact /> : null}
       </main>
       <Footer />
       <Toaster />

@@ -6,11 +6,15 @@ import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Cta, Reveal } from "@/components/site/primitives";
 import { Toaster } from "@/components/ui/sonner";
-import { INSIGHTS } from "@/data/insights";
+import { mergeContent } from "@/content/defaults";
+import { siteContentQuery } from "@/content/useSiteContent";
 
 export const Route = createFileRoute("/insights/$slug")({
-  loader: ({ params }) => {
-    const article = INSIGHTS.find((item) => item.slug === params.slug);
+  loader: async ({ params, context }) => {
+    const rows = await context.queryClient.ensureQueryData(siteContentQuery);
+    const article = mergeContent(rows as Record<string, unknown>).insights.articles.find(
+      (item) => item.slug === params.slug,
+    );
     if (!article) throw notFound();
     return { article };
   },
@@ -82,17 +86,17 @@ function InsightPage() {
                     key={index}
                     className="pt-6 text-2xl font-semibold leading-[1.25] md:text-[1.75rem]"
                   >
-                    {block.text}
+                    {block.text ?? ""}
                   </h2>
                 ) : block.type === "p" ? (
                   <p key={index} className="text-[1.0625rem] leading-[1.8] text-muted-foreground">
-                    {block.text}
+                    {block.text ?? ""}
                   </p>
                 ) : (
                   <ul key={index} className="space-y-3">
-                    {block.items.map((item) => (
+                    {(block.items ?? []).map((item, i) => (
                       <li
-                        key={item}
+                        key={i}
                         className="flex gap-3 text-[1.0625rem] leading-[1.7] text-foreground/85"
                       >
                         <span

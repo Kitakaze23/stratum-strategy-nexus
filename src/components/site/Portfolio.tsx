@@ -1,20 +1,21 @@
-import { PORTFOLIO_CASES } from "@/data/portfolio";
+import { useSection } from "@/content/useSiteContent";
 
 import { Reveal, Section, SectionHead } from "./primitives";
 
 export function Portfolio() {
+  const c = useSection("portfolio");
   return (
     <Section id="portfolio" labelledBy="portfolio-title" trackId="portfolio">
       <SectionHead
         id="portfolio-title"
-        eyebrow="Опыт"
-        title="Реальный опыт"
-        description="Опыт принятия продуктовых, технологических и инвестиционно значимых решений в цифровых и промышленных проектах."
+        eyebrow={c.eyebrow}
+        title={c.title}
+        description={c.description}
       />
 
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
-        {PORTFOLIO_CASES.map((item, index) => (
-          <Reveal key={item.id} delay={index * 0.05}>
+        {c.cases.map((item, index) => (
+          <Reveal key={index} delay={index * 0.05}>
             <article className="flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card md:p-10">
               <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
                 {item.client}
@@ -42,10 +43,10 @@ export function Portfolio() {
                 </div>
               </dl>
 
-              {item.metrics.length > 0 ? (
+              {item.metrics?.length > 0 ? (
                 <ul className="mt-auto grid gap-4 border-t border-border pt-7 sm:grid-cols-3">
-                  {item.metrics.map((metric) => (
-                    <li key={metric.label}>
+                  {item.metrics.map((metric, i) => (
+                    <li key={i}>
                       <p className="text-xl font-semibold text-primary">{metric.value}</p>
                       <p className="mt-1 text-[0.8125rem] leading-[1.5] text-muted-foreground">
                         {metric.label}
