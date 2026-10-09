@@ -1,20 +1,21 @@
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
 import { ExpertPortrait } from "./ExpertPortrait";
-import { EXPERTS, UPCOMING_PRACTICES } from "@/data/team";
+import { useSection } from "@/content/useSiteContent";
 
 export function Team() {
+  const c = useSection("team");
   return (
     <Section id="team" labelledBy="team-title" trackId="team">
       <SectionHead
         id="team-title"
-        eyebrow="Команда"
-        title="Команда экспертов"
-        description="Для решения сложных задач Stratum Consulting подключает экспертов с профильным опытом — от оценки цифровых решений до права и отраслевой экспертизы."
+        eyebrow={c.eyebrow}
+        title={c.title}
+        description={c.description}
       />
 
       <div className="mt-16 space-y-16">
-        {EXPERTS.map((expert) => (
-          <Reveal key={expert.slug}>
+        {c.experts.map((expert, index) => (
+          <Reveal key={index}>
             <article className="grid gap-10 border-t border-border pt-12 lg:grid-cols-12 lg:gap-14">
               <div className="lg:col-span-4">
                 <ExpertPortrait src={expert.photo} name={expert.name} />
@@ -30,16 +31,16 @@ export function Team() {
                     Ключевая специализация
                   </p>
                   <p className="mt-3 text-lg font-semibold leading-[1.4]">
-                    {expert.primaryExpertise.title}
+                    {expert.expertiseTitle}
                   </p>
                   <p className="mt-3 max-w-[640px] text-[0.9375rem] leading-[1.7] text-muted-foreground">
-                    {expert.primaryExpertise.text}
+                    {expert.expertiseText}
                   </p>
                 </div>
 
                 <div className="mt-10">
                   <Cta asChild>
-                    <a href="#contact">Обсудить задачу</a>
+                    <a href="#contact">{c.cta}</a>
                   </Cta>
                 </div>
               </div>
@@ -51,17 +52,17 @@ export function Team() {
       <Reveal delay={0.05} className="mt-16">
         <div className="border-t border-border pt-12">
           <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Практика расширяется
+            {c.upcomingTitle}
           </p>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {UPCOMING_PRACTICES.map((practice) => (
+            {c.practices.map((practice, i) => (
               <div
-                key={practice.title}
+                key={i}
                 className="rounded-[14px] border border-dashed border-border p-8"
               >
                 <p className="text-base font-semibold">{practice.title}</p>
                 <p className="mt-2 text-[0.9375rem] text-muted-foreground">
-                  {practice.tags.join(" · ")}
+                  {(practice.tags ?? []).join(" · ")}
                 </p>
               </div>
             ))}

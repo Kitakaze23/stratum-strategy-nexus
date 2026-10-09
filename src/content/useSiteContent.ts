@@ -1,4 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 import { getSiteContentRows } from "@/lib/site-content.functions";
 
@@ -12,7 +13,7 @@ export const siteContentQuery = queryOptions({
 
 export function useSiteContent(): SiteContent {
   const { data } = useQuery(siteContentQuery);
-  return mergeContent(data as Record<string, unknown> | undefined);
+  return useMemo(() => mergeContent(data as Record<string, unknown> | undefined), [data]);
 }
 
 export function useSection<K extends SectionKey>(key: K): SiteContent[K] {

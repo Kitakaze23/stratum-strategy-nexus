@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { trackContactClick, trackEvent } from "@/analytics/events";
 import { useFormAnalytics } from "@/analytics/hooks";
 import { CONTACTS } from "@/data/contacts";
+import { useSection } from "@/content/useSiteContent";
 import { consultationSchema, submitConsultationRequest, type ConsultationRequest } from "@/lib/consultation";
 
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
@@ -48,6 +49,7 @@ const fieldClass =
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const c = useSection("contact");
   const analytics = useFormAnalytics("contact_form", { source: "contact_section" });
   const {
     register,
@@ -78,9 +80,9 @@ export function Contact() {
         <div className="lg:col-span-5">
           <SectionHead
             id="contact-title"
-            eyebrow="Контакты"
-            title="Обсудим задачу"
-            description="Опишите цифровое решение, разработку или проект, который необходимо оценить. Мы уточним задачу и предложим подходящий формат работы."
+            eyebrow={c.eyebrow}
+            title={c.title}
+            description={c.description}
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2">
             {CHANNELS.map((channel) => (
@@ -110,11 +112,9 @@ export function Contact() {
               className="flex h-full flex-col items-start justify-center rounded-[14px] border border-border bg-card p-8 shadow-card md:p-12"
             >
               <CheckCircle2 className="h-8 w-8 text-primary" strokeWidth={1.5} aria-hidden="true" />
-              <h3 className="mt-6 text-2xl font-semibold">Заявка отправлена</h3>
+              <h3 className="mt-6 text-2xl font-semibold">{c.successTitle}</h3>
               <p className="mt-4 max-w-[460px] text-[0.9375rem] leading-[1.7] text-muted-foreground">
-                Спасибо за обращение. Мы свяжемся с вами в течение одного рабочего дня, чтобы
-                уточнить детали и предложить подходящий формат работы.
-
+                {c.successText}
               </p>
               <button
                 type="button"
@@ -187,9 +187,9 @@ export function Contact() {
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Cta type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Отправляем…" : "Обсудить задачу"}
+                  {isSubmitting ? "Отправляем…" : c.cta}
                 </Cta>
-                <p className="text-sm text-muted-foreground">Ответ в течение одного рабочего дня.</p>
+                <p className="text-sm text-muted-foreground">{c.note}</p>
               </div>
             </form>
           )}
