@@ -6,7 +6,7 @@ import { Header } from "@/components/site/Header";
 import { Insights } from "@/components/site/Insights";
 import { Reveal } from "@/components/site/primitives";
 import { Toaster } from "@/components/ui/sonner";
-import { siteContentQuery } from "@/content/useSiteContent";
+import { SiteContentProvider, siteContentQuery } from "@/content/useSiteContent";
 
 const TITLE = "Статьи о продуктовых решениях — аудит MVP, SaaS и AI-продуктов | Stratum Consulting";
 const DESCRIPTION =
@@ -26,13 +26,16 @@ export const Route = createFileRoute("/insights/")({
     ],
     links: [{ rel: "canonical", href: URL }],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
+  loader: async ({ context }) => ({
+    rows: (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {},
+  }),
   component: InsightsIndex,
 });
 
 function InsightsIndex() {
+  const { rows } = Route.useLoaderData();
   return (
-    <>
+    <SiteContentProvider rows={rows}>
       <Header />
       <main>
         <section className="border-b border-border pt-[76px]">
@@ -54,6 +57,6 @@ function InsightsIndex() {
       </main>
       <Footer />
       <Toaster />
-    </>
+    </SiteContentProvider>
   );
 }

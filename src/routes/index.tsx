@@ -13,7 +13,11 @@ import { Services } from "@/components/site/Services";
 import { Team } from "@/components/site/Team";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
-import { siteContentQuery, useSiteContent } from "@/content/useSiteContent";
+import {
+  SiteContentProvider,
+  siteContentQuery,
+  useSiteContent,
+} from "@/content/useSiteContent";
 
 
 const TITLE = "Независимая оценка цифровых решений и разработок | Stratum Consulting";
@@ -21,7 +25,9 @@ const DESCRIPTION =
   "Stratum Consulting независимо оценивает цифровые решения перед разработкой, перед запуском и перед инвестициями.";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
+  loader: async ({ context }) => ({
+    rows: (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {},
+  }),
   component: Index,
   head: () => ({
     meta: [
@@ -89,6 +95,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { rows } = Route.useLoaderData();
+  return (
+    <SiteContentProvider rows={rows}>
+      <IndexSections />
+    </SiteContentProvider>
+  );
+}
+
+function IndexSections() {
   const c = useSiteContent();
   return (
     <>

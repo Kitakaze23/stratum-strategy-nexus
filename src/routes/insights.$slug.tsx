@@ -7,16 +7,16 @@ import { Header } from "@/components/site/Header";
 import { Cta, Reveal } from "@/components/site/primitives";
 import { Toaster } from "@/components/ui/sonner";
 import { mergeContent } from "@/content/defaults";
-import { siteContentQuery } from "@/content/useSiteContent";
+import { SiteContentProvider, siteContentQuery } from "@/content/useSiteContent";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: async ({ params, context }) => {
-    const rows = await context.queryClient.ensureQueryData(siteContentQuery);
+    const rows = (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {};
     const article = mergeContent(rows as Record<string, unknown>).insights.articles.find(
       (item) => item.slug === params.slug,
     );
     if (!article) throw notFound();
-    return { article };
+    return { article, rows };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
@@ -56,10 +56,10 @@ export const Route = createFileRoute("/insights/$slug")({
 });
 
 function InsightPage() {
-  const { article } = Route.useLoaderData();
+  const { article, rows } = Route.useLoaderData();
 
   return (
-    <>
+    <SiteContentProvider rows={rows}>
       <Header />
       <main>
         <article className="border-b border-border pt-[76px]">
@@ -133,6 +133,6 @@ function InsightPage() {
       </main>
       <Footer />
       <Toaster />
-    </>
+    </SiteContentProvider>
   );
 }
