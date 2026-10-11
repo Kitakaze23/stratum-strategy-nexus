@@ -196,9 +196,11 @@ export function FieldEditor({
       onChange(next);
     };
     const body = (
-      <div className="space-y-4">
+      <div className="divide-y divide-border">
         {keys.map((k) => (
-          <FieldEditor key={k} name={k} value={obj[k]} template={tplObj[k]} onChange={(v) => set(k, v)} />
+          <div key={k} className="py-4 first:pt-0 last:pb-0">
+            <FieldEditor name={k} value={obj[k]} template={tplObj[k]} onChange={(v) => set(k, v)} />
+          </div>
         ))}
       </div>
     );

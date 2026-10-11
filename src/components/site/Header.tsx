@@ -1,5 +1,7 @@
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 
 import { trackCtaClick } from "@/analytics/events";
 import type { SectionKey } from "@/content/defaults";
@@ -17,8 +19,62 @@ const LINK_SECTION: Record<string, SectionKey> = {
   "#contact": "contact",
 };
 
+function BrandLink({
+  onHome,
+  className,
+  ariaLabel,
+  children,
+}: {
+  onHome: boolean;
+  className?: string;
+  ariaLabel?: string;
+  children: ReactNode;
+}) {
+  if (onHome) {
+    return (
+      <a href="#top" className={className} aria-label={ariaLabel}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to="/" className={className} aria-label={ariaLabel}>
+      {children}
+    </Link>
+  );
+}
+
+function SectionLink({
+  href,
+  onHome,
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  onHome: boolean;
+  className?: string;
+  onClick?: () => void;
+  children: ReactNode;
+}) {
+  if (onHome) {
+    return (
+      <a href={href} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to="/" hash={href.slice(1)} hashScrollIntoView className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
 export function Header() {
   const content = useSiteContent();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const onHome = pathname === "/";
   const links = NAV_LINKS.filter((l) => {
     const key = LINK_SECTION[l.href];
     return !key || content[key].enabled !== false;
@@ -48,7 +104,11 @@ export function Header() {
         }`}
       >
         <div className="container-page grid h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6">
-          <a href="#top" className="flex min-w-0 items-center gap-3" aria-label="Stratum Consulting — на главную">
+          <BrandLink
+            onHome={onHome}
+            className="flex min-w-0 items-center gap-3"
+            ariaLabel="Stratum Consulting — на главную"
+          >
             <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center">
               <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none" aria-hidden="true">
                 <rect x="4" y="6" width="24" height="4" fill="currentColor" className="text-primary" />
@@ -59,22 +119,29 @@ export function Header() {
             <span className="truncate text-[0.9375rem] font-semibold tracking-tight">
               Stratum <span className="font-normal text-muted-foreground">Consulting</span>
             </span>
-          </a>
+          </BrandLink>
 
           <nav aria-label="Основная навигация" className="hidden items-center gap-7 lg:flex">
             {links.map((link) => (
-              <a
+              <SectionLink
                 key={link.href}
                 href={link.href}
+                onHome={onHome}
                 className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
               >
                 {link.label}
-              </a>
+              </SectionLink>
             ))}
             <Cta asChild className="h-11 px-5 text-sm">
-              <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
-                Обсудить задачу
-              </a>
+              {onHome ? (
+                <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
+                  Обсудить задачу
+                </a>
+              ) : (
+                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_task", "header")}>
+                  Обсудить задачу
+                </Link>
+              )}
             </Cta>
           </nav>
 
@@ -101,26 +168,40 @@ export function Header() {
             <ul className="divide-y divide-border border-y border-border">
               {links.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <SectionLink
                     href={link.href}
+                    onHome={onHome}
                     onClick={() => setOpen(false)}
                     className="block py-5 text-xl font-medium text-foreground"
                   >
                     {link.label}
-                  </a>
+                  </SectionLink>
                 </li>
               ))}
             </ul>
             <Cta asChild className="mt-10 w-full">
-              <a
-                href="#contact"
-                onClick={() => {
-                  trackCtaClick("discuss_task", "mobile_nav");
-                  setOpen(false);
-                }}
-              >
-                Обсудить задачу
-              </a>
+              {onHome ? (
+                <a
+                  href="#contact"
+                  onClick={() => {
+                    trackCtaClick("discuss_task", "mobile_nav");
+                    setOpen(false);
+                  }}
+                >
+                  Обсудить задачу
+                </a>
+              ) : (
+                <Link
+                  to="/"
+                  hash="contact"
+                  onClick={() => {
+                    trackCtaClick("discuss_task", "mobile_nav");
+                    setOpen(false);
+                  }}
+                >
+                  Обсудить задачу
+                </Link>
+              )}
             </Cta>
           </div>
         </nav>
