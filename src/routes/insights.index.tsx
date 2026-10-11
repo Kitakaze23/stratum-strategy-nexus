@@ -33,8 +33,9 @@ export const Route = createFileRoute("/insights/")({
 });
 
 function InsightsIndex() {
+  const { rows } = Route.useLoaderData();
   return (
-    <>
+    <SiteContentProvider rows={rows}>
       <Header />
       <main>
         <section className="border-b border-border pt-[76px]">
