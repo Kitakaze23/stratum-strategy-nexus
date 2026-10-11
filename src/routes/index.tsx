@@ -13,7 +13,11 @@ import { Services } from "@/components/site/Services";
 import { Team } from "@/components/site/Team";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
-import { siteContentQuery, useSiteContent } from "@/content/useSiteContent";
+import {
+  SiteContentProvider,
+  siteContentQuery,
+  useSiteContent,
+} from "@/content/useSiteContent";
 
 
 const TITLE = "Независимая оценка цифровых решений и разработок | Stratum Consulting";
@@ -94,6 +98,15 @@ function Index() {
   const { rows } = Route.useLoaderData();
   return (
     <SiteContentProvider rows={rows}>
+      <IndexSections />
+    </SiteContentProvider>
+  );
+}
+
+function IndexSections() {
+  const c = useSiteContent();
+  return (
+    <>
       <Header />
       <main>
         {c.hero.enabled ? <Hero /> : <div className="pt-[76px]" />}
@@ -108,6 +121,6 @@ function Index() {
       </main>
       <Footer />
       <Toaster />
-    </SiteContentProvider>
+    </>
   );
 }
