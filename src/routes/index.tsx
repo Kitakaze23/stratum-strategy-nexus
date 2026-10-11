@@ -21,7 +21,9 @@ const DESCRIPTION =
   "Stratum Consulting независимо оценивает цифровые решения перед разработкой, перед запуском и перед инвестициями.";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
+  loader: async ({ context }) => ({
+    rows: (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {},
+  }),
   component: Index,
   head: () => ({
     meta: [

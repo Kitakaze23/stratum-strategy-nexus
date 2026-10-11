@@ -26,7 +26,9 @@ export const Route = createFileRoute("/insights/")({
     ],
     links: [{ rel: "canonical", href: URL }],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
+  loader: async ({ context }) => ({
+    rows: (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {},
+  }),
   component: InsightsIndex,
 });
 
