@@ -7,7 +7,7 @@ import { Header } from "@/components/site/Header";
 import { Cta, Reveal } from "@/components/site/primitives";
 import { Toaster } from "@/components/ui/sonner";
 import { mergeContent } from "@/content/defaults";
-import { siteContentQuery } from "@/content/useSiteContent";
+import { SiteContentProvider, siteContentQuery } from "@/content/useSiteContent";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: async ({ params, context }) => {
@@ -133,6 +133,6 @@ function InsightPage() {
       </main>
       <Footer />
       <Toaster />
-    </>
+    </SiteContentProvider>
   );
 }
