@@ -91,9 +91,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const c = useSiteContent();
+  const { rows } = Route.useLoaderData();
   return (
-    <>
+    <SiteContentProvider rows={rows}>
       <Header />
       <main>
         {c.hero.enabled ? <Hero /> : <div className="pt-[76px]" />}
@@ -108,6 +108,6 @@ function Index() {
       </main>
       <Footer />
       <Toaster />
-    </>
+    </SiteContentProvider>
   );
 }
