@@ -24,6 +24,16 @@ export function Hero() {
             <p className="mt-6 text-[1.375rem] font-semibold leading-[1.35] text-primary md:text-[1.625rem]">
               {c.slogan}
             </p>
+            {c.directions?.length ? (
+              <ul className="mt-8 grid gap-x-6 gap-y-2 text-[0.9375rem] text-foreground sm:grid-cols-2">
+                {c.directions.map((d, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </Reveal>
 
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
@@ -33,7 +43,7 @@ export function Hero() {
               </a>
             </Cta>
             <Cta asChild variant="secondary">
-              <a href="#contact" onClick={() => trackCtaClick("independent_opinion", "hero")}>
+              <a href="#services" onClick={() => trackCtaClick("view_services", "hero")}>
                 {c.ctaSecondary}
               </a>
             </Cta>
