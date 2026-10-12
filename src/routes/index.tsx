@@ -20,9 +20,9 @@ import {
 } from "@/content/useSiteContent";
 
 
-const TITLE = "Независимая оценка цифровых решений и разработок | Stratum Consulting";
+const TITLE = "Независимая экспертиза цифровых решений и подготовка ТЗ | Stratum Consulting";
 const DESCRIPTION =
-  "Stratum Consulting независимо оценивает цифровые решения перед разработкой, перед запуском и перед инвестициями.";
+  "Оценка до разработки, подготовка технического задания, независимая оценка IT-подрядчика и технологический Due Diligence. Работаем на стороне заказчика.";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => ({
@@ -67,8 +67,9 @@ export const Route = createFileRoute("/")({
               areaServed: "RU",
               serviceType: [
                 "Оценка цифрового решения до разработки",
-                "Независимая оценка результата разработки",
-                "Digital Due Diligence",
+                "Подготовка технического задания на разработку",
+                "Независимая оценка IT-подрядчика",
+                "Технологический Due Diligence",
                 "Оценка AI-решений",
               ],
               priceRange: "от 60 000 ₽",

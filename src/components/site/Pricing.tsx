@@ -4,6 +4,7 @@ import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
 const FORMAT_TRACKING = [
   { ctaName: "digital_review_predev", event: "digital_review_predev_click" },
+  { ctaName: "technical_specification", event: "technical_specification_click" },
   { ctaName: "digital_review_vendor", event: "digital_review_vendor_click" },
   { ctaName: "digital_due_diligence", event: "digital_due_diligence_click" },
 ] as const;
@@ -19,7 +20,7 @@ export function Pricing() {
         description={c.description}
       />
 
-      <div className="mt-16 grid gap-6 lg:grid-cols-3">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {c.formats.map((format, index) => {
           const tracking = FORMAT_TRACKING[index] ?? FORMAT_TRACKING[0];
           return (

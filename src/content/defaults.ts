@@ -190,7 +190,7 @@ export const SITE_DEFAULTS = {
   pricing: {
     enabled: true,
     eyebrow: "Форматы",
-    title: "Форматы оценки",
+    title: "Форматы и стоимость",
     description:
       "Стоимость указана от базового объёма и зависит от сложности проекта и состава материалов.",
     formats: PRICING_FORMATS.map((f) => ({
