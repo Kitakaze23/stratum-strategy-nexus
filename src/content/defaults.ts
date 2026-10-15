@@ -256,7 +256,8 @@ export type SectionKey = keyof SiteContent;
 
 export const SECTION_LABELS: Record<SectionKey, string> = {
   hero: "Первый экран",
-  services: "Как помогаем",
+  services: "Как помогаем (ситуации, главная услуга, AI, другие услуги)",
+  why: "Почему Stratum",
   process: "Как проходит работа",
   portfolio: "Опыт (кейсы)",
   team: "Команда",
