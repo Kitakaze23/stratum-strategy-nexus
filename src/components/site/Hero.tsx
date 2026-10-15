@@ -38,7 +38,7 @@ export function Hero() {
 
           <Reveal delay={0.08} className="mt-10 flex flex-wrap gap-3">
             <Cta asChild>
-              <a href="#contact" onClick={() => trackCtaClick("discuss_task", "hero")}>
+              <a href="#contact" onClick={() => trackCtaClick("discuss_project", "hero")}>
                 {c.ctaPrimary}
               </a>
             </Cta>
@@ -48,6 +48,13 @@ export function Hero() {
               </a>
             </Cta>
           </Reveal>
+          {c.heroNote ? (
+            <Reveal delay={0.1}>
+              <p className="mt-8 border-l-2 border-primary pl-4 text-[0.9375rem] leading-[1.6] text-muted-foreground">
+                {c.heroNote}
+              </p>
+            </Reveal>
+          ) : null}
         </div>
 
         <Reveal delay={0.12} className="lg:col-span-6">

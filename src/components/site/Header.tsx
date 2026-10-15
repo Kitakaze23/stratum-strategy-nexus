@@ -12,6 +12,7 @@ import { NAV_LINKS } from "./contacts";
 
 const LINK_SECTION: Record<string, SectionKey> = {
   "#services": "services",
+  "#why": "why",
   "#portfolio": "portfolio",
   "#team": "team",
   "#insights": "insights",
@@ -134,12 +135,12 @@ export function Header() {
             ))}
             <Cta asChild className="h-11 px-5 text-sm">
               {onHome ? (
-                <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
-                  Обсудить задачу
+                <a href="#contact" onClick={() => trackCtaClick("discuss_project", "header")}>
+                  Обсудить проект
                 </a>
               ) : (
-                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_task", "header")}>
-                  Обсудить задачу
+                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_project", "header")}>
+                  Обсудить проект
                 </Link>
               )}
             </Cta>
@@ -184,22 +185,22 @@ export function Header() {
                 <a
                   href="#contact"
                   onClick={() => {
-                    trackCtaClick("discuss_task", "mobile_nav");
+                    trackCtaClick("discuss_project", "mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить задачу
+                  Обсудить проект
                 </a>
               ) : (
                 <Link
                   to="/"
                   hash="contact"
                   onClick={() => {
-                    trackCtaClick("discuss_task", "mobile_nav");
+                    trackCtaClick("discuss_project", "mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить задачу
+                  Обсудить проект
                 </Link>
               )}
             </Cta>

@@ -33,7 +33,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
     title: "Product Review для AI-продуктов",
     subtitle:
       "Построить приложение стало проще. Построить востребованный продукт — по-прежнему сложно.",
-    metaTitle: "Product Review для AI-продуктов и MVP — независимая оценка | Stratum Consulting",
+    metaTitle: "Оценка AI-проекта и цифрового решения — Digital Product & AI Advisory | Stratum",
     metaDescription:
       "Независимый Product Review для AI-продуктов, SaaS и MVP: оценка позиционирования, ценностного предложения и признаков Product-Market Fit, приоритеты развития и письменные рекомендации.",
     intro: [
@@ -91,7 +91,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
     title: "Аудит цифрового продукта",
     subtitle:
       "Независимая оценка продукта до того, как в него будут вложены следующие бюджеты.",
-    metaTitle: "Аудит цифрового продукта, приложения и SaaS — независимая оценка | Stratum",
+    metaTitle: "Аудит цифрового решения и независимая оценка IT-подрядчика | Stratum Consulting",
     metaDescription:
       "Аудит цифрового продукта, приложения или SaaS: независимая оценка ценностного предложения, метрик, процессов принятия решений и качества продуктовых гипотез.",
     intro: [

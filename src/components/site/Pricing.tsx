@@ -1,13 +1,7 @@
-import { trackCtaClick, trackEvent } from "@/analytics/events";
+import { trackCtaClick } from "@/analytics/events";
 import { useSection } from "@/content/useSiteContent";
 import { Cta, Reveal, Section, SectionHead } from "./primitives";
 
-const FORMAT_TRACKING = [
-  { ctaName: "digital_review_predev", event: "digital_review_predev_click" },
-  { ctaName: "technical_specification", event: "technical_specification_click" },
-  { ctaName: "digital_review_vendor", event: "digital_review_vendor_click" },
-  { ctaName: "digital_due_diligence", event: "digital_due_diligence_click" },
-] as const;
 
 export function Pricing() {
   const c = useSection("pricing");
@@ -20,13 +14,12 @@ export function Pricing() {
         description={c.description}
       />
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {c.formats.map((format, index) => {
-          const tracking = FORMAT_TRACKING[index] ?? FORMAT_TRACKING[0];
           return (
           <Reveal key={index} delay={index * 0.05} className="h-full">
             <article
-              className={`flex h-full flex-col rounded-[14px] bg-card p-8 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg ${format.recommended ? "border-2 border-primary" : "border border-border"}`}
+              className={`flex h-full flex-col rounded-[14px] bg-card p-7 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-lg ${format.recommended ? "border-2 border-primary" : "border border-border"}`}
             >
               {format.recommended ? (
                 <p className="mb-5 inline-flex w-fit rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-primary">
@@ -34,8 +27,12 @@ export function Pricing() {
                 </p>
               ) : null}
               <h3 className="text-xl font-semibold leading-[1.3]">{format.title}</h3>
-              <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Срок</p>
-              <p className="mt-2 text-[0.9375rem]">{format.duration}</p>
+              {format.duration ? (
+                <>
+                  <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Длительность</p>
+                  <p className="mt-2 text-[0.9375rem]">{format.duration}</p>
+                </>
+              ) : null}
               <p className="mt-7 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Результат</p>
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{format.result}</p>
 
@@ -46,8 +43,7 @@ export function Pricing() {
                   <a
                     href="#contact"
                     onClick={() => {
-                      trackCtaClick(tracking.ctaName, "pricing");
-                      trackEvent(tracking.event, { location: "pricing" });
+                      trackCtaClick(format.ctaName || `format_${index + 1}`, "pricing");
                     }}
                   >
                     {format.cta}

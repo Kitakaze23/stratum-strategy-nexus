@@ -91,7 +91,7 @@ const LABELS: Record<string, string> = {
   link: "Ссылка на страницу услуги",
 };
 
-const HIDDEN = new Set(["photo", "id", "enabled"]);
+const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);
 const LONG = new Set(["text", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
 
 type Json = unknown;

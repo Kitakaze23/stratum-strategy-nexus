@@ -212,6 +212,7 @@ export const SITE_DEFAULTS = {
       price: f.price,
       cta: f.cta,
       recommended: !!f.recommended,
+      ctaName: f.ctaName,
     })),
     recommendedBadge: "Частая задача",
     notePrefix: PRICING_NOTE_PREFIX,
