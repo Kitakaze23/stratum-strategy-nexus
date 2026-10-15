@@ -153,7 +153,7 @@ export const SITE_DEFAULTS = {
     ],
   },
   process: {
-    enabled: true,
+    enabled: false,
     eyebrow: "Процесс",
     title: "Как проходит работа",
     description: "От постановки задачи до независимого заключения.",
