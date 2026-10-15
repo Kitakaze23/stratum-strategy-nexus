@@ -187,7 +187,7 @@ export const SITE_DEFAULTS = {
       expertiseText: e.primaryExpertise.text,
       photo: e.photo,
     })),
-    cta: "Обсудить задачу",
+    cta: "Обсудить проект",
     upcomingTitle: "Практика расширяется",
     practices: clone(UPCOMING_PRACTICES) as { title: string; tags: string[] }[],
   },
@@ -202,9 +202,9 @@ export const SITE_DEFAULTS = {
   pricing: {
     enabled: true,
     eyebrow: "Форматы",
-    title: "Форматы и стоимость",
+    title: "Форматы работы",
     description:
-      "Стоимость указана от базового объёма и зависит от сложности проекта и состава материалов.",
+      "Консультации помогают начать с короткого разбора и дополняют независимую оценку проекта. Стоимость указана от базового объёма.",
     formats: PRICING_FORMATS.map((f) => ({
       title: f.title,
       duration: f.duration,
@@ -214,7 +214,7 @@ export const SITE_DEFAULTS = {
       recommended: !!f.recommended,
       ctaName: f.ctaName,
     })),
-    recommendedBadge: "Частая задача",
+    recommendedBadge: "С чего начать",
     notePrefix: PRICING_NOTE_PREFIX,
     noteLink: PRICING_NOTE_LINK,
     noteSuffix: PRICING_NOTE_SUFFIX,
@@ -229,10 +229,10 @@ export const SITE_DEFAULTS = {
   contact: {
     enabled: true,
     eyebrow: "Контакты",
-    title: "Обсудим задачу",
+    title: "Обсудим решение до того, как вы начнёте в него инвестировать",
     description:
-      "Опишите цифровое решение, разработку или проект, который необходимо оценить. Мы уточним задачу и предложим подходящий формат работы.",
-    cta: "Обсудить задачу",
+      "Расскажите о проекте, бизнес-задаче или предложении подрядчика. Определим, какой формат независимой оценки будет полезен и с чего начать.",
+    cta: "Обсудить проект",
     note: "Ответ в течение одного рабочего дня.",
     successTitle: "Заявка отправлена",
     successText:
