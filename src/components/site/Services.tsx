@@ -60,7 +60,7 @@ export function Services() {
                 <Check className="mt-1 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
                 <span className="text-[0.9375rem] leading-[1.6]">
                   <span className="font-semibold">{o.title}</span>
-                  <span className="text-muted-foreground"> — {o.text}</span>
+                  <span className="text-muted-foreground"> — {o.text.charAt(0).toLowerCase() + o.text.slice(1)}</span>
                 </span>
               </li>
             ))}
