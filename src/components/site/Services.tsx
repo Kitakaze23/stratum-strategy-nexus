@@ -18,7 +18,7 @@ export function Services() {
   const c = useSection("services");
   return (
     <Section id="services" tone="surface" labelledBy="services-title" trackId="services">
-      <SectionHead id="services-title" eyebrow={c.eyebrow} title={c.title} description={c.description || undefined} />
+      <SectionHead id="services-title" eyebrow={c.eyebrow} title={c.title} {...(c.description ? { description: c.description } : {})} />
 
       {/* Ситуации */}
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
