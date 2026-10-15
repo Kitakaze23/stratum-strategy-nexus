@@ -11,6 +11,7 @@ import { Pricing } from "@/components/site/Pricing";
 import { Process } from "@/components/site/Process";
 import { Services } from "@/components/site/Services";
 import { Team } from "@/components/site/Team";
+import { WhyStratum } from "@/components/site/WhyStratum";
 import { Toaster } from "@/components/ui/sonner";
 import { FAQ_ITEMS } from "@/data/faq";
 import {
@@ -20,9 +21,9 @@ import {
 } from "@/content/useSiteContent";
 
 
-const TITLE = "Независимая экспертиза цифровых решений и подготовка ТЗ | Stratum Consulting";
+const TITLE = "Независимая оценка цифрового и AI-проекта до разработки | Stratum Consulting";
 const DESCRIPTION =
-  "Оценка до разработки, подготовка технического задания, независимая оценка IT-подрядчика и технологический Due Diligence. Работаем на стороне заказчика.";
+  "Обоснование инвестиций в IT до выбора подрядчика: сравнение вариантов, оценка стоимости разработки, требований, рисков и целесообразности AI-решений.";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => ({
@@ -66,13 +67,13 @@ export const Route = createFileRoute("/")({
               description: DESCRIPTION,
               areaServed: "RU",
               serviceType: [
-                "Оценка цифрового решения до разработки",
-                "Подготовка технического задания на разработку",
-                "Независимая оценка IT-подрядчика",
+                "Независимая оценка цифрового и AI-проекта",
+                "Digital Product & AI Advisory",
                 "Технологический Due Diligence",
-                "Оценка AI-решений",
+                "Enterprise Analytics",
+                "Legal & IP",
               ],
-              priceRange: "от 60 000 ₽",
+              priceRange: "от 25 000 ₽",
               telephone: "+7 (925) 539-33-53",
               email: "inbox@stratum-consulting.ru",
             },
@@ -113,10 +114,11 @@ function IndexSections() {
         {c.hero.enabled ? <Hero /> : <div className="pt-[76px]" />}
         {c.services.enabled ? <Services /> : null}
         {c.process.enabled ? <Process /> : null}
-        {c.portfolio.enabled ? <Portfolio /> : null}
+        {c.why.enabled ? <WhyStratum /> : null}
         {c.team.enabled ? <Team /> : null}
-        {c.insights.enabled ? <Insights /> : null}
         {c.pricing.enabled ? <Pricing /> : null}
+        {c.portfolio.enabled ? <Portfolio /> : null}
+        {c.insights.enabled ? <Insights /> : null}
         {c.faq.enabled ? <Faq /> : null}
         {c.contact.enabled ? <Contact /> : null}
       </main>

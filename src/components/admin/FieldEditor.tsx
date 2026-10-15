@@ -67,9 +67,31 @@ const LABELS: Record<string, string> = {
   note: "Подпись у кнопки",
   successTitle: "Заголовок после отправки",
   successText: "Текст после отправки",
+  heroNote: "Уточнение под первым экраном",
+  mainEyebrow: "Главная услуга: надзаголовок",
+  mainTitle: "Главная услуга: заголовок",
+  mainEnglish: "Главная услуга: английское название",
+  mainText: "Главная услуга: описание",
+  mainSteps: "Главная услуга: этапы",
+  mainOutcomesTitle: "Главная услуга: заголовок «Что получает клиент»",
+  mainOutcomes: "Главная услуга: что получает клиент",
+  mainResult: "Главная услуга: результат",
+  mainCta: "Главная услуга: кнопка",
+  audienceTitle: "Заголовок «Для кого»",
+  audience: "Для кого",
+  whenTitle: "Заголовок «Когда обращаться»",
+  when: "Когда обращаться",
+  aiEyebrow: "Блок AI: надзаголовок",
+  aiTitle: "Блок AI: заголовок",
+  aiText: "Блок AI: текст",
+  aiAreas: "Блок AI: направления",
+  otherEyebrow: "Другие услуги: надзаголовок",
+  otherTitle: "Другие услуги: заголовок",
+  otherServices: "Другие услуги",
+  link: "Ссылка на страницу услуги",
 };
 
-const HIDDEN = new Set(["photo", "id", "enabled"]);
+const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);
 const LONG = new Set(["text", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
 
 type Json = unknown;
