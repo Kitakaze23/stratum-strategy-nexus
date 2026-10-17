@@ -1,47 +1,51 @@
-import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { trackCtaClick } from "@/analytics/events";
 import { useSection } from "@/content/useSiteContent";
 
-import { Reveal, Section, SectionHead } from "./primitives";
+import { ArrowLink, Eyebrow, HomeSection, Lead, SectionTitle } from "./home/shared";
 
-export function Insights() {
-  const c = useSection("insights");
+export function Insights({ showHeading = true }: { showHeading?: boolean }) {
+  const c = useSection("articles");
   return (
-    <Section id="insights" tone="surface" labelledBy="insights-title" trackId="insights">
-      <SectionHead
-        id="insights-title"
-        eyebrow={c.eyebrow}
-        title={c.title}
-        description={c.description}
-      />
+    <HomeSection id="insights" trackId="insights" labelledBy="insights-title">
+      {showHeading ? (
+        <div className="mb-12 max-w-[860px]">
+          <Eyebrow>{c.eyebrow}</Eyebrow>
+          <SectionTitle id="insights-title">{c.title}</SectionTitle>
+          {c.description ? <Lead className="max-w-[680px]">{c.description}</Lead> : null}
+        </div>
+      ) : (
+        <h2 id="insights-title" className="sr-only">
+          {c.title}
+        </h2>
+      )}
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="border-b border-border">
         {c.articles.map((article, index) => (
-          <Reveal key={`${article.slug}-${index}`} delay={index * 0.04} className="h-full">
+          <li key={`${article.slug}-${index}`} className="border-t border-border">
             <Link
               to="/insights/$slug"
               params={{ slug: article.slug }}
               onClick={() => trackCtaClick(`insight_${article.slug}`, "insights")}
-              className="group flex h-full flex-col rounded-[14px] border border-border bg-card p-8 shadow-card transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+              className="group grid gap-3 py-8 transition-colors duration-200 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)_7rem] md:items-baseline md:gap-8 md:px-4 md:hover:bg-surface"
             >
-              <h3 className="text-lg font-semibold leading-[1.35]">{article.title}</h3>
-              <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
-                {article.excerpt}
-              </p>
-              <span className="mt-auto inline-flex items-center gap-2 pt-7 text-[0.9375rem] font-medium text-primary">
-                Читать
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
+              <span className="font-serif text-[1.375rem] font-medium leading-[1.3] text-foreground">
+                {article.title}
               </span>
+              <span className="text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                {article.excerpt}
+                <span className="mt-2 block text-[0.8125rem] text-muted-foreground/80">
+                  {article.readingTime}
+                </span>
+              </span>
+              <ArrowLink className="whitespace-nowrap text-primary md:justify-self-end">
+                Читать
+              </ArrowLink>
             </Link>
-          </Reveal>
+          </li>
         ))}
-      </div>
-    </Section>
+      </ul>
+    </HomeSection>
   );
 }
