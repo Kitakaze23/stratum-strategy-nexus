@@ -110,6 +110,10 @@ const LABELS: Record<string, string> = {
   teamTitle: "Команда: заголовок",
   teamText: "Команда: текст",
   specializations: "Специализации команды",
+  results: "Результаты в цифрах",
+  experience: "Опыт работы",
+  company: "Компания",
+  period: "Период",
 };
 
 const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);

@@ -14,7 +14,7 @@ function Portrait({ src, name }: { src: string; name: string }) {
     .join("");
 
   return (
-    <div className="relative aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-[4px] bg-surface">
+    <div className="relative aspect-[4/5] w-full max-w-[240px] sm:max-w-[320px] lg:max-w-[360px] overflow-hidden rounded-[4px] bg-surface">
       {failed ? (
         <div
           role="img"
@@ -44,7 +44,9 @@ export function Founder() {
     <HomeSection id="team" trackId="team" labelledBy="team-title">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
-          <Portrait src={c.photo} name={c.name} />
+          <div className="lg:sticky lg:top-28">
+            <Portrait src={c.photo} name={c.name} />
+          </div>
         </div>
 
         <div className="lg:col-span-7 lg:col-start-6">
@@ -61,6 +63,38 @@ export function Founder() {
                 </p>
               ))}
             </div>
+
+            {c.results?.length ? (
+              <dl className="mt-8 grid gap-6 sm:grid-cols-3 sm:gap-8">
+                {c.results.map((r, i) => (
+                  <div key={i} className="border-t-2 border-signal pt-4">
+                    <dt className="font-serif text-[2rem] leading-none text-primary tabular-nums">
+                      {r.value}
+                    </dt>
+                    <dd className="mt-3 text-sm leading-[1.55] text-muted-foreground">{r.label}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+
+            {c.experience?.length ? (
+              <ul aria-label="Опыт работы" className="mt-10 border-b border-border">
+                {c.experience.map((e, i) => (
+                  <li
+                    key={i}
+                    className="grid gap-1 border-t border-border py-4 sm:grid-cols-[minmax(0,1fr)_6.5rem] sm:gap-6"
+                  >
+                    <span>
+                      <span className="block text-[0.9375rem] font-semibold">{e.company}</span>
+                      <span className="block text-sm text-muted-foreground">{e.role}</span>
+                    </span>
+                    <span className="text-sm text-muted-foreground tabular-nums sm:text-right">
+                      {e.period}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           <div className="mt-10 border-t border-border pt-8">
