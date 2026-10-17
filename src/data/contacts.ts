@@ -26,11 +26,10 @@ export const FOOTER_LINKS = [
 ] as const;
 
 export const SERVICE_LINKS = [
-  { to: "/services/ai-product-review", label: "Digital Product & AI Advisory" },
+  { to: "/services/investment-assessment", label: "Обоснование инвестиций" },
+  { to: "/services/technical-specification", label: "Разработка ТЗ" },
   { to: "/services/product-audit", label: "Technology Due Diligence" },
-  { to: "/services/product-discovery", label: "Product Discovery" },
-  { to: "/services/product-strategy", label: "Стратегия цифрового продукта" },
-  { to: "/services/mvp-review", label: "Аудит MVP" },
+  { to: "/services/ai-product-review", label: "Оценка AI-решения" },
   { to: "/services/legal-support", label: "Legal & IP" },
 ] as const;
 

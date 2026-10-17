@@ -98,7 +98,7 @@ input. Form helpers receive field identifiers only — values are never read.
 | `ask_question_view` | Free "Задать вопрос" card enters viewport |
 | `ask_question_click` | Click on the free-question CTA |
 | `ask_question_form_open` / `_form_start` / `_form_submit` | Question dialog lifecycle |
-| `product_review_view` / `_click` / `_form_open` / `_form_start` / `_form_submit` | Product Review funnel: page view of `/services/product-audit`, `/services/mvp-review`, `/services/ai-product-review`; clicks on Product Review entry points; form stages once the visitor came through that funnel |
+| `product_review_view` / `_click` / `_form_open` / `_form_start` / `_form_submit` | Product Review funnel: page view of `/services/product-audit`, `/services/ai-product-review` (`/services/mvp-review` now redirects to `/services/product-audit`); clicks on Product Review entry points; form stages once the visitor came through that funnel |
 | `ai_product_review_view` / `_click` / `_form_open` / `_form_start` / `_form_submit` | AI Product Review funnel (`/services/ai-product-review`) — tracked separately as its own acquisition hypothesis |
 
 Funnel form stages are attributed by remembering the clicked funnel in
@@ -121,8 +121,8 @@ Contact form fields: `name`, `company`, `role`, `email`, `phone`, `message`,
 CTAs: `discuss_task`, `independent_opinion`, `ask_question`, `product_review`,
 `strategy_review`, `product_assessment`, `service_primary`.
 
-Services: `ai_product_review`, `product_discovery`, `product_audit`,
-`product_strategy`, `mvp_review`, `legal_support`.
+Services: `investment_assessment`, `technical_specification`, `ai_product_review`, `product_audit`, `legal_support` (retired: `product_discovery`,
+`product_strategy`, `mvp_review` — their URLs 301-redirect).
 
 Analytics sections (stable, independent of DOM anchor ids so navigation and copy
 can change freely). Home page (redesign, October 2026): `hero`,

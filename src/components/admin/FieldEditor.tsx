@@ -117,6 +117,8 @@ const LABELS: Record<string, string> = {
   experience: "Опыт работы: компании",
   company: "Компания",
   period: "Период",
+  linkLabel: "Текст ссылки на страницу услуги",
+  stepsTitle: "Заголовок блока «Что будет после заявки»",
 };
 
 const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);

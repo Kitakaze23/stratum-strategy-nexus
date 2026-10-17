@@ -113,7 +113,7 @@ function InsightPage() {
 
             <div className="measure mt-14 rounded-[14px] border border-border bg-surface p-8 md:p-10">
               <p className="text-lg font-semibold leading-[1.4]">
-                Нужен независимый взгляд на ваш продукт?
+                Нужен независимый взгляд на ваш проект?
               </p>
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
                 Разберём ситуацию и предложим подходящий формат работы.
@@ -123,7 +123,7 @@ function InsightPage() {
                   <a href="/#contact">Обсудить задачу</a>
                 </Cta>
                 <Cta asChild variant="secondary">
-                  <Link to="/services/ai-product-review">Product Review</Link>
+                  <Link to="/services/investment-assessment">Обоснование инвестиций</Link>
                 </Cta>
               </div>
             </div>

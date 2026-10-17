@@ -1,8 +1,10 @@
-import { trackCtaClick, trackEvent } from "@/analytics/events";
+import { Link } from "@tanstack/react-router";
+
+import { trackCtaClick, trackEvent, trackServiceClick } from "@/analytics/events";
 import { useSection } from "@/content/useSiteContent";
 
 import { Cta } from "../primitives";
-import { Eyebrow, HomeSection, Lead, SectionTitle } from "./shared";
+import { ArrowLink, Eyebrow, HomeSection, Lead, SectionTitle } from "./shared";
 
 /** Stable analytics ids per core service, by position (kept from the previous page). */
 const TRACKING = [
@@ -92,7 +94,7 @@ export function CoreServices() {
                 </div>
               </dl>
 
-              <div className="mt-9 lg:mt-auto lg:pt-9">
+              <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7 lg:mt-auto lg:pt-9">
                 <Cta asChild className="w-full sm:w-auto">
                   <a
                     href="#contact"
@@ -104,6 +106,17 @@ export function CoreServices() {
                     {s.cta}
                   </a>
                 </Cta>
+                {s.link ? (
+                  <Link
+                    to={s.link}
+                    onClick={() =>
+                      trackServiceClick(s.link.split("/").pop() ?? "", "services_core")
+                    }
+                    className="group inline-flex text-primary underline-offset-4 hover:underline"
+                  >
+                    <ArrowLink>{s.linkLabel}</ArrowLink>
+                  </Link>
+                ) : null}
               </div>
             </article>
           );

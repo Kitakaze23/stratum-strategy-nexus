@@ -96,7 +96,27 @@ export function Contact({
           <Eyebrow>{c.eyebrow}</Eyebrow>
           <SectionTitle id="contact-title">{c.title}</SectionTitle>
           {c.description ? <Lead>{c.description}</Lead> : null}
-          <ul className="mt-12 grid border-t border-border sm:grid-cols-2">
+          {c.steps?.length ? (
+            <div className="mt-10">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                {c.stepsTitle}
+              </h3>
+              <ol className="mt-4 border-b border-border">
+                {c.steps.map((step, i) => (
+                  <li
+                    key={i}
+                    className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-2 border-t border-border py-3.5 text-[0.9375rem] leading-[1.55]"
+                  >
+                    <span aria-hidden="true" className="font-serif text-signal tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+          <ul className="mt-10 grid border-t border-border sm:grid-cols-2">
             {CHANNELS.map((channel) => (
               <li key={channel.label}>
                 <a

@@ -19,11 +19,13 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
+import { Route as ServicesInvestmentAssessmentRouteImport } from './routes/services.investment-assessment'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
 import { Route as ServicesProductAuditRouteImport } from './routes/services.product-audit'
 import { Route as ServicesProductDiscoveryRouteImport } from './routes/services.product-discovery'
 import { Route as ServicesProductStrategyRouteImport } from './routes/services.product-strategy'
+import { Route as ServicesTechnicalSpecificationRouteImport } from './routes/services.technical-specification'
 import { Route as ApiPublicConsultationRouteImport } from './routes/api/public/consultation'
 import { Route as ApiPublicQuestionRouteImport } from './routes/api/public/question'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -77,6 +79,12 @@ const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
   path: '/services/ai-product-review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesInvestmentAssessmentRoute =
+  ServicesInvestmentAssessmentRouteImport.update({
+    id: '/services/investment-assessment',
+    path: '/services/investment-assessment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ServicesLegalSupportRoute = ServicesLegalSupportRouteImport.update({
   id: '/services/legal-support',
   path: '/services/legal-support',
@@ -103,6 +111,12 @@ const ServicesProductStrategyRoute = ServicesProductStrategyRouteImport.update({
   path: '/services/product-strategy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesTechnicalSpecificationRoute =
+  ServicesTechnicalSpecificationRouteImport.update({
+    id: '/services/technical-specification',
+    path: '/services/technical-specification',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicConsultationRoute = ApiPublicConsultationRouteImport.update({
   id: '/api/public/consultation',
   path: '/api/public/consultation',
@@ -129,11 +143,13 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/services/technical-specification': typeof ServicesTechnicalSpecificationRoute
   '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
@@ -148,11 +164,13 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/services/technical-specification': typeof ServicesTechnicalSpecificationRoute
   '/insights': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
@@ -169,11 +187,13 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
   '/services/product-audit': typeof ServicesProductAuditRoute
   '/services/product-discovery': typeof ServicesProductDiscoveryRoute
   '/services/product-strategy': typeof ServicesProductStrategyRoute
+  '/services/technical-specification': typeof ServicesTechnicalSpecificationRoute
   '/insights/': typeof InsightsIndexRoute
   '/api/public/consultation': typeof ApiPublicConsultationRoute
   '/api/public/question': typeof ApiPublicQuestionRoute
@@ -190,11 +210,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/services/technical-specification'
     | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
@@ -209,11 +231,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/services/technical-specification'
     | '/insights'
     | '/api/public/consultation'
     | '/api/public/question'
@@ -229,11 +253,13 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
     | '/services/product-audit'
     | '/services/product-discovery'
     | '/services/product-strategy'
+    | '/services/technical-specification'
     | '/insights/'
     | '/api/public/consultation'
     | '/api/public/question'
@@ -249,11 +275,13 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
+  ServicesInvestmentAssessmentRoute: typeof ServicesInvestmentAssessmentRoute
   ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
   ServicesProductAuditRoute: typeof ServicesProductAuditRoute
   ServicesProductDiscoveryRoute: typeof ServicesProductDiscoveryRoute
   ServicesProductStrategyRoute: typeof ServicesProductStrategyRoute
+  ServicesTechnicalSpecificationRoute: typeof ServicesTechnicalSpecificationRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
   ApiPublicConsultationRoute: typeof ApiPublicConsultationRoute
   ApiPublicQuestionRoute: typeof ApiPublicQuestionRoute
@@ -332,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesAiProductReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/investment-assessment': {
+      id: '/services/investment-assessment'
+      path: '/services/investment-assessment'
+      fullPath: '/services/investment-assessment'
+      preLoaderRoute: typeof ServicesInvestmentAssessmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/legal-support': {
       id: '/services/legal-support'
       path: '/services/legal-support'
@@ -365,6 +400,13 @@ declare module '@tanstack/react-router' {
       path: '/services/product-strategy'
       fullPath: '/services/product-strategy'
       preLoaderRoute: typeof ServicesProductStrategyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/technical-specification': {
+      id: '/services/technical-specification'
+      path: '/services/technical-specification'
+      fullPath: '/services/technical-specification'
+      preLoaderRoute: typeof ServicesTechnicalSpecificationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/consultation': {
@@ -411,11 +453,13 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
+  ServicesInvestmentAssessmentRoute: ServicesInvestmentAssessmentRoute,
   ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,
   ServicesProductAuditRoute: ServicesProductAuditRoute,
   ServicesProductDiscoveryRoute: ServicesProductDiscoveryRoute,
   ServicesProductStrategyRoute: ServicesProductStrategyRoute,
+  ServicesTechnicalSpecificationRoute: ServicesTechnicalSpecificationRoute,
   InsightsIndexRoute: InsightsIndexRoute,
   ApiPublicConsultationRoute: ApiPublicConsultationRoute,
   ApiPublicQuestionRoute: ApiPublicQuestionRoute,

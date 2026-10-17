@@ -1,15 +1,18 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { useEffect } from "react";
 
 import { trackCtaClick, trackFunnelView, trackServiceClick } from "@/analytics/events";
+import { SiteContentProvider } from "@/content/useSiteContent";
 import type { ServiceContent } from "@/data/services";
 import { SERVICES_CONTENT } from "@/data/services";
 
-import { useEffect } from "react";
-
+import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { Cta, Reveal, Section, SectionHead } from "./primitives";
+import { ArrowLink, Eyebrow, HomeSection, Lead, SectionTitle } from "./home/shared";
+import { Cta } from "./primitives";
+import { Toaster } from "@/components/ui/sonner";
 
 /** Stable analytics identifier derived from the service slug, not from copy. */
 function serviceAnalyticsId(slug: string): string {
@@ -18,7 +21,13 @@ function serviceAnalyticsId(slug: string): string {
 
 const funnelViewsSent = new Set<string>();
 
-export function ServicePage({ service }: { service: ServiceContent }) {
+export function ServicePage({
+  service,
+  rows,
+}: {
+  service: ServiceContent;
+  rows: Record<string, unknown>;
+}) {
   const related = SERVICES_CONTENT.filter((s) => s.slug !== service.slug);
   const serviceId = serviceAnalyticsId(service.slug);
 
@@ -29,17 +38,26 @@ export function ServicePage({ service }: { service: ServiceContent }) {
     if (serviceId === "ai_product_review") {
       trackFunnelView("ai_product_review", service.path);
       trackFunnelView("product_review", service.path);
-    } else if (serviceId === "mvp_review" || serviceId === "product_audit") {
+    } else if (serviceId === "product_audit") {
       trackFunnelView("product_review", service.path);
     }
   }, [serviceId, service.path]);
 
+  const primaryCta = (location: string) => ({
+    href: "#contact",
+    onClick: () => {
+      trackCtaClick("service_primary", location);
+      trackServiceClick(serviceId, location);
+    },
+  });
+
   return (
-    <>
+    <SiteContentProvider rows={rows}>
       <Header />
-      <main className="pt-[76px]">
-        <section className="border-b border-border bg-background">
-          <div className="container-page py-20 md:py-28">
+      <main id="main" className="pt-[76px]">
+        {/* Hero */}
+        <section aria-labelledby="service-title" className="border-b border-border">
+          <div className="container-page py-14 md:py-20 lg:py-24">
             <Link
               to="/"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
@@ -47,216 +65,271 @@ export function ServicePage({ service }: { service: ServiceContent }) {
               <ArrowLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
               На главную
             </Link>
-
-            <Reveal className="mt-10 max-w-[860px]">
-              <p className="eyebrow">{service.eyebrow}</p>
-              <h1 className="mt-6 text-[2rem] font-semibold leading-[1.15] md:text-[2.875rem]">
+            <div className="mt-10 max-w-[900px]">
+              <p
+                lang={/[а-яё]/i.test(service.eyebrow) ? undefined : "en"}
+                className="flex items-center gap-3 text-sm font-semibold tracking-[0.02em] text-primary"
+              >
+                <span aria-hidden="true" className="h-px w-8 bg-signal" />
+                {service.eyebrow}
+              </p>
+              <h1
+                id="service-title"
+                className="mt-7 font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3.25rem]"
+              >
                 {service.title}
               </h1>
-              <p className="mt-6 text-lg leading-[1.75] text-muted-foreground">{service.subtitle}</p>
-              <div className="mt-10 flex flex-wrap gap-3">
+              <p className="mt-7 max-w-[720px] text-lg leading-[1.65] text-muted-foreground md:text-xl">
+                {service.subtitle}
+              </p>
+              <div className="mt-10">
                 <Cta asChild>
-                  <a
-                    href="/#contact"
-                    onClick={() => {
-                      trackCtaClick("service_primary", "service_hero");
-                      trackServiceClick(serviceId, "service_hero");
-                    }}
-                  >
-                    {service.cta}
-                  </a>
-                </Cta>
-                <Cta asChild variant="secondary">
-                  <a
-                    href="/#contact"
-                    onClick={() => trackCtaClick("discuss_task", "service_hero")}
-                  >
-                    Обсудить задачу
-                  </a>
+                  <a {...primaryCta("service_hero")}>{service.cta}</a>
                 </Cta>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">{service.ctaNote}</p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
-        <Section labelledBy="service-intro">
-          <div className="grid gap-12 lg:grid-cols-12">
+        {/* Context */}
+        <HomeSection id="context" trackId="service_context" labelledBy="service-intro">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-5">
-              <SectionHead id="service-intro" eyebrow="Контекст" title="Зачем это нужно" />
+              <Eyebrow>Контекст</Eyebrow>
+              <SectionTitle id="service-intro">Зачем это нужно</SectionTitle>
             </div>
-            <div className="space-y-6 text-[1.0625rem] leading-[1.75] text-muted-foreground lg:col-span-7">
+            <div className="space-y-6 text-[1.0625rem] leading-[1.75] text-foreground/85 lg:col-span-6 lg:col-start-7">
               {service.intro.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}
             </div>
           </div>
-        </Section>
+        </HomeSection>
 
-        <Section tone="surface" labelledBy="service-questions">
-          <SectionHead
-            id="service-questions"
-            eyebrow="Вопросы"
-            title={service.questionsTitle}
-            description="Ответы на эти вопросы определяют, куда уйдут следующие месяцы работы и бюджет."
-          />
-          <ul className="mt-14 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border md:grid-cols-2">
+        {/* When */}
+        <HomeSection
+          id="when"
+          trackId="service_situations"
+          labelledBy="service-questions"
+          tone="surface"
+        >
+          <Eyebrow>Ситуации</Eyebrow>
+          <SectionTitle id="service-questions">{service.questionsTitle}</SectionTitle>
+          <ul className="mt-12 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
             {service.questions.map((question) => (
-              <li key={question} className="bg-card p-7 text-[0.9375rem] leading-[1.7]">
+              <li
+                key={question}
+                className="border-t border-border py-6 text-[1rem] leading-[1.6] text-foreground"
+              >
                 {question}
               </li>
             ))}
           </ul>
-        </Section>
+        </HomeSection>
 
+        {/* What we do */}
         {service.practices ? (
-          <Section labelledBy="service-practices">
-            <SectionHead
-              id="service-practices"
-              eyebrow="Состав работ"
-              title={service.practicesTitle ?? "Направления работы"}
-              description="Каждое направление можно взять отдельно или в составе комплексной оценки."
-            />
-            <div className="mt-14 grid gap-6 md:grid-cols-2">
-              {service.practices.map((practice, index) => (
-                <Reveal key={practice.title} delay={index * 0.05}>
-                  <article className="h-full rounded-[14px] border border-border bg-card p-7 shadow-card">
-                    <h3 className="text-lg font-semibold">{practice.title}</h3>
-                    <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
+          <HomeSection id="scope" trackId="service_scope" labelledBy="service-practices">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-4">
+                <Eyebrow>Состав работ</Eyebrow>
+                <SectionTitle id="service-practices">
+                  {service.practicesTitle ?? "Что делает Stratum"}
+                </SectionTitle>
+              </div>
+              <ol className="border-b border-border lg:col-span-7 lg:col-start-6">
+                {service.practices.map((practice, i) => (
+                  <li
+                    key={practice.title}
+                    className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-3 border-t border-border py-7 md:grid-cols-[4rem_minmax(0,2fr)_minmax(0,3fr)] md:gap-x-8"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="font-serif text-xl text-signal tabular-nums"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-lg font-semibold leading-[1.4]">{practice.title}</h3>
+                    <p className="col-start-2 mt-2 text-[0.9375rem] leading-[1.7] text-muted-foreground md:col-start-3 md:mt-0">
                       {practice.text}
                     </p>
-                  </article>
-                </Reveal>
-              ))}
+                  </li>
+                ))}
+              </ol>
             </div>
-          </Section>
+          </HomeSection>
         ) : null}
 
-
-
-        <Section labelledBy="service-deliverables">
-          <div className="grid gap-12 lg:grid-cols-12">
+        {/* Result */}
+        <HomeSection
+          id="result"
+          trackId="service_result"
+          labelledBy="service-deliverables"
+          className="border-t border-border"
+        >
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-5">
-              <SectionHead id="service-deliverables" eyebrow="Результат" title={service.deliverablesTitle} />
-              <dl className="mt-12 space-y-6 border-t border-border pt-8">
+              <Eyebrow>Результат</Eyebrow>
+              <SectionTitle id="service-deliverables">{service.deliverablesTitle}</SectionTitle>
+              <h3 className="mt-10 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                {service.formatTitle}
+              </h3>
+              <dl className="mt-4 border-b border-border">
                 {service.format.map((row) => (
-                  <div key={row.term}>
-                    <dt className="text-xs uppercase tracking-[0.12em] text-primary">{row.term}</dt>
-                    <dd className="mt-2 text-[0.9375rem] leading-[1.7] text-muted-foreground">{row.value}</dd>
+                  <div key={row.term} className="border-t border-border py-4">
+                    <dt className="text-[0.9375rem] font-semibold">{row.term}</dt>
+                    <dd className="mt-1 text-[0.9375rem] leading-[1.65] text-muted-foreground">
+                      {row.value}
+                    </dd>
                   </div>
                 ))}
               </dl>
             </div>
-            <Reveal delay={0.06} className="lg:col-span-7">
-              <ul className="grid gap-4 sm:grid-cols-2">
-                {service.deliverables.map((item) => (
-                  <li
-                    key={item}
-                    className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-3 rounded-[12px] border border-border bg-card p-5 text-[0.9375rem] leading-[1.6] shadow-card"
-                  >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={2} aria-hidden="true" />
-                    <span>{item}</span>
+            <ul className="self-start border-b border-border lg:col-span-6 lg:col-start-7">
+              {service.deliverables.map((item) => (
+                <li
+                  key={item}
+                  className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-3 border-t border-border py-4 text-[1rem] leading-[1.6]"
+                >
+                  <span aria-hidden="true" className="mt-[0.75em] h-px w-3 bg-signal" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </HomeSection>
+
+        {/* Document structure */}
+        {service.document ? (
+          <HomeSection
+            id="document"
+            trackId="service_document"
+            labelledBy="service-document"
+            tone="navy"
+          >
+            <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-6">
+                <Eyebrow tone="navy">Пример результата</Eyebrow>
+                <SectionTitle id="service-document">{service.document.title}</SectionTitle>
+              </div>
+              <Lead tone="navy" className="lg:col-span-5 lg:col-start-8 lg:mt-auto">
+                {service.document.intro}
+              </Lead>
+            </div>
+            <ol className="mt-14 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+              {service.document.sections.map((section, i) => (
+                <li key={section.title} className="border-t border-navy-foreground/20 py-7">
+                  <h3 className="flex items-baseline gap-3 text-lg font-semibold">
+                    <span
+                      aria-hidden="true"
+                      className="font-serif text-base text-signal tabular-nums"
+                    >
+                      {i + 1}.
+                    </span>
+                    {section.title}
+                  </h3>
+                  <ul className="mt-4 space-y-2 pl-7">
+                    {section.items.map((item, k) => (
+                      <li
+                        key={item}
+                        className="text-[0.9375rem] leading-[1.55] text-navy-foreground/75"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mr-2 tabular-nums text-navy-foreground/45"
+                        >
+                          {i + 1}.{k + 1}
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+          </HomeSection>
+        ) : null}
+
+        {/* Audience + cross reference */}
+        <HomeSection
+          id="audience"
+          trackId="service_audience"
+          labelledBy="service-audience"
+          {...(service.document ? {} : { className: "border-t border-border" })}
+        >
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-5">
+              <Eyebrow>Аудитория</Eyebrow>
+              <SectionTitle id="service-audience">{service.audienceTitle}</SectionTitle>
+              <ul className="mt-10 border-b border-border">
+                {service.audience.map((item) => (
+                  <li key={item} className="border-t border-border py-3.5 text-[1rem]">
+                    {item}
                   </li>
                 ))}
               </ul>
-            </Reveal>
-          </div>
-        </Section>
-
-        <Section tone="navy" labelledBy="service-audience">
-          <SectionHead id="service-audience" tone="navy" eyebrow="Аудитория" title={service.audienceTitle} />
-          <ul className="mt-12 flex flex-wrap gap-3">
-            {service.audience.map((item) => (
-              <li
-                key={item}
-                className="rounded-full border border-navy-foreground/25 px-5 py-2.5 text-[0.875rem] text-navy-foreground/85"
+            </div>
+            {service.crossRef ? (
+              <aside
+                aria-labelledby="service-crossref"
+                className="self-start border-l-2 border-signal bg-surface p-7 sm:p-10 lg:col-span-6 lg:col-start-7"
               >
-                {item}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-navy-foreground/15 pt-10">
-            <Cta asChild variant="ghostLight">
-              <a
-                href="/#contact"
-                onClick={() => {
-                  trackCtaClick("service_primary", "service_audience");
-                  trackServiceClick(serviceId, "service_audience");
-                }}
-              >
-                {service.cta}
-              </a>
-            </Cta>
-            <p className="text-sm text-navy-foreground/70">
-              Работа не связана с разработкой — только независимая оценка и рекомендации.
-            </p>
-          </div>
-        </Section>
-
-        {service.crossRef ? (
-          <Section labelledBy="service-crossref">
-            <div className="grid gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-6">
-                <h2 id="service-crossref" className="text-[1.75rem] font-semibold leading-[1.25] md:text-[2.125rem]">
+                <h3
+                  id="service-crossref"
+                  className="font-serif text-2xl font-medium leading-[1.25] md:text-[1.75rem]"
+                >
                   {service.crossRef.title}
-                </h2>
-              </div>
-              <div className="space-y-6 text-[1.0625rem] leading-[1.75] text-muted-foreground lg:col-span-6">
-                {service.crossRef.text.map((paragraph) => (
-                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                ))}
+                </h3>
+                <div className="mt-4 space-y-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                  {service.crossRef.text.map((paragraph) => (
+                    <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                  ))}
+                </div>
                 <Link
                   to={service.crossRef.linkTo}
                   onClick={() => trackServiceClick(serviceId, "service_crossref")}
-                  className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary"
+                  className="group mt-6 inline-flex text-primary underline-offset-4 hover:underline"
                 >
-                  {service.crossRef.linkLabel}
-                  <ArrowRight
-                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                  />
+                  <ArrowLink>{service.crossRef.linkLabel}</ArrowLink>
                 </Link>
-              </div>
-            </div>
-          </Section>
-        ) : null}
+              </aside>
+            ) : null}
+          </div>
+        </HomeSection>
 
+        <Contact tone="surface" />
 
-
-        <Section tone="surface" labelledBy="service-related">
-          <SectionHead
-            id="service-related"
-            eyebrow="Другие направления"
-            title="Смежные форматы работы"
-            description="Если задача сформулирована иначе, подойдёт другой формат независимой оценки."
-          />
-          <ul className="mt-14 grid gap-6 md:grid-cols-2">
+        {/* Related services */}
+        <HomeSection id="related" trackId="service_related" labelledBy="service-related">
+          <Eyebrow>Другие услуги</Eyebrow>
+          <SectionTitle id="service-related">Смежные задачи</SectionTitle>
+          <ul className="mt-12 border-b border-border">
             {related.map((item) => (
-              <li key={item.slug}>
+              <li key={item.slug} className="border-t border-border">
                 <Link
                   to={item.path}
-                  onClick={() => trackServiceClick(serviceAnalyticsId(item.slug), "service_related")}
-                  className="group flex h-full flex-col rounded-[14px] border border-border bg-card p-7 shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+                  onClick={() =>
+                    trackServiceClick(serviceAnalyticsId(item.slug), "service_related")
+                  }
+                  className="group grid gap-3 py-7 transition-colors duration-200 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)_8rem] md:items-baseline md:gap-8 md:px-4 md:hover:bg-surface"
                 >
-                  <h3 className="text-lg font-semibold">{item.navLabel}</h3>
-                  <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted-foreground">{item.subtitle}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-primary">
-                    Подробнее
-                    <ArrowRight
-                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                      strokeWidth={1.75}
-                      aria-hidden="true"
-                    />
+                  <span className="text-lg font-semibold leading-[1.35]">{item.navLabel}</span>
+                  <span className="text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                    {item.subtitle}
                   </span>
+                  <ArrowLink className="whitespace-nowrap text-primary md:justify-self-end">
+                    Подробнее
+                  </ArrowLink>
                 </Link>
               </li>
             ))}
           </ul>
-        </Section>
+        </HomeSection>
       </main>
       <Footer />
-    </>
+      <Toaster />
+    </SiteContentProvider>
   );
 }
 

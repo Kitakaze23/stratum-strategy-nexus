@@ -1,11 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-import { ServicePage, serviceHead } from "@/components/site/ServicePage";
-import { getService } from "@/data/services";
-
-const service = getService("product-discovery")!;
-
+/** Retired page — permanently redirected to the closest current service. */
 export const Route = createFileRoute("/services/product-discovery")({
-  component: () => <ServicePage service={service} />,
-  head: () => serviceHead(service),
+  beforeLoad: () => {
+    throw redirect({ to: "/services/investment-assessment", statusCode: 301 });
+  },
 });
