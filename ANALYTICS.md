@@ -128,7 +128,7 @@ Analytics sections (stable, independent of DOM anchor ids so navigation and copy
 can change freely). Home page (redesign, October 2026): `hero`,
 `business_challenges` (#situations), `services` (#services — the two core
 services), `process` (#approach), `expertise` (#expertise),
-`industrial_experience` (#experience), `team` (#team), `principles` (#principles), `contact`
+`industrial_experience` (#experience, «Опыт»), `team` (#team), `principles` (#principles), `contact`
 (#contact). Ids used only by earlier versions of the home page (`why_stratum`,
 `achievements`, `consultation_formats`, `ask_question_card`, `faq`, …)
 no longer fire there.
