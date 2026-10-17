@@ -105,10 +105,15 @@ const LABELS: Record<string, string> = {
   aiCta: "Блок AI: текст ссылки",
   domains: "Отрасли",
   footnote: "Примечание",
+  pricingNote: "Примечание о стоимости",
+  bio: "Абзацы о себе",
+  teamTitle: "Команда: заголовок",
+  teamText: "Команда: текст",
+  specializations: "Специализации команды",
 };
 
 const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);
-const LONG = new Set(["when", "lead", "footnote", "heroNote", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
+const LONG = new Set(["pricingNote", "teamText", "bio", "when", "lead", "footnote", "heroNote", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
 
 type Json = unknown;
 

@@ -109,6 +109,12 @@ export function CoreServices() {
           );
         })}
       </div>
+
+      {c.pricingNote ? (
+        <p className="mt-8 max-w-[760px] text-[0.9375rem] leading-[1.7] text-muted-foreground">
+          {c.pricingNote}
+        </p>
+      ) : null}
     </HomeSection>
   );
 }

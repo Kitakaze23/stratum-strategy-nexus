@@ -20,6 +20,7 @@ export const FOOTER_LINKS = [
   { href: "#approach", label: "Подход" },
   { href: "#expertise", label: "Экспертиза" },
   { href: "#experience", label: "Отраслевой опыт" },
+  { href: "#team", label: "Основатель и команда" },
   { href: "#principles", label: "Принципы работы" },
   { href: "#contact", label: "Контакты" },
 ] as const;

@@ -6,7 +6,12 @@ export function Principles() {
   const c = useSection("homePrinciples");
 
   return (
-    <HomeSection id="principles" trackId="principles" labelledBy="principles-title">
+    <HomeSection
+      id="principles"
+      trackId="principles"
+      labelledBy="principles-title"
+      className="border-t border-border"
+    >
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">

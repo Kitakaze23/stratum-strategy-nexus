@@ -9,6 +9,7 @@ import { ExpertiseAreas } from "@/components/site/home/ExpertiseAreas";
 import { HomeHero } from "@/components/site/home/HomeHero";
 import { IndustryExperience } from "@/components/site/home/IndustryExperience";
 import { Principles } from "@/components/site/home/Principles";
+import { Founder } from "@/components/site/home/Founder";
 import { Situations } from "@/components/site/home/Situations";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteContentProvider, siteContentQuery, useSiteContent } from "@/content/useSiteContent";
@@ -66,7 +67,6 @@ export const Route = createFileRoute("/")({
                 "Цифровизация промышленных и инженерных процессов",
                 "Legal & IP",
               ],
-              priceRange: "от 25 000 ₽",
               telephone: "+7 (925) 539-33-53",
               email: "inbox@stratum-consulting.ru",
             },
@@ -104,6 +104,7 @@ function IndexSections() {
         {c.homeApproach.enabled ? <Approach /> : null}
         {c.homeExpertise.enabled ? <ExpertiseAreas /> : null}
         {c.homeExperience.enabled ? <IndustryExperience /> : null}
+        {c.homeTeam.enabled ? <Founder /> : null}
         {c.homePrinciples.enabled ? <Principles /> : null}
         {c.homeContact.enabled ? <Contact section="homeContact" tone="surface" /> : null}
       </main>
