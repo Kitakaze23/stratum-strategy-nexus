@@ -9,12 +9,13 @@ import { cn } from "@/lib/utils";
 /* ---------------------------------- CTA ---------------------------------- */
 
 const ctaVariants = cva(
-  "inline-flex h-[52px] items-center justify-center gap-2 rounded-[10px] px-7 text-[0.9375rem] font-medium transition-colors duration-200 disabled:pointer-events-none disabled:opacity-60",
+  "inline-flex h-12 items-center justify-center gap-2 rounded-[4px] px-6 text-[0.9375rem] font-medium transition-colors duration-200 disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {
         primary: "bg-primary text-primary-foreground hover:bg-primary-hover",
-        secondary: "border border-primary bg-background text-primary hover:bg-accent",
+        secondary:
+          "border border-primary/30 bg-background text-primary hover:border-primary hover:bg-accent",
         ghostLight:
           "border border-navy-foreground/30 text-navy-foreground hover:border-navy-foreground/60 hover:bg-navy-foreground/5",
       },
@@ -89,7 +90,11 @@ export function Reveal({
       initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: reduce ? 0 : 0.35, delay: reduce ? 0 : delay, ease: [0.22, 0.61, 0.36, 1] }}
+      transition={{
+        duration: reduce ? 0 : 0.35,
+        delay: reduce ? 0 : delay,
+        ease: [0.22, 0.61, 0.36, 1],
+      }}
     >
       {children}
     </motion.div>
@@ -116,7 +121,7 @@ export function SectionHead({
       <p className={cn("eyebrow", tone === "navy" && "text-navy-foreground/70")}>{eyebrow}</p>
       <h2
         id={id}
-        className="mt-5 text-3xl font-semibold leading-[1.15] md:text-[2.75rem]"
+        className="mt-5 font-serif text-[2rem] font-medium leading-[1.12] md:text-[2.75rem]"
       >
         {title}
       </h2>

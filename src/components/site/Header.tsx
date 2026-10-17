@@ -10,14 +10,12 @@ import { useSiteContent } from "@/content/useSiteContent";
 import { Cta } from "./primitives";
 import { NAV_LINKS } from "./contacts";
 
+/** Hides a nav link when its home-page section is switched off in the admin panel. */
 const LINK_SECTION: Record<string, SectionKey> = {
-  "#services": "services",
-  "#why": "why",
-  "#portfolio": "portfolio",
-  "#team": "team",
-  "#insights": "insights",
-  "#pricing": "pricing",
-  "#contact": "contact",
+  "#services": "homeServices",
+  "#approach": "homeApproach",
+  "#expertise": "homeExpertise",
+  "#contact": "homeContact",
 };
 
 function BrandLink({
@@ -92,8 +90,14 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
@@ -112,35 +116,56 @@ export function Header() {
           >
             <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center">
               <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none" aria-hidden="true">
-                <rect x="4" y="6" width="24" height="4" fill="currentColor" className="text-primary" />
-                <rect x="4" y="14" width="18" height="4" fill="currentColor" className="text-primary opacity-70" />
-                <rect x="4" y="22" width="12" height="4" fill="currentColor" className="text-primary opacity-40" />
+                <rect
+                  x="4"
+                  y="6"
+                  width="24"
+                  height="4"
+                  fill="currentColor"
+                  className="text-primary"
+                />
+                <rect
+                  x="4"
+                  y="14"
+                  width="18"
+                  height="4"
+                  fill="currentColor"
+                  className="text-primary opacity-70"
+                />
+                <rect
+                  x="4"
+                  y="22"
+                  width="12"
+                  height="4"
+                  fill="currentColor"
+                  className="text-primary opacity-40"
+                />
               </svg>
             </span>
-            <span className="truncate text-[0.9375rem] font-semibold tracking-tight">
-              Stratum <span className="font-normal text-muted-foreground">Consulting</span>
+            <span className="truncate text-base font-semibold tracking-tight text-primary">
+              Stratum <span className="font-normal text-foreground/70">Consulting</span>
             </span>
           </BrandLink>
 
-          <nav aria-label="Основная навигация" className="hidden items-center gap-7 lg:flex">
+          <nav aria-label="Основная навигация" className="hidden items-center gap-8 lg:flex">
             {links.map((link) => (
               <SectionLink
                 key={link.href}
                 href={link.href}
                 onHome={onHome}
-                className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                className="text-[0.9375rem] text-foreground/75 transition-colors duration-200 hover:text-primary"
               >
                 {link.label}
               </SectionLink>
             ))}
-            <Cta asChild className="h-11 px-5 text-sm">
+            <Cta asChild className="ml-2 h-10 px-5 text-sm">
               {onHome ? (
-                <a href="#contact" onClick={() => trackCtaClick("discuss_project", "header")}>
-                  Обсудить проект
+                <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
+                  Обсудить задачу
                 </a>
               ) : (
-                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_project", "header")}>
-                  Обсудить проект
+                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_task", "header")}>
+                  Обсудить задачу
                 </Link>
               )}
             </Cta>
@@ -152,9 +177,13 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
-            className="relative z-10 flex h-11 w-11 items-center justify-center rounded-[10px] border border-border bg-background text-foreground lg:hidden"
+            className="relative z-10 flex h-11 w-11 items-center justify-center rounded-[4px] border border-border bg-background text-foreground lg:hidden"
           >
-            {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+            {open ? (
+              <X className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            )}
           </button>
         </div>
       </header>
@@ -185,22 +214,22 @@ export function Header() {
                 <a
                   href="#contact"
                   onClick={() => {
-                    trackCtaClick("discuss_project", "mobile_nav");
+                    trackCtaClick("discuss_task", "mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить проект
+                  Обсудить задачу
                 </a>
               ) : (
                 <Link
                   to="/"
                   hash="contact"
                   onClick={() => {
-                    trackCtaClick("discuss_project", "mobile_nav");
+                    trackCtaClick("discuss_task", "mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить проект
+                  Обсудить задачу
                 </Link>
               )}
             </Cta>

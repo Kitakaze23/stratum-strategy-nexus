@@ -1,29 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Contact } from "@/components/site/Contact";
-import { Faq } from "@/components/site/Faq";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
-import { Hero } from "@/components/site/Hero";
-import { Insights } from "@/components/site/Insights";
-import { Portfolio } from "@/components/site/Portfolio";
-import { Pricing } from "@/components/site/Pricing";
-import { Process } from "@/components/site/Process";
-import { Services } from "@/components/site/Services";
-import { Team } from "@/components/site/Team";
-import { WhyStratum } from "@/components/site/WhyStratum";
+import { Approach } from "@/components/site/home/Approach";
+import { CoreServices } from "@/components/site/home/CoreServices";
+import { ExpertiseAreas } from "@/components/site/home/ExpertiseAreas";
+import { HomeHero } from "@/components/site/home/HomeHero";
+import { IndustryExperience } from "@/components/site/home/IndustryExperience";
+import { Principles } from "@/components/site/home/Principles";
+import { Situations } from "@/components/site/home/Situations";
 import { Toaster } from "@/components/ui/sonner";
-import { FAQ_ITEMS } from "@/data/faq";
-import {
-  SiteContentProvider,
-  siteContentQuery,
-  useSiteContent,
-} from "@/content/useSiteContent";
+import { SiteContentProvider, siteContentQuery, useSiteContent } from "@/content/useSiteContent";
 
-
-const TITLE = "Независимая оценка цифрового и AI-проекта до разработки | Stratum Consulting";
+const TITLE = "Обоснование инвестиций в IT и разработка технического задания | Stratum Consulting";
 const DESCRIPTION =
-  "Обоснование инвестиций в IT до выбора подрядчика: сравнение вариантов, оценка стоимости разработки, требований, рисков и целесообразности AI-решений.";
+  "Независимая оценка цифрового решения до начала разработки: обоснование инвестиций в IT, выбор решения для автоматизации бизнеса, требования и техническое задание.";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => ({
@@ -59,18 +51,19 @@ export const Route = createFileRoute("/")({
               description: DESCRIPTION,
               telephone: "+7 (925) 539-33-53",
               email: "inbox@stratum-consulting.ru",
-
             },
             {
               "@type": "ProfessionalService",
               name: "Stratum Consulting",
               description: DESCRIPTION,
               areaServed: "RU",
+              slogan: "Better Decisions. Better Products.",
               serviceType: [
-                "Независимая оценка цифрового и AI-проекта",
-                "Digital Product & AI Advisory",
+                "Обоснование инвестиций в цифровые решения",
+                "Разработка технического задания на цифровой проект",
                 "Технологический Due Diligence",
                 "Enterprise Analytics",
+                "Цифровизация промышленных и инженерных процессов",
                 "Legal & IP",
               ],
               priceRange: "от 25 000 ₽",
@@ -78,18 +71,6 @@ export const Route = createFileRoute("/")({
               email: "inbox@stratum-consulting.ru",
             },
           ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQ_ITEMS.map((item) => ({
-            "@type": "Question",
-            name: item.q,
-            acceptedAnswer: { "@type": "Answer", text: item.a },
-          })),
         }),
       },
     ],
@@ -109,18 +90,22 @@ function IndexSections() {
   const c = useSiteContent();
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-[4px] focus:bg-primary focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-primary-foreground"
+      >
+        Перейти к содержанию
+      </a>
       <Header />
-      <main>
-        {c.hero.enabled ? <Hero /> : <div className="pt-[76px]" />}
-        {c.services.enabled ? <Services /> : null}
-        {c.process.enabled ? <Process /> : null}
-        {c.why.enabled ? <WhyStratum /> : null}
-        {c.team.enabled ? <Team /> : null}
-        {c.pricing.enabled ? <Pricing /> : null}
-        {c.portfolio.enabled ? <Portfolio /> : null}
-        {c.insights.enabled ? <Insights /> : null}
-        {c.faq.enabled ? <Faq /> : null}
-        {c.contact.enabled ? <Contact /> : null}
+      <main id="main" tabIndex={-1} className="outline-none">
+        {c.homeHero.enabled ? <HomeHero /> : <div className="pt-[76px]" />}
+        {c.homeSituations.enabled ? <Situations /> : null}
+        {c.homeServices.enabled ? <CoreServices /> : null}
+        {c.homeApproach.enabled ? <Approach /> : null}
+        {c.homeExpertise.enabled ? <ExpertiseAreas /> : null}
+        {c.homeExperience.enabled ? <IndustryExperience /> : null}
+        {c.homePrinciples.enabled ? <Principles /> : null}
+        {c.homeContact.enabled ? <Contact section="homeContact" tone="surface" /> : null}
       </main>
       <Footer />
       <Toaster />

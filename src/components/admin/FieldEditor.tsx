@@ -89,10 +89,26 @@ const LABELS: Record<string, string> = {
   otherTitle: "Другие услуги: заголовок",
   otherServices: "Другие услуги",
   link: "Ссылка на страницу услуги",
+  questionsTitle: "Заголовок блока с вопросами",
+  questions: "Вопросы",
+  tag: "Подходящая услуга",
+  number: "Номер",
+  english: "Английское название",
+  lead: "Краткое описание",
+  doTitle: "Заголовок «Что делает Stratum»",
+  actions: "Что делает Stratum",
+  resultTitle: "Заголовок «Результат»",
+  areas: "Направления",
+  subtitleRu: "Подпись",
+  aiItems: "Блок AI: пункты",
+  aiLink: "Блок AI: ссылка",
+  aiCta: "Блок AI: текст ссылки",
+  domains: "Отрасли",
+  footnote: "Примечание",
 };
 
 const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);
-const LONG = new Set(["text", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
+const LONG = new Set(["when", "lead", "footnote", "heroNote", "description", "subtitle", "result", "challenge", "work", "outcome", "expertiseText", "excerpt", "metaDescription", "a", "successText", "outputsText"]);
 
 type Json = unknown;
 

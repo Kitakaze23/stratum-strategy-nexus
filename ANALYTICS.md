@@ -125,11 +125,24 @@ Services: `ai_product_review`, `product_discovery`, `product_audit`,
 `product_strategy`, `mvp_review`, `legal_support`.
 
 Analytics sections (stable, independent of DOM anchor ids so navigation and copy
-can change freely): `hero`, `business_challenges`, `product_review`,
-`expertise`, `services`, `why_stratum`, `achievements`,
-`industrial_experience`, `process`, `consultation_formats`, `ask_question_card`,
-`legal_support`, `faq`, `contact`, `team` (the Team section is currently disabled
-on the home page; its tracking stays in the code).
+can change freely). Home page (redesign, October 2026): `hero`,
+`business_challenges` (#situations), `services` (#services — the two core
+services), `process` (#approach), `expertise` (#expertise),
+`industrial_experience` (#experience), `principles` (#principles), `contact`
+(#contact). Ids used only by earlier versions of the home page (`why_stratum`,
+`achievements`, `consultation_formats`, `ask_question_card`, `faq`, `team`, …)
+no longer fire there.
+
+Home-page click events:
+
+| Element | Events |
+| --- | --- |
+| Header / mobile menu / hero «Обсудить задачу» | `cta_click` (`cta_name=discuss_task`, `location=header` / `mobile_nav` / `hero`) |
+| Hero «Наши услуги» | `cta_click` (`view_services`, `hero`) |
+| Service 1 CTA (Investment Assessment) | `cta_click` (`discuss_task`, `services_assessment`) + `digital_review_predev_click` |
+| Service 2 CTA (Technical Specification) | `cta_click` (`discuss_task`, `services_specification`) + `technical_specification_click` |
+| Expertise rows | `cta_click` (`location=expertise`) + `service_click` + `digital_due_diligence_click` / `enterprise_analytics_click` / `industrial_digitalization_click` / `legal_ip_click` |
+| AI block link | `service_click` (`ai_product_review`, `expertise_ai`) |
 
 ## Privacy per event
 

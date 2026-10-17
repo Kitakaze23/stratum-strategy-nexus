@@ -19,6 +19,7 @@
   --color-surface: var(--surface);
   --color-navy: var(--navy);
   --color-navy-foreground: var(--navy-foreground);
+  --color-signal: var(--signal);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -39,36 +40,40 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --font-sans: "Inter", "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "Source Serif 4", "PT Serif", Georgia, "Times New Roman", serif;
   --shadow-card: 0 1px 2px oklch(0.25 0.055 265 / 4%), 0 8px 24px oklch(0.25 0.055 265 / 4%);
   --spacing-section: 7.5rem;
 }
 
 :root {
   --radius: 0.875rem;
+  /* white surfaces, graphite text, deep navy for key elements, cool greys */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.25 0.055 265);
-  --surface: oklch(0.978 0.005 250);
-  --navy: oklch(0.27 0.05 250);
-  --navy-foreground: oklch(0.98 0.004 250);
+  --foreground: oklch(0.255 0.018 262);
+  --surface: oklch(0.976 0.004 255);
+  --navy: oklch(0.235 0.05 262);
+  --navy-foreground: oklch(0.975 0.004 255);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.055 265);
+  --card-foreground: oklch(0.255 0.018 262);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.055 265);
-  --primary: oklch(0.38 0.09 250);
+  --popover-foreground: oklch(0.255 0.018 262);
+  --primary: oklch(0.33 0.085 260);
   --primary-foreground: oklch(1 0 0);
-  --primary-hover: oklch(0.46 0.12 253);
-  --secondary: oklch(0.978 0.005 250);
-  --secondary-foreground: oklch(0.25 0.055 265);
-  --muted: oklch(0.978 0.005 250);
-  --muted-foreground: oklch(0.47 0.035 260);
-  --accent: oklch(0.93 0.011 250);
-  --accent-foreground: oklch(0.25 0.055 265);
+  --primary-hover: oklch(0.27 0.075 262);
+  --secondary: oklch(0.976 0.004 255);
+  --secondary-foreground: oklch(0.255 0.018 262);
+  --muted: oklch(0.976 0.004 255);
+  --muted-foreground: oklch(0.47 0.02 260);
+  --accent: oklch(0.95 0.008 255);
+  --accent-foreground: oklch(0.255 0.018 262);
+  /* the single restrained accent: thin rules, step markers, numbers */
+  --signal: oklch(0.6 0.13 235);
   --destructive: oklch(0.5 0.19 27);
   --destructive-foreground: oklch(1 0 0);
   --success: oklch(0.5 0.13 145);
-  --border: oklch(0.93 0.011 250);
-  --input: oklch(0.93 0.011 250);
-  --ring: oklch(0.38 0.09 250);
+  --border: oklch(0.91 0.007 258);
+  --input: oklch(0.87 0.009 258);
+  --ring: oklch(0.45 0.13 250);
 }
 
 @layer base {
@@ -113,9 +118,9 @@
 }
 
 @utility eyebrow {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-primary);
 }

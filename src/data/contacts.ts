@@ -9,20 +9,18 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#services", label: "Как помогаем" },
-  { href: "#portfolio", label: "Опыт" },
-  { href: "#team", label: "Команда" },
-  { href: "#insights", label: "Статьи" },
-  { href: "#pricing", label: "Форматы" },
+  { href: "#services", label: "Услуги" },
+  { href: "#approach", label: "Подход" },
+  { href: "#expertise", label: "Экспертиза" },
   { href: "#contact", label: "Контакты" },
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#services", label: "Как помогаем" },
-  { href: "#portfolio", label: "Опыт" },
-  { href: "#team", label: "Команда экспертов" },
-  { href: "#insights", label: "Статьи" },
-  { href: "#pricing", label: "Форматы работы" },
+  { href: "#services", label: "Услуги" },
+  { href: "#approach", label: "Подход" },
+  { href: "#expertise", label: "Экспертиза" },
+  { href: "#experience", label: "Отраслевой опыт" },
+  { href: "#principles", label: "Принципы работы" },
   { href: "#contact", label: "Контакты" },
 ] as const;
 
@@ -34,7 +32,6 @@ export const SERVICE_LINKS = [
   { to: "/services/mvp-review", label: "Аудит MVP" },
   { to: "/services/legal-support", label: "Legal & IP" },
 ] as const;
-
 
 export const LEGAL_LINKS = [
   { to: "/privacy", label: "Политика конфиденциальности" },

@@ -62,6 +62,7 @@ export type ServiceId =
   | "product_strategy"
   | "mvp_review"
   | "enterprise_analytics"
+  | "industrial_digitalization"
   | "legal_support";
 
 export interface Attribution {
