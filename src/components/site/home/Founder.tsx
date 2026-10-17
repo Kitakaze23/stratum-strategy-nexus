@@ -78,22 +78,24 @@ export function Founder() {
             ) : null}
 
             {c.experience?.length ? (
-              <ul aria-label="Опыт работы" className="mt-10 border-b border-border">
-                {c.experience.map((e, i) => (
-                  <li
-                    key={i}
-                    className="grid gap-1 border-t border-border py-4 sm:grid-cols-[minmax(0,1fr)_6.5rem] sm:gap-6"
-                  >
-                    <span>
-                      <span className="block text-[0.9375rem] font-semibold">{e.company}</span>
-                      <span className="block text-sm text-muted-foreground">{e.role}</span>
-                    </span>
-                    <span className="text-sm text-muted-foreground tabular-nums sm:text-right">
-                      {e.period}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-10 border-t border-border pt-6">
+                <p
+                  id="founder-experience"
+                  className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"
+                >
+                  {c.experienceTitle}
+                </p>
+                <ul
+                  aria-labelledby="founder-experience"
+                  className="mt-4 flex flex-wrap gap-x-6 gap-y-2"
+                >
+                  {c.experience.map((company, i) => (
+                    <li key={i} className="text-[0.9375rem] font-semibold">
+                      {company}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ) : null}
           </div>
 

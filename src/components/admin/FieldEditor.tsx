@@ -111,7 +111,8 @@ const LABELS: Record<string, string> = {
   teamText: "Команда: текст",
   specializations: "Специализации команды",
   results: "Результаты в цифрах",
-  experience: "Опыт работы",
+  experienceTitle: "Опыт работы: заголовок",
+  experience: "Опыт работы: компании",
   company: "Компания",
   period: "Период",
 };
