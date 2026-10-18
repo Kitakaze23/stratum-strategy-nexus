@@ -1,8 +1,11 @@
-import { trackCtaClick } from "@/analytics/events";
+import { Link } from "@tanstack/react-router";
+
+import { trackCtaClick, trackServiceClick } from "@/analytics/events";
 import { useSectionView } from "@/analytics/hooks";
 import { useSection } from "@/content/useSiteContent";
 
 import { Cta } from "../primitives";
+import { ArrowLink } from "./shared";
 
 export function HomeHero() {
   const ref = useSectionView<HTMLElement>("hero");
@@ -15,7 +18,7 @@ export function HomeHero() {
       aria-labelledby="hero-title"
       className="border-b border-border pt-[76px]"
     >
-      <div className="container-page grid gap-14 py-14 md:py-20 lg:grid-cols-12 lg:gap-10 lg:py-24">
+      <div className="container-page grid gap-12 py-12 md:py-16 lg:grid-cols-12 lg:gap-10 lg:pt-14 lg:pb-12">
         <div className="lg:col-span-7 lg:pr-6">
           <p className="flex items-center gap-3 text-sm font-semibold tracking-[0.02em] text-primary">
             <span aria-hidden="true" className="h-px w-8 bg-signal" />
@@ -23,7 +26,7 @@ export function HomeHero() {
           </p>
           <h1
             id="hero-title"
-            className="mt-7 font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3.25rem]"
+            className="mt-7 font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3rem]"
           >
             {c.title}
           </h1>
@@ -45,7 +48,7 @@ export function HomeHero() {
           </div>
 
           {c.heroNote ? (
-            <p className="mt-12 max-w-[640px] border-l-2 border-signal pl-5 text-[0.9375rem] leading-[1.65] text-foreground/80">
+            <p className="mt-9 max-w-[640px] border-l-2 border-signal pl-5 text-[0.9375rem] leading-[1.65] text-foreground/80">
               {c.heroNote}
             </p>
           ) : null}
@@ -78,6 +81,42 @@ export function HomeHero() {
           </aside>
         ) : null}
       </div>
+
+      {c.offers?.length ? (
+        <nav aria-labelledby="hero-offers" className="border-t border-border bg-surface">
+          <div className="container-page py-7 md:py-8">
+            <h2
+              id="hero-offers"
+              className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground"
+            >
+              {c.offersTitle}
+            </h2>
+            <ul className="mt-5 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+              {c.offers.map((offer, i) => (
+                <li key={i} className="bg-background">
+                  <Link
+                    to={offer.link}
+                    onClick={() =>
+                      trackServiceClick(
+                        offer.link.split("/").pop() ?? `offer_${i + 1}`,
+                        "hero_offers",
+                      )
+                    }
+                    className="group flex h-full flex-col gap-2 p-5 transition-colors duration-200 hover:bg-accent md:p-6"
+                  >
+                    <ArrowLink className="justify-between text-base font-semibold text-primary">
+                      {offer.title}
+                    </ArrowLink>
+                    <span className="text-[0.9375rem] leading-[1.55] text-muted-foreground">
+                      {offer.text}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      ) : null}
     </section>
   );
 }

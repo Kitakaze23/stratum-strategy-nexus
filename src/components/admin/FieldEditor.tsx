@@ -119,6 +119,8 @@ const LABELS: Record<string, string> = {
   period: "Период",
   linkLabel: "Текст ссылки на страницу услуги",
   stepsTitle: "Заголовок блока «Что будет после заявки»",
+  offersTitle: "Полоса услуг: заголовок",
+  offers: "Полоса услуг",
 };
 
 const HIDDEN = new Set(["photo", "id", "enabled", "ctaName"]);
