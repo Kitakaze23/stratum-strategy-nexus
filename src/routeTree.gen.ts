@@ -19,6 +19,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
+import { Route as ServicesDisputeExpertiseRouteImport } from './routes/services.dispute-expertise'
 import { Route as ServicesInvestmentAssessmentRouteImport } from './routes/services.investment-assessment'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
@@ -79,6 +80,12 @@ const ServicesAiProductReviewRoute = ServicesAiProductReviewRouteImport.update({
   path: '/services/ai-product-review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesDisputeExpertiseRoute =
+  ServicesDisputeExpertiseRouteImport.update({
+    id: '/services/dispute-expertise',
+    path: '/services/dispute-expertise',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ServicesInvestmentAssessmentRoute =
   ServicesInvestmentAssessmentRouteImport.update({
     id: '/services/investment-assessment',
@@ -143,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -164,6 +172,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -187,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
+  '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -210,6 +220,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/dispute-expertise'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/dispute-expertise'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -253,6 +265,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/insights/$slug'
     | '/services/ai-product-review'
+    | '/services/dispute-expertise'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -275,6 +288,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
+  ServicesDisputeExpertiseRoute: typeof ServicesDisputeExpertiseRoute
   ServicesInvestmentAssessmentRoute: typeof ServicesInvestmentAssessmentRoute
   ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
@@ -358,6 +372,13 @@ declare module '@tanstack/react-router' {
       path: '/services/ai-product-review'
       fullPath: '/services/ai-product-review'
       preLoaderRoute: typeof ServicesAiProductReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/dispute-expertise': {
+      id: '/services/dispute-expertise'
+      path: '/services/dispute-expertise'
+      fullPath: '/services/dispute-expertise'
+      preLoaderRoute: typeof ServicesDisputeExpertiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/investment-assessment': {
@@ -453,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
+  ServicesDisputeExpertiseRoute: ServicesDisputeExpertiseRoute,
   ServicesInvestmentAssessmentRoute: ServicesInvestmentAssessmentRoute,
   ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,

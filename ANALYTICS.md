@@ -121,7 +121,7 @@ Contact form fields: `name`, `company`, `role`, `email`, `phone`, `message`,
 CTAs: `discuss_task`, `independent_opinion`, `ask_question`, `product_review`,
 `strategy_review`, `product_assessment`, `service_primary`.
 
-Services: `investment_assessment`, `technical_specification`, `ai_product_review`, `product_audit`, `legal_support` (retired: `product_discovery`,
+Services: `investment_assessment`, `technical_specification`, `ai_product_review`, `product_audit`, `dispute_expertise`, `legal_support` (retired: `product_discovery`,
 `product_strategy`, `mvp_review` — their URLs 301-redirect).
 
 Analytics sections (stable, independent of DOM anchor ids so navigation and copy
@@ -141,7 +141,7 @@ Home-page click events:
 | Hero «Наши услуги» | `cta_click` (`view_services`, `hero`) |
 | Service 1 CTA (Investment Assessment) | `cta_click` (`discuss_task`, `services_assessment`) + `digital_review_predev_click` |
 | Service 2 CTA (Technical Specification) | `cta_click` (`discuss_task`, `services_specification`) + `technical_specification_click` |
-| Expertise rows | `cta_click` (`location=expertise`) + `service_click` + `digital_due_diligence_click` / `enterprise_analytics_click` / `industrial_digitalization_click` / `legal_ip_click` |
+| Expertise rows | `cta_click` (`location=expertise`) + `service_click` + `digital_due_diligence_click` / `dispute_expertise_click` / `enterprise_analytics_click` / `industrial_digitalization_click` / `legal_ip_click` |
 | AI block link | `service_click` (`ai_product_review`, `expertise_ai`) |
 
 ## Privacy per event

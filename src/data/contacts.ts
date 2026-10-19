@@ -30,6 +30,7 @@ export const SERVICE_LINKS = [
   { to: "/services/technical-specification", label: "Разработка ТЗ" },
   { to: "/services/product-audit", label: "Technology Due Diligence" },
   { to: "/services/ai-product-review", label: "Оценка AI-решения" },
+  { to: "/services/dispute-expertise", label: "Экспертиза для спора" },
   { to: "/services/legal-support", label: "Legal & IP" },
 ] as const;
 

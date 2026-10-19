@@ -5,25 +5,32 @@ import { useSection } from "@/content/useSiteContent";
 
 import { ArrowLink, Eyebrow, HomeSection, Lead, SectionTitle } from "./shared";
 
-/** Stable analytics ids per expertise area, by position. */
-const TRACKING = [
-  {
+type Tracking = { cta: string; event: string; service: string };
+
+/** Stable analytics ids per expertise area, keyed by its English/Russian title. */
+const TRACKING: Record<string, Tracking> = {
+  "Technology Due Diligence": {
     cta: "technology_due_diligence",
     event: "digital_due_diligence_click",
     service: "product_audit",
   },
-  {
+  "Экспертиза для спора с подрядчиком": {
+    cta: "dispute_expertise",
+    event: "dispute_expertise_click",
+    service: "dispute_expertise",
+  },
+  "Enterprise Analytics": {
     cta: "enterprise_analytics",
     event: "enterprise_analytics_click",
     service: "enterprise_analytics",
   },
-  {
+  "Industrial & Engineering Digitalization": {
     cta: "industrial_digitalization",
     event: "industrial_digitalization_click",
     service: "industrial_digitalization",
   },
-  { cta: "legal_ip", event: "legal_ip_click", service: "legal_support" },
-] as const;
+  "Legal & IP": { cta: "legal_ip", event: "legal_ip_click", service: "legal_support" },
+};
 
 const rowLink =
   "group grid gap-3 py-8 transition-colors duration-200 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)_9.5rem] md:items-baseline md:gap-8 md:px-4 md:hover:bg-surface";
@@ -50,7 +57,7 @@ export function ExpertiseAreas() {
 
       <ul className="mt-12 border-b border-border">
         {c.areas.map((area, i) => {
-          const tracking = TRACKING[i] ?? {
+          const tracking = TRACKING[area.title] ?? {
             cta: `expertise_${i + 1}`,
             event: "service_click",
             service: `expertise_${i + 1}`,

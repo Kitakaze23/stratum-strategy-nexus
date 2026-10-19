@@ -91,9 +91,9 @@ export function HomeHero() {
             >
               {c.offersTitle}
             </h2>
-            <ul className="mt-5 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-5 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
               {c.offers.map((offer, i) => (
-                <li key={i} className="bg-background">
+                <li key={i} className="bg-background sm:last:odd:col-span-2 lg:last:odd:col-span-1">
                   <Link
                     to={offer.link}
                     onClick={() =>
@@ -102,12 +102,12 @@ export function HomeHero() {
                         "hero_offers",
                       )
                     }
-                    className="group flex h-full flex-col gap-2 p-5 transition-colors duration-200 hover:bg-accent md:p-6"
+                    className="group flex h-full flex-col gap-2 p-5 transition-colors duration-200 hover:bg-accent md:p-6 lg:px-4 lg:py-5 xl:px-5"
                   >
-                    <ArrowLink className="justify-between text-base font-semibold text-primary">
+                    <ArrowLink className="justify-between text-base font-semibold text-primary lg:text-[0.9375rem]">
                       {offer.title}
                     </ArrowLink>
-                    <span className="text-[0.9375rem] leading-[1.55] text-muted-foreground">
+                    <span className="text-[0.9375rem] leading-[1.55] text-muted-foreground lg:text-sm">
                       {offer.text}
                     </span>
                   </Link>
