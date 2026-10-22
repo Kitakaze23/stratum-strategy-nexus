@@ -1,8 +1,8 @@
 export const CONTACTS = {
   phone: "+7 (925) 539-33-53",
   phoneHref: "tel:+79255393353",
-  telegram: "@kitakaze23",
-  telegramHref: "https://t.me/kitakaze23",
+  telegram: "@stratum_consulting",
+  telegramHref: "https://t.me/stratum_consulting",
   whatsappHref: "https://wa.me/79255393353",
   email: "inbox@stratum-consulting.ru",
   emailHref: "mailto:inbox@stratum-consulting.ru",
