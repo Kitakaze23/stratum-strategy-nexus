@@ -58,7 +58,7 @@ export const Route = createFileRoute("/")({
               name: "Stratum Consulting",
               description: DESCRIPTION,
               areaServed: "RU",
-              slogan: "Better Decisions. Better Products.",
+              slogan: "Надёжное основание для цифровых решений",
               serviceType: [
                 "Обоснование инвестиций в цифровые решения",
                 "Разработка технического задания на цифровой проект",

@@ -9,6 +9,7 @@ const LABELS: Record<string, string> = {
   subtitle: "Подзаголовок",
   description: "Описание",
   slogan: "Слоган",
+  sloganEn: "Слоган на английском",
   ctaPrimary: "Основная кнопка",
   ctaSecondary: "Вторая кнопка",
   cta: "Текст кнопки",

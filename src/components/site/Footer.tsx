@@ -34,8 +34,16 @@ export function Footer() {
                 Stratum <span className="font-normal text-navy-foreground/70">Consulting</span>
               </span>
             </Link>
-            <p className="mt-5 font-serif text-lg leading-[1.4]">
-              Better Decisions. Better Products.
+            <p className="mt-5">
+              <span className="block font-serif text-lg leading-[1.4]">
+                Надёжное основание для цифровых решений
+              </span>
+              <span
+                lang="en"
+                className="mt-1 block text-xs tracking-[0.04em] text-navy-foreground/55"
+              >
+                Solid ground for digital decisions
+              </span>
             </p>
             <p className="mt-4 max-w-[360px] text-sm leading-[1.7] text-navy-foreground/65">
               Независимая консалтинговая компания. Помогаем обосновать инвестиции в цифровые решения

@@ -14,7 +14,8 @@ const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T;
 export const SITE_DEFAULTS = {
   homeHero: {
     enabled: true,
-    slogan: "Better Decisions. Better Products.",
+    slogan: "Надёжное основание для цифровых решений",
+    sloganEn: "Solid ground for digital decisions",
     title:
       "Поможем обосновать инвестиции в цифровые решения. Определим, что конкретно нужно разрабатывать",
     subtitle:
