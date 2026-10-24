@@ -67,7 +67,7 @@ const Email = ({ name, company, role, email, phone, message }: Props) => (
           <Text style={value}>{role || '—'}</Text>
           <Text style={label}>E-mail</Text>
           <Text style={value}>{email || '—'}</Text>
-          <Text style={label}>Телефон</Text>
+          <Text style={label}>Телефон / Telegram</Text>
           <Text style={value}>{phone || '—'}</Text>
           <Text style={label}>Описание задачи</Text>
           <Text style={{ ...value, whiteSpace: 'pre-line' as const }}>{message || '—'}</Text>

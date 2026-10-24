@@ -84,11 +84,13 @@ input. Form helpers receive field identifiers only — values are never read.
 | `scroll_depth` | Reading depth | `depth` = 25 / 50 / 75 / 90 (once each) | `useScrollDepth` |
 | `cta_click` | Commercial CTA click | `cta_name`, `page`, `location` | Header, Hero, Pricing, service pages |
 | `service_click` | Service card / service CTA click | `service_name`, `page`, `location` | Services, AfterLaunch, ServicePage |
-| `contact_click` | Contact channel click (tracked before navigation) | `channel` (`phone` / `telegram` / `whatsapp` / `email`), `location` | Contact section, Footer (the header/hero contain no contact links — adding them would be a design change) |
+| `contact_click` | Contact channel click (tracked before navigation) | `channel` (`phone` / `telegram` / `whatsapp` / `email`), `location` (`header`, `mobile_nav`, `hero`, `contact`, `contact_fallback`, `footer`) | Header and mobile menu (Telegram), hero (Telegram), contact section, form fallback after a failed send, footer |
 | `form_open` | Form became available to the visitor | `form_id`, `page`, `source` | `useFormAnalytics` |
 | `form_start` | First real field interaction (once per form session) | `form_id`, `page` | `useFormAnalytics` |
 | `form_field_focus` | Field interaction | `form_id`, `field_id`, `field_type` | `useFormAnalytics` |
 | `form_submit` | Successful submission confirmed by the API | `form_id`, `page`, `source`, attribution | Contact form, question dialog |
+| `contact_form_send_failed` | The form could not be sent; the visitor is offered a pre-filled e-mail and Telegram | `source` | Contact form |
+| `faq_open` | A FAQ answer was expanded | `question_index` | Home FAQ |
 | `form_abandon` | Started but never submitted (on close / page hide) | `form_id`, `last_field_id` | `useFormAnalytics` |
 
 ### Funnel events

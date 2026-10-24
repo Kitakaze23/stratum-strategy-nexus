@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
-import { trackCtaClick, trackServiceClick } from "@/analytics/events";
+import { trackContactClick, trackCtaClick, trackServiceClick } from "@/analytics/events";
+import { CONTACTS } from "@/data/contacts";
 import { useSectionView } from "@/analytics/hooks";
 import { useSection } from "@/content/useSiteContent";
 
@@ -56,9 +57,21 @@ export function HomeHero() {
               </a>
             </Cta>
           </div>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Или напишите в Telegram:{" "}
+            <a
+              href={CONTACTS.telegramHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContactClick("telegram", "hero")}
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {CONTACTS.telegram}
+            </a>
+          </p>
 
           {c.heroNote ? (
-            <p className="mt-9 max-w-[640px] border-l-2 border-signal pl-5 text-[0.9375rem] leading-[1.65] text-foreground/80">
+            <p className="mt-7 max-w-[640px] border-l-2 border-signal pl-5 text-[0.9375rem] leading-[1.65] text-foreground/80">
               {c.heroNote}
             </p>
           ) : null}

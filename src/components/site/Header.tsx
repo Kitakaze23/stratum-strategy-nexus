@@ -1,14 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, Send, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
-import { trackCtaClick } from "@/analytics/events";
+import { trackContactClick, trackCtaClick } from "@/analytics/events";
 import type { SectionKey } from "@/content/defaults";
 import { useSiteContent } from "@/content/useSiteContent";
 
 import { Cta } from "./primitives";
-import { NAV_LINKS } from "./contacts";
+import { CONTACTS, NAV_LINKS } from "./contacts";
 
 /** Hides a nav link when its home-page section is switched off in the admin panel. */
 const LINK_SECTION: Record<string, SectionKey> = {
@@ -158,7 +158,18 @@ export function Header() {
                 {link.label}
               </SectionLink>
             ))}
-            <Cta asChild className="ml-2 h-10 px-5 text-sm">
+            <a
+              href={CONTACTS.telegramHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContactClick("telegram", "header")}
+              className="ml-2 inline-flex items-center gap-2 text-[0.9375rem] text-foreground/75 transition-colors duration-200 hover:text-primary"
+            >
+              <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+              Telegram
+              <span className="sr-only">(откроется в новой вкладке)</span>
+            </a>
+            <Cta asChild className="h-10 px-5 text-sm">
               {onHome ? (
                 <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
                   Обсудить задачу
@@ -232,6 +243,20 @@ export function Header() {
                   Обсудить задачу
                 </Link>
               )}
+            </Cta>
+            <Cta asChild variant="secondary" className="mt-3 w-full">
+              <a
+                href={CONTACTS.telegramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackContactClick("telegram", "mobile_nav");
+                  setOpen(false);
+                }}
+              >
+                <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+                Написать в Telegram
+              </a>
             </Cta>
           </div>
         </nav>

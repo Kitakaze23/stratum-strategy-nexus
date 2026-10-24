@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
@@ -10,7 +11,7 @@ import { SiteContentProvider, siteContentQuery } from "@/content/useSiteContent"
 const TITLE = "Статьи об обосновании IT-инвестиций, ТЗ и выборе подрядчика | Stratum Consulting";
 const DESCRIPTION =
   "Практические материалы для руководителей цифровых проектов: обоснование инвестиций в IT, техническое задание на разработку, сравнение подрядчиков, оценка AI и аудит IT-проекта.";
-const URL = "/insights";
+const URL = absoluteUrl("/insights");
 
 export const Route = createFileRoute("/insights/")({
   head: () => ({

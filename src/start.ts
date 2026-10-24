@@ -1,7 +1,7 @@
 import { createStart, createCsrfMiddleware, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
-import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
+import { attachSupabaseAuthLazy } from "@/integrations/supabase/lazy-auth-attacher";
 
 const errorMiddleware = createMiddleware().server(async ({ next, request }) => {
   // Lovable-managed routes authenticate themselves; never wrap/redirect them.
@@ -32,6 +32,7 @@ const csrfMiddleware = createCsrfMiddleware({
 });
 
 export const startInstance = createStart(() => ({
-  functionMiddleware: [attachSupabaseAuth],
+  // lazy variant of attachSupabaseAuth: public pages skip loading supabase-js
+  functionMiddleware: [attachSupabaseAuthLazy],
   requestMiddleware: [errorMiddleware, csrfMiddleware],
 }));

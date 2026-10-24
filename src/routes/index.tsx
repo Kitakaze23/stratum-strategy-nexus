@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
@@ -8,10 +9,12 @@ import { CoreServices } from "@/components/site/home/CoreServices";
 import { ExpertiseAreas } from "@/components/site/home/ExpertiseAreas";
 import { HomeHero } from "@/components/site/home/HomeHero";
 import { IndustryExperience } from "@/components/site/home/IndustryExperience";
+import { Faq } from "@/components/site/home/Faq";
 import { Principles } from "@/components/site/home/Principles";
 import { Founder } from "@/components/site/home/Founder";
 import { Situations } from "@/components/site/home/Situations";
 import { Toaster } from "@/components/ui/sonner";
+import { mergeContent } from "@/content/defaults";
 import { SiteContentProvider, siteContentQuery, useSiteContent } from "@/content/useSiteContent";
 
 const TITLE = "Обоснование инвестиций в IT и разработка технического задания | Stratum Consulting";
@@ -23,18 +26,37 @@ export const Route = createFileRoute("/")({
     rows: (await context.queryClient.ensureQueryData(siteContentQuery)) ?? {},
   }),
   component: Index,
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: absoluteUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/") }],
     scripts: [
+      ...(() => {
+        const faq = mergeContent(loaderData?.rows as Record<string, unknown> | undefined).homeFaq;
+        return faq.enabled && faq.items.length
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: faq.items.map((item) => ({
+                    "@type": "Question",
+                    name: item.q,
+                    acceptedAnswer: { "@type": "Answer", text: item.a },
+                  })),
+                }),
+              },
+            ]
+          : [];
+      })(),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -43,7 +65,7 @@ export const Route = createFileRoute("/")({
             {
               "@type": "WebSite",
               name: "Stratum Consulting",
-              url: "/",
+              url: absoluteUrl("/"),
               inLanguage: "ru-RU",
             },
             {
@@ -106,6 +128,7 @@ function IndexSections() {
         {c.homeExperience.enabled ? <IndustryExperience /> : null}
         {c.homeTeam.enabled ? <Founder /> : null}
         {c.homePrinciples.enabled ? <Principles /> : null}
+        {c.homeFaq.enabled ? <Faq /> : null}
         {c.homeContact.enabled ? <Contact section="homeContact" tone="surface" /> : null}
       </main>
       <Footer />

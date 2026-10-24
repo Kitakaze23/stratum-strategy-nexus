@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 
@@ -341,10 +342,10 @@ export function serviceHead(service: ServiceContent) {
       { property: "og:title", content: service.metaTitle },
       { property: "og:description", content: service.metaDescription },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: service.path },
+      { property: "og:url", content: absoluteUrl(service.path) },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: service.path }],
+    links: [{ rel: "canonical", href: absoluteUrl(service.path) }],
     scripts: [
       {
         type: "application/ld+json",
@@ -355,7 +356,8 @@ export function serviceHead(service: ServiceContent) {
           description: service.metaDescription,
           serviceType: service.navLabel,
           areaServed: "RU",
-          provider: { "@type": "Organization", name: "Stratum Consulting" },
+          provider: { "@type": "Organization", name: "Stratum Consulting", url: absoluteUrl("/") },
+          url: absoluteUrl(service.path),
         }),
       },
     ],

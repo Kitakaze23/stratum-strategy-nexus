@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 
 import { LegalBlock, LegalList, LegalPage } from "@/components/site/LegalPage";
 import { CONTACTS } from "@/data/contacts";
@@ -16,10 +17,10 @@ export const Route = createFileRoute("/consent")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/consent" },
+      { property: "og:url", content: absoluteUrl("/consent") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/consent" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/consent") }],
     scripts: [
       {
         type: "application/ld+json",
@@ -27,12 +28,12 @@ export const Route = createFileRoute("/consent")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Главная", item: "/" },
+            { "@type": "ListItem", position: 1, name: "Главная", item: absoluteUrl("/") },
             {
               "@type": "ListItem",
               position: 2,
               name: "Согласие на обработку персональных данных",
-              item: "/consent",
+              item: absoluteUrl("/consent"),
             },
           ],
         }),
@@ -51,8 +52,8 @@ function ConsentPage() {
       <p>
         Отмечая соответствующее поле в форме обращения на сайте Stratum Consulting, посетитель
         (далее — Субъект) свободно, своей волей и в своём интересе даёт согласие на обработку своих
-        персональных данных в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ
-        «О персональных данных».
+        персональных данных в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О
+        персональных данных».
       </p>
 
       <LegalBlock heading="1. Состав персональных данных">
@@ -77,8 +78,8 @@ function ConsentPage() {
       <LegalBlock heading="3. Перечень действий с данными">
         <p>
           Сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение),
-          использование, обезличивание, блокирование, удаление и уничтожение — как автоматизированным,
-          так и неавтоматизированным способом.
+          использование, обезличивание, блокирование, удаление и уничтожение — как
+          автоматизированным, так и неавтоматизированным способом.
         </p>
       </LegalBlock>
 

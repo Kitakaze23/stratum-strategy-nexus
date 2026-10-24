@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 
 import { LegalBlock, LegalList, LegalPage } from "@/components/site/LegalPage";
 import { CONTACTS } from "@/data/contacts";
@@ -16,10 +17,10 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/privacy" },
+      { property: "og:url", content: absoluteUrl("/privacy") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/privacy" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/privacy") }],
     scripts: [
       {
         type: "application/ld+json",
@@ -27,8 +28,13 @@ export const Route = createFileRoute("/privacy")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Главная", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Политика конфиденциальности", item: "/privacy" },
+            { "@type": "ListItem", position: 1, name: "Главная", item: absoluteUrl("/") },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Политика конфиденциальности",
+              item: absoluteUrl("/privacy"),
+            },
           ],
         }),
       },
@@ -41,8 +47,8 @@ function PrivacyPage() {
     <LegalPage eyebrow="Документы" title="Политика конфиденциальности" updated="1 января 2026 года">
       <p>
         Настоящая политика описывает порядок обработки и защиты персональных данных, которые
-        предоставляются посетителями сайта Stratum Consulting (далее — Оператор) при заполнении формы
-        обращения или направлении сообщения по указанным контактным данным.
+        предоставляются посетителями сайта Stratum Consulting (далее — Оператор) при заполнении
+        формы обращения или направлении сообщения по указанным контактным данным.
       </p>
 
       <LegalBlock heading="1. Обрабатываемые данные">
@@ -59,16 +65,16 @@ function PrivacyPage() {
 
       <LegalBlock heading="2. Цели обработки">
         <p>
-          Данные обрабатываются исключительно для обратной связи по обращению, согласования формата и
-          времени консультации, подготовки к консультации и исполнения договорённостей.
+          Данные обрабатываются исключительно для обратной связи по обращению, согласования формата
+          и времени консультации, подготовки к консультации и исполнения договорённостей.
         </p>
       </LegalBlock>
 
       <LegalBlock heading="3. Правовые основания">
         <p>
           Обработка осуществляется на основании согласия субъекта персональных данных,
-          предоставляемого при отправке формы, а также в соответствии с Федеральным законом
-          от 27.07.2006 № 152-ФЗ «О персональных данных».
+          предоставляемого при отправке формы, а также в соответствии с Федеральным законом от
+          27.07.2006 № 152-ФЗ «О персональных данных».
         </p>
       </LegalBlock>
 

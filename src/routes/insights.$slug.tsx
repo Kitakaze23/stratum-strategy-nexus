@@ -1,4 +1,5 @@
 import { Link, createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/site";
 import { ArrowLeft } from "lucide-react";
 
 import { Contact } from "@/components/site/Contact";
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/insights/$slug")({
       return { meta: [{ title: "Статья не найдена" }, { name: "robots", content: "noindex" }] };
     }
     const { article } = loaderData;
-    const url = `/insights/${params.slug}`;
+    const url = absoluteUrl(`/insights/${params.slug}`);
     return {
       meta: [
         { title: article.metaTitle },
