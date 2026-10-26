@@ -113,6 +113,8 @@ const LABELS: Record<string, string> = {
   teamTitle: "Команда: заголовок",
   teamText: "Команда: текст",
   specializations: "Специализации команды",
+  members: "Руководство (другие участники)",
+  facts: "Регалии и награды",
   results: "Результаты в цифрах",
   experienceTitle: "Опыт работы: заголовок",
   experience: "Опыт работы: компании",

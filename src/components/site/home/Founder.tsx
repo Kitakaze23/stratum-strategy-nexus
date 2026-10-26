@@ -5,7 +5,17 @@ import { useSection } from "@/content/useSiteContent";
 
 import { ArrowLink, Eyebrow, HomeSection, SectionTitle } from "./shared";
 
-function Portrait({ src, name }: { src: string; name: string }) {
+function Portrait({
+  src,
+  name,
+  role,
+  small = false,
+}: {
+  src: string;
+  name: string;
+  role: string;
+  small?: boolean;
+}) {
   const [failed, setFailed] = useState(!src);
   const initials = name
     .split(" ")
@@ -14,19 +24,27 @@ function Portrait({ src, name }: { src: string; name: string }) {
     .join("");
 
   return (
-    <div className="relative aspect-[4/5] w-full max-w-[240px] sm:max-w-[320px] lg:max-w-[360px] overflow-hidden rounded-[4px] bg-surface">
+    <div
+      className={
+        small
+          ? "relative aspect-[4/5] w-28 shrink-0 overflow-hidden rounded-[4px] bg-surface sm:w-32"
+          : "relative aspect-[4/5] w-full max-w-[240px] overflow-hidden rounded-[4px] bg-surface sm:max-w-[320px] lg:max-w-[360px]"
+      }
+    >
       {failed ? (
         <div
           role="img"
           aria-label={`Портрет: ${name}`}
           className="flex h-full w-full items-center justify-center"
         >
-          <span className="font-serif text-6xl text-primary/25">{initials}</span>
+          <span className={`font-serif text-primary/25 ${small ? "text-3xl" : "text-6xl"}`}>
+            {initials}
+          </span>
         </div>
       ) : (
         <img
           src={src}
-          alt={`${name}, основатель Stratum Consulting`}
+          alt={`${name}, ${role.toLowerCase()} Stratum Consulting`}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
@@ -45,7 +63,7 @@ export function Founder() {
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
-            <Portrait src={c.photo} name={c.name} />
+            <Portrait src={c.photo} name={c.name} role="Основатель" />
           </div>
         </div>
 
@@ -98,6 +116,58 @@ export function Founder() {
               </div>
             ) : null}
           </div>
+
+          {c.members?.map((m, i) => (
+            <article
+              key={i}
+              aria-labelledby={`team-member-${i}`}
+              className="mt-10 border-t border-border pt-8"
+            >
+              <div className="flex gap-5 sm:gap-6">
+                <Portrait src={m.photo} name={m.name} role={m.role} small />
+                <div className="min-w-0">
+                  <h3 id={`team-member-${i}`} className="text-xl font-semibold">
+                    {m.name}
+                  </h3>
+                  <p className="mt-1 text-[0.9375rem] font-medium text-primary">{m.role}</p>
+                  {m.facts?.length ? (
+                    <ul className="mt-3 space-y-1 text-sm leading-[1.5] text-muted-foreground">
+                      {m.facts.map((f, k) => (
+                        <li key={k}>{f}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              </div>
+              <div className="mt-5 space-y-4">
+                {m.bio.map((paragraph, k) => (
+                  <p key={k} className="text-[1.0625rem] leading-[1.7] text-foreground/85">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              {m.experience?.length ? (
+                <div className="mt-8 border-t border-border pt-6">
+                  <p
+                    id={`team-member-${i}-experience`}
+                    className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"
+                  >
+                    {c.experienceTitle}
+                  </p>
+                  <ul
+                    aria-labelledby={`team-member-${i}-experience`}
+                    className="mt-4 flex flex-wrap gap-x-6 gap-y-2"
+                  >
+                    {m.experience.map((org, k) => (
+                      <li key={k} className="text-[0.9375rem] font-semibold">
+                        {org}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </article>
+          ))}
 
           <div className="mt-10 border-t border-border pt-8">
             <h3 className="text-lg font-semibold">{c.teamTitle}</h3>
