@@ -91,6 +91,7 @@ input. Form helpers receive field identifiers only — values are never read.
 | `form_submit` | Successful submission confirmed by the API | `form_id`, `page`, `source`, attribution | Contact form, question dialog |
 | `contact_form_send_failed` | The form could not be sent; the visitor is offered a pre-filled e-mail and Telegram | `source` | Contact form |
 | `faq_open` | A FAQ answer was expanded | `question_index` | Home FAQ |
+| `team_member_view` | Another team member opened in the team switcher | `member_index` | Home team block |
 | `form_abandon` | Started but never submitted (on close / page hide) | `form_id`, `last_field_id` | `useFormAnalytics` |
 
 ### Funnel events
