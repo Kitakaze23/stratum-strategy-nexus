@@ -179,73 +179,74 @@ export function Founder() {
 
   return (
     <HomeSection id="team" trackId="team" labelledBy="team-title">
-      <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
-        <div className="lg:col-span-5">
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="max-w-[760px]">
           <Eyebrow>{c.eyebrow}</Eyebrow>
           <SectionTitle id="team-title">{c.title}</SectionTitle>
         </div>
-
         {count > 1 ? (
-          <div className="flex items-end justify-between gap-4 lg:col-span-7">
-            <div
-              role="tablist"
-              aria-label="Участники команды"
-              className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto"
+          <div className="hidden shrink-0 items-center gap-2 sm:flex">
+            <span className="mr-1 text-sm text-muted-foreground tabular-nums" aria-hidden="true">
+              {active + 1} / {count}
+            </span>
+            <button
+              type="button"
+              onClick={() => select(active - 1)}
+              aria-label="Предыдущий участник команды"
+              className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
             >
-              {people.map((p, i) => (
-                <button
-                  key={i}
-                  ref={(el) => {
-                    tabRefs.current[i] = el;
-                  }}
-                  type="button"
-                  role="tab"
-                  id={`team-tab-${i}`}
-                  aria-selected={active === i}
-                  aria-controls={`team-panel-${i}`}
-                  tabIndex={active === i ? 0 : -1}
-                  onClick={() => select(i)}
-                  onKeyDown={(e) => onTabKey(e, i)}
-                  className={cn(
-                    "flex min-w-0 items-center gap-3 rounded-[4px] border py-2 pr-3 pl-2 text-left transition-colors duration-200 sm:shrink-0 sm:pr-4",
-                    active === i
-                      ? "border-primary bg-background"
-                      : "border-border bg-background hover:border-primary/40",
-                  )}
-                >
-                  <Portrait person={p} size="thumb" />
-                  <span>
-                    <span className="block text-sm font-semibold leading-tight">{p.name}</span>
-                    <span className="mt-0.5 block text-xs text-muted-foreground">{p.role}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className="hidden shrink-0 items-center gap-2 sm:flex">
-              <span className="mr-1 text-sm text-muted-foreground tabular-nums" aria-hidden="true">
-                {active + 1} / {count}
-              </span>
-              <button
-                type="button"
-                onClick={() => select(active - 1)}
-                aria-label="Предыдущий участник команды"
-                className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
-              >
-                <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => select(active + 1)}
-                aria-label="Следующий участник команды"
-                className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
-              >
-                <ChevronRight className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-              </button>
-            </div>
+              <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => select(active + 1)}
+              aria-label="Следующий участник команды"
+              className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            </button>
           </div>
         ) : null}
       </div>
+
+      {count > 1 ? (
+        <div
+          role="tablist"
+          aria-label="Участники команды"
+          className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {people.map((p, i) => (
+            <button
+              key={i}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
+              type="button"
+              role="tab"
+              id={`team-tab-${i}`}
+              aria-selected={active === i}
+              aria-controls={`team-panel-${i}`}
+              tabIndex={active === i ? 0 : -1}
+              onClick={() => select(i)}
+              onKeyDown={(e) => onTabKey(e, i)}
+              className={cn(
+                "flex min-w-0 items-center gap-3 rounded-[4px] border py-2 pr-4 pl-2 text-left transition-colors duration-200",
+                active === i
+                  ? "border-primary bg-background"
+                  : "border-border bg-background hover:border-primary/40",
+              )}
+            >
+              <Portrait person={p} size="thumb" />
+              <span>
+                <span className="block text-sm font-semibold leading-tight">{p.name}</span>
+                <span className="mt-0.5 block text-xs text-muted-foreground">
+                  {p.role.split(/\s[·|]\s/)[0]}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <div className="mt-10 border-t border-border pt-10">
         {people.map((p, i) => (
