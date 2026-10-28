@@ -31,7 +31,14 @@ export interface ServiceContent {
   crossRef?: { title: string; text: string[]; linkLabel: string; linkTo: string };
 }
 
-const PRICE_NOTE = "Стоимость и сроки назовём после первого разговора о задаче.";
+const PRICE_NOTE =
+  "Цена в описании — ориентир для типовой задачи. Точную стоимость и сроки зафиксируем в предложении после первого разговора.";
+
+/** Market-based starting prices (October 2026), shown on service pages. */
+const priceRows = (price: string, duration: string) => [
+  { term: "Срок", value: duration },
+  { term: "Стоимость", value: price },
+];
 
 export const SERVICES_CONTENT: ServiceContent[] = [
   {
@@ -160,6 +167,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
         value: "интервью с участниками, изучение процессов, материалов и предложений подрядчиков",
       },
       { term: "Результат", value: "письменное заключение и его обсуждение с руководством" },
+      ...priceRows("от 300 000 ₽", "от 3 недель"),
     ],
     cta: "Обсудить задачу",
     ctaNote: PRICE_NOTE,
@@ -289,9 +297,12 @@ export const SERVICES_CONTENT: ServiceContent[] = [
         value: "интервью с участниками, разбор процессов, документов и действующих систем",
       },
       { term: "Согласование", value: "проект ТЗ, обсуждение и доработка до согласованной версии" },
+      ...priceRows("от 300 000 ₽", "от 3–4 недель"),
     ],
     cta: "Обсудить задачу",
-    ctaNote: PRICE_NOTE,
+    ctaNote:
+      "Уже есть ТЗ? Экспресс-проверка ТЗ и предложений подрядчиков — 50 000 ₽, 5 рабочих дней. " +
+      PRICE_NOTE,
     crossRef: {
       title: "Ещё не решено, что разрабатывать?",
       text: [
@@ -397,6 +408,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
       },
       { term: "Оценка", value: "интервью с командами заказчика и подрядчика, разбор решения" },
       { term: "Результат", value: "письменное заключение и его обсуждение с руководством" },
+      ...priceRows("от 170 000 ₽", "от 2 недель"),
     ],
     cta: "Обсудить задачу",
     ctaNote: PRICE_NOTE,
@@ -514,6 +526,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
       { term: "Вопросы", value: "согласуем с вами и вашим юристом перечень вопросов к экспертизе" },
       { term: "Исследование", value: "анализ документов, переписки и самого результата работ" },
       { term: "Заключение", value: "экспертное заключение и его разбор с вами и вашим юристом" },
+      ...priceRows("от 100 000 ₽", "от 10 рабочих дней"),
     ],
     cta: "Обсудить задачу",
     ctaNote:

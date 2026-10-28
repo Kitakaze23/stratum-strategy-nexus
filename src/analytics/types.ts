@@ -23,6 +23,7 @@ export type AnalyticsEventName =
   | "digital_review_vendor_click"
   | "digital_due_diligence_click"
   | "technical_specification_click"
+  | "starter_offer_click"
   | "contact_form_submit"
   // "Задать вопрос" funnel (free entry point)
   | "ask_question_view"

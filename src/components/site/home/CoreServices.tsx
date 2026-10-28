@@ -94,7 +94,22 @@ export function CoreServices() {
                 </div>
               </dl>
 
-              <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7 lg:mt-auto lg:pt-9">
+              {s.price ? (
+                <p className="mt-8 flex flex-wrap items-baseline gap-x-6 gap-y-1 border-t border-border pt-5 lg:mt-auto">
+                  <span className="font-serif text-2xl text-primary tabular-nums">{s.price}</span>
+                  {s.duration ? (
+                    <span className="text-sm text-muted-foreground">срок {s.duration}</span>
+                  ) : null}
+                </p>
+              ) : null}
+
+              <div
+                className={
+                  s.price
+                    ? "mt-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7"
+                    : "mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7 lg:mt-auto lg:pt-9"
+                }
+              >
                 <Cta asChild className="w-full sm:w-auto">
                   <a
                     href="#contact"
@@ -123,11 +138,80 @@ export function CoreServices() {
         })}
       </div>
 
+      {c.starter ? <StarterOffer offer={c.starter} /> : null}
+
       {c.pricingNote ? (
         <p className="mt-8 max-w-[760px] text-[0.9375rem] leading-[1.7] text-muted-foreground">
           {c.pricingNote}
         </p>
       ) : null}
     </HomeSection>
+  );
+}
+
+type Starter = {
+  eyebrow: string;
+  title: string;
+  text: string;
+  items: string[];
+  result: string;
+  price: string;
+  duration: string;
+  note: string;
+  cta: string;
+};
+
+/** Entry product with a fixed price: a small, low-risk first step. */
+function StarterOffer({ offer }: { offer: Starter }) {
+  return (
+    <aside
+      aria-labelledby="starter-offer-title"
+      className="mt-6 grid gap-8 border border-border bg-background p-7 sm:p-9 lg:grid-cols-12 lg:gap-10 lg:p-11"
+    >
+      <div className="lg:col-span-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-signal">
+          {offer.eyebrow}
+        </p>
+        <h3
+          id="starter-offer-title"
+          className="mt-4 font-serif text-[1.5rem] font-medium leading-[1.25] md:text-[1.75rem]"
+        >
+          {offer.title}
+        </h3>
+        <p className="mt-4 text-[1rem] leading-[1.65] text-foreground/85">{offer.text}</p>
+        <ul className="mt-6 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
+          {offer.items.map((item, k) => (
+            <li
+              key={k}
+              className="grid grid-cols-[1rem_minmax(0,1fr)] gap-2 text-[0.9375rem] leading-[1.6]"
+            >
+              <span aria-hidden="true" className="mt-[0.7em] h-px w-2.5 bg-primary/60" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 text-[0.9375rem] leading-[1.65] text-muted-foreground">{offer.result}</p>
+      </div>
+      <div className="flex flex-col justify-between gap-6 border-t border-border pt-7 lg:col-span-4 lg:col-start-9 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">
+        <div>
+          <p className="font-serif text-[2.5rem] leading-none text-primary tabular-nums">
+            {offer.price}
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">{offer.duration}</p>
+          <p className="mt-5 text-sm leading-[1.6] text-muted-foreground">{offer.note}</p>
+        </div>
+        <Cta asChild className="w-full">
+          <a
+            href="#contact"
+            onClick={() => {
+              trackCtaClick("starter_offer", "services_starter");
+              trackEvent("starter_offer_click", { location: "services_starter" });
+            }}
+          >
+            {offer.cta}
+          </a>
+        </Cta>
+      </div>
+    </aside>
   );
 }
