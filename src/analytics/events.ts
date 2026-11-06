@@ -68,6 +68,13 @@ export function trackCtaClick(ctaName: string, location: string): void {
   trackEvent("cta_click", { cta_name: ctaName, location });
 }
 
+/** Main landing button «Отправить ТЗ на проверку». Metrika goal: express_cta_click. */
+export function trackExpressCta(
+  location: "header" | "mobile_nav" | "hero" | "result" | "final",
+): void {
+  trackEvent("express_cta_click", { location });
+}
+
 export function trackServiceClick(serviceName: ServiceId | string, location: string): void {
   trackEvent("service_click", { service_name: serviceName, location });
 }

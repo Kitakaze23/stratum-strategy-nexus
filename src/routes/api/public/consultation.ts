@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-import { consultationSchema } from "@/lib/consultation";
+import { consultationSchema, sampleRequestSchema } from "@/lib/consultation";
 import { sendTemplateEmail } from "@/lib/email-templates/send-email";
 import { notifyTelegram, tgEscape } from "@/lib/telegram-notify";
 
@@ -35,14 +35,21 @@ function rateLimited(ip: string, now = Date.now()): boolean {
   return recent.length > RATE_MAX;
 }
 
+const TITLES = {
+  consultation: "Новая заявка с сайта",
+  express: "Заявка на экспресс-проверку ТЗ",
+  sample: "Запрос примера отчёта",
+} as const;
+
 function telegramMessage(
   d: { name: string; company?: string; email: string; phone?: string; message?: string },
   page: string,
+  kind: keyof typeof TITLES = "consultation",
 ): string {
   const line = (label: string, value?: string) =>
     value?.trim() ? `<b>${label}:</b> ${tgEscape(value.trim())}` : "";
   return [
-    "<b>Новая заявка с сайта</b>",
+    `<b>${TITLES[kind]}</b>`,
     "",
     line("Имя", d.name),
     line("Компания", d.company),
@@ -72,9 +79,57 @@ export const Route = createFileRoute("/api/public/consultation")({
           return Response.json({ ok: false, error: "rate_limited" }, { status: 429 });
         }
 
+        let body: unknown;
+        try {
+          body = await request.json();
+        } catch {
+          return Response.json({ ok: false, error: "invalid_payload" }, { status: 400 });
+        }
+
+        // «Получить пример отчёта»: e-mail only, goes to the same inbox and bot.
+        if ((body as { kind?: unknown })?.kind === "sample") {
+          const sample = sampleRequestSchema.safeParse(body);
+          if (!sample.success) {
+            return Response.json({ ok: false, error: "invalid_payload" }, { status: 400 });
+          }
+          const v = sample.data;
+          if (v.website || (v.elapsedMs !== undefined && v.elapsedMs < MIN_FILL_MS)) {
+            return Response.json({ ok: true });
+          }
+          const id = crypto.randomUUID();
+          const message = "Запрос примера отчёта экспресс-проверки. Отправить PDF на эту почту.";
+          const [mail, telegram] = await Promise.allSettled([
+            sendTemplateEmail("consultation-request", "", {
+              templateData: {
+                name: "Запрос примера отчёта",
+                company: "",
+                role: "",
+                email: v.email,
+                phone: "",
+                message,
+              },
+              idempotencyKey: `sample-request-${id}`,
+              replyTo: v.email,
+            }),
+            notifyTelegram(
+              telegramMessage(
+                { name: "—", email: v.email, message },
+                pageFromReferer(request),
+                "sample",
+              ),
+            ),
+          ]);
+          const ok =
+            mail.status === "fulfilled" || (telegram.status === "fulfilled" && telegram.value);
+          if (mail.status !== "fulfilled") console.error("sample_request_send_failed", mail.reason);
+          return ok
+            ? Response.json({ ok: true })
+            : Response.json({ ok: false, error: "send_failed" }, { status: 502 });
+        }
+
         let parsed;
         try {
-          parsed = consultationSchema.parse(await request.json());
+          parsed = consultationSchema.parse(body);
         } catch {
           return Response.json({ ok: false, error: "invalid_payload" }, { status: 400 });
         }
@@ -97,7 +152,10 @@ export const Route = createFileRoute("/api/public/consultation")({
               role: parsed.role ?? "",
               email,
               phone: parsed.phone ?? "",
-              message: parsed.message ?? "",
+              message:
+                parsed.kind === "express"
+                  ? `[Экспресс-проверка ТЗ] ${parsed.message ?? ""}`.trim()
+                  : (parsed.message ?? ""),
             },
             idempotencyKey: `consultation-request-${submissionId}`,
             ...(email ? { replyTo: email } : {}),
@@ -112,6 +170,7 @@ export const Route = createFileRoute("/api/public/consultation")({
                 message: parsed.message ?? "",
               },
               pageFromReferer(request),
+              parsed.kind === "express" ? "express" : "consultation",
             ),
           ),
         ]);

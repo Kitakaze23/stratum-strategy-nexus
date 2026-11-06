@@ -38,6 +38,8 @@ export const consultationBaseSchema = z.object({
   website: z.string().max(200).optional(),
   /** Milliseconds the form was open before submit (bot heuristics). */
   elapsedMs: z.number().int().nonnegative().optional(),
+  /** Which form sent it: the express-check landing form or the general one. */
+  kind: z.enum(["consultation", "express"]).optional(),
 });
 
 const requireContact = <T extends { email?: string | undefined; phone?: string | undefined }>(
@@ -56,6 +58,36 @@ const requireContact = <T extends { email?: string | undefined; phone?: string |
 export const consultationSchema = consultationBaseSchema.superRefine(requireContact);
 
 export type ConsultationRequest = z.infer<typeof consultationSchema>;
+
+/** «Получить пример отчёта»: only a work e-mail and consent. */
+export const sampleRequestSchema = z.object({
+  kind: z.literal("sample"),
+  email: z.string().trim().max(255).email("Укажите корректный e-mail"),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "Необходимо согласие на обработку персональных данных" }),
+  }),
+  website: z.string().max(200).optional(),
+  elapsedMs: z.number().int().nonnegative().optional(),
+});
+
+export type SampleRequest = z.infer<typeof sampleRequestSchema>;
+
+export async function submitSampleRequest(input: SampleRequest): Promise<SubmitResult> {
+  const payload = sampleRequestSchema.parse(input);
+  try {
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (response.status === 429) {
+      return { ok: false, message: "Слишком много запросов подряд. Попробуйте чуть позже." };
+    }
+    return response.ok ? { ok: true } : { ok: false, message: "Не удалось отправить запрос." };
+  } catch {
+    return { ok: false, message: "Нет соединения с сервером." };
+  }
+}
 
 export interface SubmitResult {
   ok: boolean;

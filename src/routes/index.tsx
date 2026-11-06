@@ -1,25 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { absoluteUrl } from "@/lib/site";
 
-import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
-import { Approach } from "@/components/site/home/Approach";
-import { CoreServices } from "@/components/site/home/CoreServices";
-import { ExpertiseAreas } from "@/components/site/home/ExpertiseAreas";
-import { HomeHero } from "@/components/site/home/HomeHero";
-import { IndustryExperience } from "@/components/site/home/IndustryExperience";
-import { Faq } from "@/components/site/home/Faq";
-import { Principles } from "@/components/site/home/Principles";
-import { Founder } from "@/components/site/home/Founder";
-import { Situations } from "@/components/site/home/Situations";
+import {
+  ExpressFaq,
+  ExpressForm,
+  ExpressHero,
+  ExpressNext,
+  ExpressPains,
+  ExpressPrice,
+  ExpressResult,
+  ExpressSample,
+  ExpressTeam,
+  ExpressTrust,
+} from "@/components/site/home/ExpressLanding";
 import { Toaster } from "@/components/ui/sonner";
 import { mergeContent } from "@/content/defaults";
 import { SiteContentProvider, siteContentQuery, useSiteContent } from "@/content/useSiteContent";
 
-const TITLE = "Обоснование инвестиций в IT и разработка технического задания | Stratum Consulting";
+const TITLE = "Независимая экспертиза ТЗ и предложений подрядчиков за 5 дней | Stratum Consulting";
 const DESCRIPTION =
-  "Независимая оценка цифрового решения до начала разработки: обоснование инвестиций в IT, выбор решения для автоматизации бизнеса, требования и техническое задание.";
+  "Экспресс-проверка технического задания и до трёх предложений подрядчиков за 90 000 ₽ и 5 рабочих дней. Независимый консультант для IT-проектов в промышленности, энергетике и нефтегазе: разработку не продаём.";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => ({
@@ -39,7 +41,7 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "canonical", href: absoluteUrl("/") }],
     scripts: [
       ...(() => {
-        const faq = mergeContent(loaderData?.rows as Record<string, unknown> | undefined).homeFaq;
+        const faq = mergeContent(loaderData?.rows as Record<string, unknown> | undefined).exFaq;
         return faq.enabled && faq.items.length
           ? [
               {
@@ -82,12 +84,11 @@ export const Route = createFileRoute("/")({
               areaServed: "RU",
               slogan: "Надёжное основание для цифровых решений",
               serviceType: [
-                "Обоснование инвестиций в цифровые решения",
-                "Разработка технического задания на цифровой проект",
-                "Технологический Due Diligence",
-                "Enterprise Analytics",
-                "Цифровизация промышленных и инженерных процессов",
-                "Legal & IP",
+                "Экспресс-проверка ТЗ и предложений подрядчиков",
+                "Аудит IT-проекта",
+                "Независимый контроль IT-проекта",
+                "Обоснование инвестиций и разработка ТЗ",
+                "Экспертиза для спора с подрядчиком",
               ],
               telephone: "+7 (925) 539-33-53",
               email: "inbox@stratum-consulting.ru",
@@ -120,16 +121,16 @@ function IndexSections() {
       </a>
       <Header />
       <main id="main" tabIndex={-1} className="outline-none">
-        {c.homeHero.enabled ? <HomeHero /> : <div className="pt-[76px]" />}
-        {c.homeSituations.enabled ? <Situations /> : null}
-        {c.homeServices.enabled ? <CoreServices /> : null}
-        {c.homeApproach.enabled ? <Approach /> : null}
-        {c.homeExpertise.enabled ? <ExpertiseAreas /> : null}
-        {c.homeExperience.enabled ? <IndustryExperience /> : null}
-        {c.homeTeam.enabled ? <Founder /> : null}
-        {c.homePrinciples.enabled ? <Principles /> : null}
-        {c.homeFaq.enabled ? <Faq /> : null}
-        {c.homeContact.enabled ? <Contact section="homeContact" tone="surface" /> : null}
+        {c.exHero.enabled ? <ExpressHero /> : <div className="pt-[76px]" />}
+        {c.exPains.enabled ? <ExpressPains /> : null}
+        {c.exResult.enabled ? <ExpressResult /> : null}
+        {c.exSample.enabled ? <ExpressSample /> : null}
+        {c.exTrust.enabled ? <ExpressTrust /> : null}
+        {c.exPrice.enabled ? <ExpressPrice /> : null}
+        {c.exNext.enabled ? <ExpressNext /> : null}
+        {c.exTeam.enabled ? <ExpressTeam /> : null}
+        {c.exFaq.enabled ? <ExpressFaq /> : null}
+        {c.exForm.enabled ? <ExpressForm /> : null}
       </main>
       <Footer />
       <Toaster />

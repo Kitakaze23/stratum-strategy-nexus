@@ -1,21 +1,23 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, Send, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
-import { trackContactClick, trackCtaClick } from "@/analytics/events";
+import { trackExpressCta } from "@/analytics/events";
 import type { SectionKey } from "@/content/defaults";
 import { useSiteContent } from "@/content/useSiteContent";
 
 import { Cta } from "./primitives";
-import { CONTACTS, NAV_LINKS } from "./contacts";
+import { NAV_LINKS } from "./contacts";
+
+const CTA_LABEL = "Отправить ТЗ на проверку";
 
 /** Hides a nav link when its home-page section is switched off in the admin panel. */
 const LINK_SECTION: Record<string, SectionKey> = {
-  "#services": "homeServices",
-  "#approach": "homeApproach",
-  "#expertise": "homeExpertise",
-  "#contact": "homeContact",
+  "#express": "exResult",
+  "#next": "exNext",
+  "#team": "exTeam",
+  "#faq": "exFaq",
 };
 
 function BrandLink({
@@ -158,25 +160,14 @@ export function Header() {
                 {link.label}
               </SectionLink>
             ))}
-            <a
-              href={CONTACTS.telegramHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackContactClick("telegram", "header")}
-              className="ml-2 inline-flex items-center gap-2 text-[0.9375rem] text-foreground/75 transition-colors duration-200 hover:text-primary"
-            >
-              <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-              Telegram
-              <span className="sr-only">(откроется в новой вкладке)</span>
-            </a>
             <Cta asChild className="h-10 px-5 text-sm">
               {onHome ? (
-                <a href="#contact" onClick={() => trackCtaClick("discuss_task", "header")}>
-                  Обсудить задачу
+                <a href="#express-form" onClick={() => trackExpressCta("header")}>
+                  {CTA_LABEL}
                 </a>
               ) : (
-                <Link to="/" hash="contact" onClick={() => trackCtaClick("discuss_task", "header")}>
-                  Обсудить задачу
+                <Link to="/" hash="express-form" onClick={() => trackExpressCta("header")}>
+                  {CTA_LABEL}
                 </Link>
               )}
             </Cta>
@@ -223,40 +214,26 @@ export function Header() {
             <Cta asChild className="mt-10 w-full">
               {onHome ? (
                 <a
-                  href="#contact"
+                  href="#express-form"
                   onClick={() => {
-                    trackCtaClick("discuss_task", "mobile_nav");
+                    trackExpressCta("mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить задачу
+                  {CTA_LABEL}
                 </a>
               ) : (
                 <Link
                   to="/"
-                  hash="contact"
+                  hash="express-form"
                   onClick={() => {
-                    trackCtaClick("discuss_task", "mobile_nav");
+                    trackExpressCta("mobile_nav");
                     setOpen(false);
                   }}
                 >
-                  Обсудить задачу
+                  {CTA_LABEL}
                 </Link>
               )}
-            </Cta>
-            <Cta asChild variant="secondary" className="mt-3 w-full">
-              <a
-                href={CONTACTS.telegramHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackContactClick("telegram", "mobile_nav");
-                  setOpen(false);
-                }}
-              >
-                <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-                Написать в Telegram
-              </a>
             </Cta>
           </div>
         </nav>

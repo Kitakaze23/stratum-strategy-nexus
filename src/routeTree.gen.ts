@@ -20,6 +20,7 @@ import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesAiProductReviewRouteImport } from './routes/services.ai-product-review'
 import { Route as ServicesDisputeExpertiseRouteImport } from './routes/services.dispute-expertise'
+import { Route as ServicesIndependentControlRouteImport } from './routes/services.independent-control'
 import { Route as ServicesInvestmentAssessmentRouteImport } from './routes/services.investment-assessment'
 import { Route as ServicesLegalSupportRouteImport } from './routes/services.legal-support'
 import { Route as ServicesMvpReviewRouteImport } from './routes/services.mvp-review'
@@ -84,6 +85,12 @@ const ServicesDisputeExpertiseRoute =
   ServicesDisputeExpertiseRouteImport.update({
     id: '/services/dispute-expertise',
     path: '/services/dispute-expertise',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesIndependentControlRoute =
+  ServicesIndependentControlRouteImport.update({
+    id: '/services/independent-control',
+    path: '/services/independent-control',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ServicesInvestmentAssessmentRoute =
@@ -151,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
+  '/services/independent-control': typeof ServicesIndependentControlRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -173,6 +181,7 @@ export interface FileRoutesByTo {
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
+  '/services/independent-control': typeof ServicesIndependentControlRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -197,6 +206,7 @@ export interface FileRoutesById {
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/ai-product-review': typeof ServicesAiProductReviewRoute
   '/services/dispute-expertise': typeof ServicesDisputeExpertiseRoute
+  '/services/independent-control': typeof ServicesIndependentControlRoute
   '/services/investment-assessment': typeof ServicesInvestmentAssessmentRoute
   '/services/legal-support': typeof ServicesLegalSupportRoute
   '/services/mvp-review': typeof ServicesMvpReviewRoute
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/dispute-expertise'
+    | '/services/independent-control'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/dispute-expertise'
+    | '/services/independent-control'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -266,6 +278,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/services/ai-product-review'
     | '/services/dispute-expertise'
+    | '/services/independent-control'
     | '/services/investment-assessment'
     | '/services/legal-support'
     | '/services/mvp-review'
@@ -289,6 +302,7 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesAiProductReviewRoute: typeof ServicesAiProductReviewRoute
   ServicesDisputeExpertiseRoute: typeof ServicesDisputeExpertiseRoute
+  ServicesIndependentControlRoute: typeof ServicesIndependentControlRoute
   ServicesInvestmentAssessmentRoute: typeof ServicesInvestmentAssessmentRoute
   ServicesLegalSupportRoute: typeof ServicesLegalSupportRoute
   ServicesMvpReviewRoute: typeof ServicesMvpReviewRoute
@@ -379,6 +393,13 @@ declare module '@tanstack/react-router' {
       path: '/services/dispute-expertise'
       fullPath: '/services/dispute-expertise'
       preLoaderRoute: typeof ServicesDisputeExpertiseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/independent-control': {
+      id: '/services/independent-control'
+      path: '/services/independent-control'
+      fullPath: '/services/independent-control'
+      preLoaderRoute: typeof ServicesIndependentControlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/investment-assessment': {
@@ -475,6 +496,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   ServicesAiProductReviewRoute: ServicesAiProductReviewRoute,
   ServicesDisputeExpertiseRoute: ServicesDisputeExpertiseRoute,
+  ServicesIndependentControlRoute: ServicesIndependentControlRoute,
   ServicesInvestmentAssessmentRoute: ServicesInvestmentAssessmentRoute,
   ServicesLegalSupportRoute: ServicesLegalSupportRoute,
   ServicesMvpReviewRoute: ServicesMvpReviewRoute,

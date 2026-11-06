@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { trackContactClick } from "@/analytics/events";
-import { CONTACTS, FOOTER_LINKS, LEGAL_LINKS, SERVICE_LINKS } from "@/data/contacts";
+import { CONTACTS, FOOTER_LINKS, LEGAL_LINKS, REQUISITES, SERVICE_LINKS } from "@/data/contacts";
 
 const CHANNELS = [
   { label: "Телефон", value: CONTACTS.phone, href: CONTACTS.phoneHref, channel: "phone" },
@@ -38,16 +38,10 @@ export function Footer() {
               <span className="block font-serif text-lg leading-[1.4]">
                 Надёжное основание для цифровых решений
               </span>
-              <span
-                lang="en"
-                className="mt-1 block text-xs tracking-[0.04em] text-navy-foreground/55"
-              >
-                Solid ground for digital decisions
-              </span>
             </p>
             <p className="mt-4 max-w-[360px] text-sm leading-[1.7] text-navy-foreground/65">
-              Независимая консалтинговая компания. Помогаем обосновать инвестиции в цифровые решения
-              и подготовить техническое задание до начала разработки.
+              Независимая проверка IT-проектов для промышленности, энергетики и нефтегаза.
+              Разработку не продаём.
             </p>
           </div>
 
@@ -70,7 +64,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label="Страницы услуг" className="lg:col-span-3">
-            <p className={headingCls}>Направления</p>
+            <p className={headingCls}>Услуги</p>
             <ul className="mt-5 space-y-3 text-sm">
               {SERVICE_LINKS.map((link) => (
                 <li key={link.to}>
@@ -103,7 +97,29 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-navy-foreground/15 pt-8 text-xs text-navy-foreground/55 md:flex-row md:items-center md:justify-between">
+        <dl
+          aria-label="Реквизиты"
+          className="mt-14 grid gap-x-8 gap-y-2 border-t border-navy-foreground/15 pt-8 text-xs text-navy-foreground/65 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <div>
+            <dt className="sr-only">Наименование</dt>
+            <dd>{REQUISITES.name}</dd>
+          </div>
+          <div>
+            <dt className="inline">ИНН </dt>
+            <dd className="inline">{REQUISITES.inn}</dd>
+          </div>
+          <div>
+            <dt className="inline">ОГРН </dt>
+            <dd className="inline">{REQUISITES.ogrn}</dd>
+          </div>
+          <div>
+            <dt className="sr-only">Юридический адрес</dt>
+            <dd>{REQUISITES.address}</dd>
+          </div>
+        </dl>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-navy-foreground/15 pt-8 text-xs text-navy-foreground/55 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Stratum Consulting. Все права защищены.</p>
           <ul aria-label="Юридическая информация" className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_LINKS.map((link) => (

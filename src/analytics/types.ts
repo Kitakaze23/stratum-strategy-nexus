@@ -25,6 +25,10 @@ export type AnalyticsEventName =
   | "technical_specification_click"
   | "starter_offer_click"
   | "contact_form_submit"
+  // express-check landing (Nov 2026): the three Metrika goals
+  | "express_cta_click"
+  | "express_form_submit"
+  | "sample_report_download"
   // "Задать вопрос" funnel (free entry point)
   | "ask_question_view"
   | "ask_question_click"
@@ -51,7 +55,7 @@ export type AnalyticsEventName =
 /** Only primitives — never objects that could carry raw form payloads. */
 export type AnalyticsParams = Record<string, string | number | boolean | undefined>;
 
-export type FormId = "contact_form" | "ask_question_form";
+export type FormId = "contact_form" | "ask_question_form" | "express_form" | "sample_form";
 
 export type ContactChannel = "phone" | "telegram" | "whatsapp" | "email";
 

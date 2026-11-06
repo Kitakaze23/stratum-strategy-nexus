@@ -48,7 +48,7 @@ function AdminPage() {
   const { data: rows, isLoading } = useQuery(siteContentQuery);
   const content = mergeContent(rows as Record<string, unknown> | undefined);
 
-  const [active, setActive] = useState<SectionKey>("homeHero");
+  const [active, setActive] = useState<SectionKey>("exHero");
   const [draft, setDraft] = useState<Record<string, unknown> | null>(null);
   const [saving, setSaving] = useState(false);
 

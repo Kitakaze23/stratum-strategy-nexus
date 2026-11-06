@@ -9,31 +9,38 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#services", label: "Услуги" },
-  { href: "#approach", label: "Подход" },
-  { href: "#expertise", label: "Экспертиза" },
-  { href: "#contact", label: "Контакты" },
+  { href: "#express", label: "Экспресс-проверка" },
+  { href: "#next", label: "Услуги" },
+  { href: "#team", label: "Команда" },
+  { href: "#faq", label: "Вопросы" },
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#services", label: "Услуги" },
-  { href: "#approach", label: "Подход" },
-  { href: "#expertise", label: "Экспертиза" },
-  { href: "#experience", label: "Опыт" },
-  { href: "#team", label: "Команда" },
-  { href: "#principles", label: "Принципы работы" },
-  { href: "#faq", label: "Частые вопросы" },
-  { href: "#contact", label: "Контакты" },
+  { href: "#express", label: "Экспресс-проверка" },
+  { href: "#sample", label: "Пример отчёта" },
+  { href: "#next", label: "Услуги" },
+  { href: "#team", label: "Опыт команды" },
+  { href: "#faq", label: "Вопросы" },
+  { href: "#express-form", label: "Заявка" },
 ] as const;
 
 export const SERVICE_LINKS = [
+  { to: "/services/product-audit", label: "Аудит IT-проекта" },
+  { to: "/services/independent-control", label: "Независимый контроль IT-проекта" },
   { to: "/services/investment-assessment", label: "Обоснование инвестиций" },
   { to: "/services/technical-specification", label: "Разработка ТЗ" },
-  { to: "/services/product-audit", label: "Technology Due Diligence" },
-  { to: "/services/ai-product-review", label: "Оценка AI-решения" },
   { to: "/services/dispute-expertise", label: "Экспертиза для спора" },
-  { to: "/services/legal-support", label: "Legal & IP" },
+  { to: "/services/ai-product-review", label: "Оценка AI-решения" },
+  { to: "/services/legal-support", label: "Права на результаты разработки" },
 ] as const;
+
+/** Company details for the footer. Placeholders stay visible until the LLC is registered. */
+export const REQUISITES = {
+  name: "[Полное наименование ООО — заполнить]",
+  inn: "[заполнить]",
+  ogrn: "[заполнить]",
+  address: "[Юридический адрес — заполнить]",
+} as const;
 
 export const LEGAL_LINKS = [
   { to: "/privacy", label: "Политика конфиденциальности" },

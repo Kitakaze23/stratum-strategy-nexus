@@ -178,3 +178,15 @@ All Metrica calls are wrapped in try/catch and check the configuration first, so
 a blocked or missing counter can never break rendering, navigation, buttons or
 form submission. Scroll tracking is throttled with `requestAnimationFrame` and
 stops listening after the 90% threshold.
+
+## Цели главной (экспресс-проверка, ноябрь 2026)
+
+Создать в Метрике (счётчик 112000998) цели типа «JavaScript-событие»:
+
+| Цель | Идентификатор | Когда срабатывает | Параметры |
+| --- | --- | --- | --- |
+| Клик по основной кнопке | `express_cta_click` | клик по «Отправить ТЗ на проверку» | `location`: header, mobile_nav, hero, result, final |
+| Отправка формы | `express_form_submit` | сервер принял заявку | `with_file`: false (загрузки файла пока нет) |
+| Пример отчёта | `sample_report_download` | сервер принял запрос примера на почту | `location`: sample |
+
+Составная цель «Клик → Заявка»: шаг 1 `express_cta_click`, шаг 2 `express_form_submit`.

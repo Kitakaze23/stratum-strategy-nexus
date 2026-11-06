@@ -72,14 +72,14 @@ const fieldClass =
   "h-12 w-full rounded-[4px] border border-input bg-background px-4 text-[0.9375rem] text-foreground transition-colors duration-200 placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid=true]:border-destructive";
 
 /**
- * The site's single lead form. The home page passes its own copy section
- * (`homeContact`); article pages use the shared `contact` section.
+ * Lead form for service and article pages (`contact` section). The home page
+ * has its own express-check form in home/ExpressLanding.
  */
 export function Contact({
   section = "contact",
   tone = "light",
 }: {
-  section?: "contact" | "homeContact";
+  section?: "contact";
   tone?: "light" | "surface";
 }) {
   const [sent, setSent] = useState(false);

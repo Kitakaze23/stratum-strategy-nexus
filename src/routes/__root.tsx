@@ -36,7 +36,7 @@ function NotFoundComponent() {
             На главную
           </Link>
           <a
-            href="/#contact"
+            href="/#express-form"
             className="inline-flex h-[52px] items-center justify-center rounded-[10px] border border-primary bg-background px-7 text-[0.9375rem] font-medium text-primary transition-colors duration-200 hover:bg-accent"
           >
             Связаться
