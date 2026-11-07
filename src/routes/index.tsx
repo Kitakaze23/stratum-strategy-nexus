@@ -13,7 +13,6 @@ import { Faq } from "@/components/site/home/Faq";
 import { Principles } from "@/components/site/home/Principles";
 import { SampleReport, TrustBlock } from "@/components/site/home/SampleAndTrust";
 import { Founder } from "@/components/site/home/Founder";
-import { Situations } from "@/components/site/home/Situations";
 import { Toaster } from "@/components/ui/sonner";
 import { mergeContent } from "@/content/defaults";
 import { SiteContentProvider, siteContentQuery, useSiteContent } from "@/content/useSiteContent";
@@ -122,7 +121,6 @@ function IndexSections() {
       <Header />
       <main id="main" tabIndex={-1} className="outline-none">
         {c.homeHero.enabled ? <HomeHero /> : <div className="pt-[76px]" />}
-        {c.homeSituations.enabled ? <Situations /> : null}
         {c.homeServices.enabled ? <CoreServices /> : null}
         {c.homeSample.enabled ? <SampleReport /> : null}
         {c.homeTrust.enabled ? <TrustBlock /> : null}

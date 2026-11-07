@@ -16,7 +16,7 @@ export const SITE_DEFAULTS = {
     enabled: true,
     slogan: "Надёжное основание для цифровых решений",
     sloganEn: "Solid ground for digital decisions",
-    title: "Независимая проверка ИТ-проектов до того, как вы заплатите подрядчику",
+    title: "Аудит и экспертиза IT-проектов",
     subtitle:
       "Говорим, что делать, что купить готовым и сколько это должно стоить. Разработку не продаём.",
     heroNote:
@@ -32,7 +32,7 @@ export const SITE_DEFAULTS = {
     ],
   },
   homeSituations: {
-    enabled: true,
+    enabled: false,
     eyebrow: "Когда к нам приходят",
     title: "Когда к нам приходят",
     description: "",
