@@ -15,11 +15,20 @@ Object.assign(process.env, loadEnv(process.env["NODE_ENV"] ?? "development", pro
 export default defineConfig({
   vite: {
     resolve: {
-      alias: {
-        "entities/lib/decode.js": path.resolve(import.meta.dirname, "node_modules/entities/lib/decode.js"),
-        "entities/lib/encode.js": path.resolve(import.meta.dirname, "node_modules/entities/lib/encode.js"),
-        entities: path.resolve(import.meta.dirname, "node_modules/entities"),
-      },
+      // Exact-match aliases only. A bare `entities` key also rewrote subpath imports
+      // such as `entities/decode` (used by htmlparser2 with its own entities@7) onto
+      // the top-level entities@4, which has no such file — the server build then failed.
+      alias: [
+        {
+          find: /^entities\/lib\/decode\.js$/,
+          replacement: path.resolve(import.meta.dirname, "node_modules/entities/lib/decode.js"),
+        },
+        {
+          find: /^entities\/lib\/encode\.js$/,
+          replacement: path.resolve(import.meta.dirname, "node_modules/entities/lib/encode.js"),
+        },
+        { find: /^entities$/, replacement: path.resolve(import.meta.dirname, "node_modules/entities") },
+      ],
     },
   },
   tanstackStart: {
