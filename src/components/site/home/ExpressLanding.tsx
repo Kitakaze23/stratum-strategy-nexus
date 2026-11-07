@@ -22,7 +22,7 @@ import { ArrowLink, HomeSection, Lead, SectionTitle } from "./shared";
 /**
  * Home page: one goal — a request for the express check («Отправить ТЗ на проверку»).
  * The same main button appears in the header, the hero, the result block and the
- * final form; everything else is a text link.
+ * final form; everything else is a text link. Updated: Nov 2026.
  */
 
 const FORM_ANCHOR = "#express-form";
