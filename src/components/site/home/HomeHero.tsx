@@ -17,26 +17,38 @@ export function HomeHero() {
     >
       <div className="container-page grid gap-12 py-12 md:py-16 lg:grid-cols-12 lg:gap-10 lg:pt-14 lg:pb-12">
         <div className="lg:col-span-7 lg:pr-6">
+          <div className="flex gap-3">
+            <span aria-hidden="true" className="mt-[0.6rem] h-px w-8 shrink-0 bg-signal" />
+            <p>
+              <span className="block text-[0.9375rem] font-semibold text-primary">{c.slogan}</span>
+              {c.sloganEn ? (
+                <span
+                  lang="en"
+                  className="mt-0.5 block text-xs tracking-[0.04em] text-muted-foreground"
+                >
+                  {c.sloganEn}
+                </span>
+              ) : null}
+            </p>
+          </div>
           <h1
             id="hero-title"
-            className="font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3rem]"
+            className="mt-7 font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3rem]"
           >
             {c.title}
           </h1>
           {c.points?.length ? (
-            <ol className="mt-8 max-w-[640px] space-y-3">
+            <ul className="mt-8 max-w-[640px] space-y-3">
               {c.points.map((p, i) => (
                 <li
                   key={i}
-                  className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-baseline gap-2 text-lg leading-[1.5] text-foreground md:text-xl"
+                  className="flex items-start gap-4 text-lg leading-[1.5] text-foreground md:text-xl"
                 >
-                  <span aria-hidden="true" className="font-serif text-signal tabular-nums">
-                    {i + 1}.
-                  </span>
+                  <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-signal" />
                   <span>{p}</span>
                 </li>
               ))}
-            </ol>
+            </ul>
           ) : c.subtitle ? (
             <p className="mt-7 max-w-[640px] text-lg leading-[1.65] text-muted-foreground md:text-xl">
               {c.subtitle}
@@ -59,21 +71,6 @@ export function HomeHero() {
               {c.heroNote}
             </p>
           ) : null}
-
-          <div className="mt-10 flex gap-3">
-            <span aria-hidden="true" className="mt-[0.6rem] h-px w-8 shrink-0 bg-signal" />
-            <p>
-              <span className="block text-[0.9375rem] font-semibold text-primary">{c.slogan}</span>
-              {c.sloganEn ? (
-                <span
-                  lang="en"
-                  className="mt-0.5 block text-xs tracking-[0.04em] text-muted-foreground"
-                >
-                  {c.sloganEn}
-                </span>
-              ) : null}
-            </p>
-          </div>
         </div>
 
         {c.questions?.length ? (
