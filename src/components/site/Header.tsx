@@ -1,16 +1,17 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
-import { trackExpressCta } from "@/analytics/events";
+import { trackContactClick, trackExpressCta } from "@/analytics/events";
 import type { SectionKey } from "@/content/defaults";
 import { useSiteContent } from "@/content/useSiteContent";
 
 import { Cta } from "./primitives";
-import { NAV_LINKS } from "./contacts";
+import { CONTACTS, NAV_LINKS } from "./contacts";
 
-const CTA_LABEL = "Отправить ТЗ на проверку";
+const CTA_LABEL = "Оставить заявку";
+const CALL_LABEL = "Позвонить";
 
 /** Hides a nav link when its home-page section is switched off in the admin panel. */
 const LINK_SECTION: Record<string, SectionKey> = {
@@ -160,7 +161,17 @@ export function Header() {
                 {link.label}
               </SectionLink>
             ))}
-            <Cta asChild className="h-10 px-5 text-sm">
+            <Cta asChild variant="secondary" className="h-10 px-4 text-sm">
+              <a
+                href={CONTACTS.phoneHref}
+                title={CONTACTS.phone}
+                onClick={() => trackContactClick("phone", "header")}
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {CALL_LABEL}
+              </a>
+            </Cta>
+            <Cta asChild className="-ml-5 h-10 px-5 text-sm">
               {onHome ? (
                 <a href="#contact" onClick={() => trackExpressCta("header")}>
                   {CTA_LABEL}
@@ -211,7 +222,19 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <Cta asChild className="mt-10 w-full">
+            <Cta asChild variant="secondary" className="mt-10 w-full">
+              <a
+                href={CONTACTS.phoneHref}
+                onClick={() => {
+                  trackContactClick("phone", "mobile_nav");
+                  setOpen(false);
+                }}
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {CALL_LABEL} · {CONTACTS.phone}
+              </a>
+            </Cta>
+            <Cta asChild className="mt-3 w-full">
               {onHome ? (
                 <a
                   href="#contact"
