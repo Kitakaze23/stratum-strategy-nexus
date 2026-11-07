@@ -1,17 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useForm, type Resolver } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 
-import { trackContactClick, trackEvent } from "@/analytics/events";
+import { trackContactClick, trackEvent, trackExpressCta } from "@/analytics/events";
 import { useFormAnalytics } from "@/analytics/hooks";
 import { CONTACTS } from "@/data/contacts";
 import { useSection } from "@/content/useSiteContent";
 import {
   consultationMailto,
-  consultationSchema,
   submitConsultationRequest,
   type ConsultationRequest,
 } from "@/lib/consultation";
@@ -50,40 +50,63 @@ const CHANNELS = [
   },
 ] as const;
 
-const CONTACT_REQUIRED = "Укажите e-mail или телефон, чтобы мы могли ответить";
+const isEmail = (v: string) => z.string().email().safeParse(v).success;
+const isPhoneOrHandle = (v: string) =>
+  v.replace(/\D/g, "").length >= 6 || /^@?[A-Za-z0-9_]{5,32}$/.test(v);
 
-/**
- * zod skips object-level refinements while other fields are invalid, so the
- * "e-mail or phone" rule is also checked here — all errors show at once.
- */
-const baseResolver = zodResolver(consultationSchema) as Resolver<ConsultationRequest>;
-const consultationResolver: Resolver<ConsultationRequest> = async (values, context, options) => {
-  const result = await baseResolver(values, context, options);
-  if (!values.email?.trim() && !values.phone?.trim() && !result.errors.email) {
-    return {
-      values: {},
-      errors: { ...result.errors, email: { type: "custom", message: CONTACT_REQUIRED } },
-    };
-  }
-  return result;
-};
+/** Short form: name, one contact field, optional link to the ТЗ and a note. */
+const formSchema = z.object({
+  name: z.string().trim().min(2, "Укажите имя").max(100, "Слишком длинное значение"),
+  contact: z
+    .string()
+    .trim()
+    .min(1, "Укажите телефон, e-mail или Telegram, чтобы мы могли ответить")
+    .max(255, "Слишком длинное значение")
+    .refine(
+      (v) => isEmail(v) || isPhoneOrHandle(v),
+      "Укажите корректный телефон, e-mail или Telegram",
+    ),
+  link: z.string().trim().max(500, "Слишком длинное значение").optional(),
+  message: z.string().trim().max(1500, "Слишком длинное значение").optional(),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "Необходимо согласие на обработку персональных данных" }),
+  }),
+  website: z.string().max(200).optional(),
+});
+type FormValues = z.infer<typeof formSchema>;
+
+function toRequest(v: FormValues, kind: "express" | "consultation"): ConsultationRequest {
+  const contact = v.contact.trim();
+  const message = [v.link?.trim() ? `Ссылка на ТЗ: ${v.link.trim()}` : "", v.message?.trim() ?? ""]
+    .filter(Boolean)
+    .join("\n");
+  return {
+    name: v.name,
+    ...(isEmail(contact) ? { email: contact } : { phone: contact }),
+    message,
+    consent: true,
+    kind,
+    website: v.website,
+  };
+}
 
 const fieldClass =
   "h-12 w-full rounded-[4px] border border-input bg-background px-4 text-[0.9375rem] text-foreground transition-colors duration-200 placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid=true]:border-destructive";
 
 /**
- * Lead form for service and article pages (`contact` section). The home page
- * has its own express-check form in home/ExpressLanding.
+ * The site's single lead form. The home page passes its own copy section
+ * (`homeContact`); article pages use the shared `contact` section.
  */
 export function Contact({
   section = "contact",
   tone = "light",
 }: {
-  section?: "contact";
+  section?: "contact" | "homeContact";
   tone?: "light" | "surface";
 }) {
   const [sent, setSent] = useState(false);
   const [failed, setFailed] = useState<ConsultationRequest | null>(null);
+  const isHome = section === "homeContact";
   const openedAt = useRef<number>(0);
   useEffect(() => {
     openedAt.current = Date.now();
@@ -95,12 +118,13 @@ export function Contact({
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ConsultationRequest>({
-    resolver: consultationResolver,
+  } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     mode: "onBlur",
   });
 
-  const onSubmit = async (values: ConsultationRequest) => {
+  const onSubmit = async (form: FormValues) => {
+    const values = toRequest(form, isHome ? "express" : "consultation");
     const result = await submitConsultationRequest({
       ...values,
       elapsedMs: openedAt.current ? Date.now() - openedAt.current : undefined,
@@ -118,6 +142,7 @@ export function Contact({
     // fires only after the API confirms the submission — no field values sent
     analytics.onSubmitSuccess();
     trackEvent("contact_form_submit", { source: "contact_section" });
+    if (isHome) trackEvent("express_form_submit", { with_link: !!form.link?.trim() });
     reset();
     setSent(true);
   };
@@ -211,63 +236,42 @@ export function Contact({
                     {...analytics.fieldProps("name", "text")}
                   />
                 </Field>
-                <Field
-                  id="company"
-                  label="Компания"
-                  hint="необязательно"
-                  error={errors.company?.message}
-                >
+                <Field id="contact-field" label="Контакт" error={errors.contact?.message}>
                   <input
-                    id="company"
-                    autoComplete="organization"
+                    id="contact-field"
+                    autoComplete="email"
                     className={fieldClass}
-                    placeholder="Название компании"
-                    aria-invalid={!!errors.company}
-                    {...register("company")}
-                    {...analytics.fieldProps("company", "text")}
+                    placeholder="Телефон, e-mail или Telegram"
+                    aria-invalid={!!errors.contact}
+                    {...register("contact")}
+                    {...analytics.fieldProps("contact", "text")}
                   />
                 </Field>
               </div>
 
-              <fieldset className="mt-6">
-                <legend className="text-sm font-medium">
-                  Как с вами связаться
-                  <span className="ml-2 font-normal text-muted-foreground">
-                    (достаточно одного)
-                  </span>
-                </legend>
-                <div className="mt-2 grid gap-6 md:grid-cols-2">
-                  <Field id="email" label="E-mail" srLabel error={errors.email?.message}>
-                    <input
-                      id="email"
-                      type="email"
-                      autoComplete="email"
-                      className={fieldClass}
-                      placeholder="name@company.ru"
-                      aria-invalid={!!errors.email}
-                      {...register("email")}
-                      {...analytics.fieldProps("email", "email")}
-                    />
-                  </Field>
-                  <Field
-                    id="phone"
-                    label="Телефон или Telegram"
-                    srLabel
-                    error={errors.phone?.message}
-                  >
-                    <input
-                      id="phone"
-                      type="text"
-                      autoComplete="tel"
-                      className={fieldClass}
-                      placeholder="+7 900 000-00-00 или @ник"
-                      aria-invalid={!!errors.phone}
-                      {...register("phone")}
-                      {...analytics.fieldProps("phone", "tel")}
-                    />
-                  </Field>
-                </div>
-              </fieldset>
+              <div className="mt-6">
+                <Field
+                  id="link"
+                  label="Ссылка на ТЗ"
+                  hint="необязательно"
+                  error={errors.link?.message}
+                >
+                  <input
+                    id="link"
+                    type="text"
+                    inputMode="url"
+                    className={fieldClass}
+                    placeholder="Ссылка на файл в облаке"
+                    aria-invalid={!!errors.link}
+                    {...register("link")}
+                    {...analytics.fieldProps("link", "text")}
+                  />
+                </Field>
+                <p className="mt-2 text-[0.8125rem] leading-[1.6] text-muted-foreground">
+                  Файл можно прислать в ответ на наше письмо. Нужен NDA — сначала пришлём
+                  соглашение.
+                </p>
+              </div>
 
               <div className="mt-6">
                 <Field
@@ -280,7 +284,7 @@ export function Contact({
                     id="message"
                     rows={4}
                     className="w-full rounded-[4px] border border-input bg-background px-4 py-3 text-[0.9375rem] leading-[1.7] transition-colors duration-200 placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid=true]:border-destructive"
-                    placeholder="Например: нужно ТЗ перед тендером на систему учёта"
+                    placeholder="Например: три предложения на систему учёта, цены отличаются вдвое"
                     aria-invalid={!!errors.message}
                     {...register("message")}
                     {...analytics.fieldProps("message", "textarea")}
@@ -323,7 +327,11 @@ export function Contact({
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Cta type="submit" disabled={isSubmitting}>
+                <Cta
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => (isHome ? trackExpressCta("contact") : undefined)}
+                >
                   {isSubmitting ? "Отправляем…" : c.cta}
                 </Cta>
                 <p className="text-sm text-muted-foreground">{c.note}</p>

@@ -70,7 +70,7 @@ export function trackCtaClick(ctaName: string, location: string): void {
 
 /** Main landing button «Отправить ТЗ на проверку». Metrika goal: express_cta_click. */
 export function trackExpressCta(
-  location: "header" | "mobile_nav" | "hero" | "result" | "final",
+  location: "header" | "mobile_nav" | "hero" | "services" | "team" | "contact" | "result" | "final",
 ): void {
   trackEvent("express_cta_click", { location });
 }

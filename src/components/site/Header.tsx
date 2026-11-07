@@ -14,10 +14,10 @@ const CTA_LABEL = "Отправить ТЗ на проверку";
 
 /** Hides a nav link when its home-page section is switched off in the admin panel. */
 const LINK_SECTION: Record<string, SectionKey> = {
-  "#express": "exResult",
-  "#next": "exNext",
-  "#team": "exTeam",
-  "#faq": "exFaq",
+  "#services": "homeServices",
+  "#approach": "homeApproach",
+  "#expertise": "homeExpertise",
+  "#contact": "homeContact",
 };
 
 function BrandLink({
@@ -162,11 +162,11 @@ export function Header() {
             ))}
             <Cta asChild className="h-10 px-5 text-sm">
               {onHome ? (
-                <a href="#express-form" onClick={() => trackExpressCta("header")}>
+                <a href="#contact" onClick={() => trackExpressCta("header")}>
                   {CTA_LABEL}
                 </a>
               ) : (
-                <Link to="/" hash="express-form" onClick={() => trackExpressCta("header")}>
+                <Link to="/" hash="contact" onClick={() => trackExpressCta("header")}>
                   {CTA_LABEL}
                 </Link>
               )}
@@ -214,7 +214,7 @@ export function Header() {
             <Cta asChild className="mt-10 w-full">
               {onHome ? (
                 <a
-                  href="#express-form"
+                  href="#contact"
                   onClick={() => {
                     trackExpressCta("mobile_nav");
                     setOpen(false);
@@ -225,7 +225,7 @@ export function Header() {
               ) : (
                 <Link
                   to="/"
-                  hash="express-form"
+                  hash="contact"
                   onClick={() => {
                     trackExpressCta("mobile_nav");
                     setOpen(false);

@@ -9,19 +9,20 @@ export const CONTACTS = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#express", label: "Экспресс-проверка" },
-  { href: "#next", label: "Услуги" },
-  { href: "#team", label: "Команда" },
-  { href: "#faq", label: "Вопросы" },
+  { href: "#services", label: "Услуги" },
+  { href: "#approach", label: "Подход" },
+  { href: "#expertise", label: "Экспертиза" },
+  { href: "#contact", label: "Контакты" },
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "#express", label: "Экспресс-проверка" },
+  { href: "#services", label: "Услуги" },
   { href: "#sample", label: "Пример отчёта" },
-  { href: "#next", label: "Услуги" },
-  { href: "#team", label: "Опыт команды" },
-  { href: "#faq", label: "Вопросы" },
-  { href: "#express-form", label: "Заявка" },
+  { href: "#approach", label: "Подход" },
+  { href: "#expertise", label: "Экспертиза" },
+  { href: "#experience", label: "Опыт команды" },
+  { href: "#team", label: "Команда" },
+  { href: "#contact", label: "Контакты" },
 ] as const;
 
 export const SERVICE_LINKS = [
