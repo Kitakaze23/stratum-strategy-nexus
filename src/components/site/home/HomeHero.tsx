@@ -17,23 +17,27 @@ export function HomeHero() {
     >
       <div className="container-page grid gap-12 py-12 md:py-16 lg:grid-cols-12 lg:gap-10 lg:pt-14 lg:pb-12">
         <div className="lg:col-span-7 lg:pr-6">
-          <div className="flex gap-3">
-            <span aria-hidden="true" className="mt-[0.6rem] h-px w-8 shrink-0 bg-signal" />
-            <p>
-              <span className="block text-[0.9375rem] font-semibold text-primary">{c.slogan}</span>
-              {c.sloganEn ? (
-                <span
-                  lang="en"
-                  className="mt-0.5 block text-xs tracking-[0.04em] text-muted-foreground"
-                >
-                  {c.sloganEn}
+          {c.slogan ? (
+            <div className="flex gap-3">
+              <span aria-hidden="true" className="mt-[0.6rem] h-px w-8 shrink-0 bg-signal" />
+              <p>
+                <span className="block text-[0.9375rem] font-semibold text-primary">
+                  {c.slogan}
                 </span>
-              ) : null}
-            </p>
-          </div>
+                {c.sloganEn ? (
+                  <span
+                    lang="en"
+                    className="mt-0.5 block text-xs tracking-[0.04em] text-muted-foreground"
+                  >
+                    {c.sloganEn}
+                  </span>
+                ) : null}
+              </p>
+            </div>
+          ) : null}
           <h1
             id="hero-title"
-            className="mt-7 font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3rem]"
+            className={`${c.slogan ? "mt-7" : ""} font-serif text-[2.125rem] font-medium leading-[1.1] sm:text-[2.75rem] lg:text-[3rem]`}
           >
             {c.title}
           </h1>
