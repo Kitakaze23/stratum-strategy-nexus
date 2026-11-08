@@ -98,7 +98,21 @@ export function HomeHero() {
               ))}
             </ol>
           </aside>
-        ) : null}
+        ) : (
+          <div
+            aria-hidden="true"
+            className="hidden items-center justify-center lg:col-span-5 lg:flex"
+          >
+            <img
+              src="/hero-lighthouse.svg"
+              alt=""
+              width={600}
+              height={470}
+              className="h-auto w-full max-w-[560px]"
+              fetchPriority="high"
+            />
+          </div>
+        )}
       </div>
     </section>
   );
