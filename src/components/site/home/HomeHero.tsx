@@ -108,10 +108,10 @@ export function HomeHero() {
             className="hidden items-center justify-center lg:col-span-5 lg:flex"
           >
             <img
-              src="/hero-lighthouse.svg"
+              src="/hero-layers.svg"
               alt=""
               width={600}
-              height={470}
+              height={600}
               className="h-auto w-full max-w-[560px]"
               fetchPriority="high"
             />
