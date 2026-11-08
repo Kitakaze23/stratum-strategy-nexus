@@ -8,8 +8,8 @@ import { Cta } from "../primitives";
 import { ArrowLink, Eyebrow, HomeSection, Lead, SectionTitle } from "./shared";
 
 /**
- * Services: the express check comes first and is visually the main card;
- * the other services follow as the next step after it.
+ * Services: numbered service cards first, then the express check as the
+ * highlighted "popular service" card below them.
  */
 export function CoreServices() {
   const c = useSection("homeServices");
@@ -21,10 +21,38 @@ export function CoreServices() {
       <SectionTitle id="services-title">{c.title}</SectionTitle>
       {c.description ? <Lead>{c.description}</Lead> : null}
 
+      <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {c.items.map((s, i) => (
+          <li
+            key={i}
+            className="flex flex-col rounded-[4px] border border-border bg-background p-6"
+          >
+            <span aria-hidden="true" className="font-serif text-lg text-signal tabular-nums">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <h3 className="mt-3 text-lg font-semibold leading-[1.35]">{s.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{s.name}</p>
+            <p className="mt-4 text-[0.9375rem] leading-[1.6] text-foreground/85">{s.lead}</p>
+            <p className="mt-auto pt-6 text-[0.9375rem] font-medium tabular-nums">{s.price}</p>
+            {s.link ? (
+              <Link
+                to={s.link}
+                onClick={() =>
+                  trackServiceClick(s.link.split("/").pop() ?? `service_${i + 1}`, "core_services")
+                }
+                className="group mt-3 inline-flex text-primary underline-offset-4 hover:underline"
+              >
+                <ArrowLink className="text-sm">{s.linkLabel || "Подробнее"}</ArrowLink>
+              </Link>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+
       {ex ? (
         <article
           aria-labelledby="express-title"
-          className="mt-12 grid gap-10 rounded-[4px] border border-primary border-t-4 bg-card p-7 shadow-card sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-12"
+          className="mt-6 grid gap-10 rounded-[4px] border border-primary border-t-4 bg-card p-7 shadow-card sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-12"
         >
           <div className="lg:col-span-7">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-signal">
@@ -70,34 +98,6 @@ export function CoreServices() {
           </div>
         </article>
       ) : null}
-
-      <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {c.items.map((s, i) => (
-          <li
-            key={i}
-            className="flex flex-col rounded-[4px] border border-border bg-background p-6"
-          >
-            <span aria-hidden="true" className="font-serif text-lg text-signal tabular-nums">
-              {String(i + 2).padStart(2, "0")}
-            </span>
-            <h3 className="mt-3 text-lg font-semibold leading-[1.35]">{s.title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{s.name}</p>
-            <p className="mt-4 text-[0.9375rem] leading-[1.6] text-foreground/85">{s.lead}</p>
-            <p className="mt-auto pt-6 text-[0.9375rem] font-medium tabular-nums">{s.price}</p>
-            {s.link ? (
-              <Link
-                to={s.link}
-                onClick={() =>
-                  trackServiceClick(s.link.split("/").pop() ?? `service_${i + 2}`, "core_services")
-                }
-                className="group mt-3 inline-flex text-primary underline-offset-4 hover:underline"
-              >
-                <ArrowLink className="text-sm">{s.linkLabel || "Подробнее"}</ArrowLink>
-              </Link>
-            ) : null}
-          </li>
-        ))}
-      </ol>
 
       {c.pricingNote ? (
         <p className="mt-6 text-sm leading-[1.6] text-muted-foreground">{c.pricingNote}</p>
